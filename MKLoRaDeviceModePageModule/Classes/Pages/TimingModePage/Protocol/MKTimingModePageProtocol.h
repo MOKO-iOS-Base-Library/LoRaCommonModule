@@ -1,7 +1,8 @@
 
 #import "MKTimingModeTimePointModel.h"
+#import "MKDeviceModePageBaseProtocol.h"
 
-@protocol MKTimingModePageProtocol <NSObject>
+@protocol MKTimingModePageProtocol <MKDeviceModePageBaseProtocol>
 
 /// 最大可以添加的时间点个数，默认10
 @property (nonatomic, assign)NSInteger maxPointList;

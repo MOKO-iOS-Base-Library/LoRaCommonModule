@@ -1,5 +1,7 @@
 
-@protocol MKPeriodicModePageProtocol <NSObject>
+#import "MKDeviceModePageBaseProtocol.h"
+
+@protocol MKPeriodicModePageProtocol <MKDeviceModePageBaseProtocol>
 
 /*
  0:BLE

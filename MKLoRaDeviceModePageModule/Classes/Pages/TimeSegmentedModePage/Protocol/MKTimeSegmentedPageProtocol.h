@@ -1,7 +1,8 @@
 
 #import "MKTimeSegmentedTimePeriodModel.h"
+#import "MKDeviceModePageBaseProtocol.h"
 
-@protocol MKTimeSegmentedPageProtocol <NSObject>
+@protocol MKTimeSegmentedPageProtocol <MKDeviceModePageBaseProtocol>
 
 /// 最大可以添加的时间点个数，默认3
 @property (nonatomic, assign)NSInteger maxPointList;

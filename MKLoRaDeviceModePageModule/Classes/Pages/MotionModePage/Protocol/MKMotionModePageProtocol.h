@@ -1,5 +1,7 @@
 
-@protocol MKMotionModePageProtocol <NSObject>
+#import "MKDeviceModePageBaseProtocol.h"
+
+@protocol MKMotionModePageProtocol <MKDeviceModePageBaseProtocol>
 
 @property (nonatomic, assign)BOOL fixOnStart;
 

@@ -29,6 +29,9 @@ let package = Package(
             resources: [.process("Assets")],
             publicHeadersPath: "Classes",
             cSettings: [
+                .headerSearchPath("Classes"),
+                .headerSearchPath("Classes/Common"),
+                .headerSearchPath("Classes/Common/Protocol"),
                 .headerSearchPath("Classes/Pages"),
                 .headerSearchPath("Classes/Pages/MotionModePage"),
                 .headerSearchPath("Classes/Pages/MotionModePage/Controller"),

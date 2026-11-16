@@ -452,7 +452,7 @@ MKTextButtonCellDelegate>
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Pos-Strategy On Start";
-    cellModel.dataList = @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"];
+    cellModel.dataList = [self motionPosStrategyDataList];
     cellModel.dataListIndex = self.protocol.posStrategyOnStart;
     [self.section2List addObject:cellModel];
 }
@@ -481,7 +481,7 @@ MKTextButtonCellDelegate>
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 1;
     cellModel.msg = @"Pos-Strategy In Trip";
-    cellModel.dataList = @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
+    cellModel.dataList = [self motionPosStrategyInTripDataList];
     cellModel.dataListIndex = self.protocol.posStrategyInTrip;
     [self.section5List addObject:cellModel];
 }
@@ -530,7 +530,7 @@ MKTextButtonCellDelegate>
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 2;
     cellModel.msg = @"Pos-Strategy On End";
-    cellModel.dataList = @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"];
+    cellModel.dataList = [self motionPosStrategyDataList];
     cellModel.dataListIndex = self.protocol.posStrategyOnEnd;
     [self.section8List addObject:cellModel];
 }
@@ -559,7 +559,7 @@ MKTextButtonCellDelegate>
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 3;
     cellModel.msg = @"Pos-Strategy On Stationary";
-    cellModel.dataList = @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"];
+    cellModel.dataList = [self motionPosStrategyDataList];
     cellModel.dataListIndex = self.protocol.posStrategyOnStationary;
     [self.section11List addObject:cellModel];
 }
@@ -706,3 +706,15 @@ MKTextButtonCellDelegate>
 }
 
 @end
+
+#pragma mark - Positioning Strategy data lists
+/// OnStart / OnEnd / OnStationary 的 Positioning Strategy 下拉列表。
+/// 子类可 override 以提供含 WIFI 等额外选项的列表。
+- (NSArray<NSString *> *)motionPosStrategyDataList {
+    return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"];
+}
+
+/// InTrip 的 Positioning Strategy 下拉列表（多一个 BLE&GPS）。
+- (NSArray<NSString *> *)motionPosStrategyInTripDataList {
+    return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
+}

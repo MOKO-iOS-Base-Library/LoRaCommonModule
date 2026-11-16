@@ -158,7 +158,7 @@ MKTextFieldCellDelegate>
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Positioning Strategy";
-    cellModel.dataList = @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
+    cellModel.dataList = [self posStrategyDataList];
     cellModel.dataListIndex = self.protocol.strategy;
     [self.section0List addObject:cellModel];
 }
@@ -213,3 +213,8 @@ MKTextFieldCellDelegate>
 }
 
 @end
+
+/// Positioning Strategy 下拉列表，子类可 override。
+- (NSArray<NSString *> *)posStrategyDataList {
+    return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
+}

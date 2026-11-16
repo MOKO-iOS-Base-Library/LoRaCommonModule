@@ -1,5 +1,7 @@
 
-@protocol MKStandbyModePageProtocol <NSObject>
+#import "MKDeviceModePageBaseProtocol.h"
+
+@protocol MKStandbyModePageProtocol <MKDeviceModePageBaseProtocol>
 
 /*
  0:BLE
