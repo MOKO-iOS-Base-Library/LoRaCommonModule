@@ -444,144 +444,144 @@ PODS:
     - MJRefresh (~> 3.7.5)
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKLoRaDeviceModePageModule (0.0.6):
+  - MKLoRaCommonModule (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views (= 0.0.6)
+    - MKLoRaCommonModule/Pages (= 0.0.6)
+    - MKLoRaCommonModule/Views (= 0.0.6)
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages (0.0.6):
+  - MKLoRaCommonModule/Pages (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/MotionModePage (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/PeriodicModePage (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/StandbyModePage (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/TimingModePage (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/MotionModePage (= 0.0.6)
+    - MKLoRaCommonModule/Pages/PeriodicModePage (= 0.0.6)
+    - MKLoRaCommonModule/Pages/StandbyModePage (= 0.0.6)
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage (= 0.0.6)
+    - MKLoRaCommonModule/Pages/TimingModePage (= 0.0.6)
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/MotionModePage (0.0.6):
+  - MKLoRaCommonModule/Pages/MotionModePage (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/MotionModePage/Controller (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/MotionModePage/Protocol (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/MotionModePage/Controller (= 0.0.6)
+    - MKLoRaCommonModule/Pages/MotionModePage/Protocol (= 0.0.6)
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/MotionModePage/Controller (0.0.6):
+  - MKLoRaCommonModule/Pages/MotionModePage/Controller (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/MotionModePage/Protocol
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/MotionModePage/Protocol
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/MotionModePage/Protocol (0.0.6):
+  - MKLoRaCommonModule/Pages/MotionModePage/Protocol (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/PeriodicModePage (0.0.6):
+  - MKLoRaCommonModule/Pages/PeriodicModePage (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/PeriodicModePage/Controller (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/PeriodicModePage/Protocol (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/PeriodicModePage/Controller (= 0.0.6)
+    - MKLoRaCommonModule/Pages/PeriodicModePage/Protocol (= 0.0.6)
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/PeriodicModePage/Controller (0.0.6):
+  - MKLoRaCommonModule/Pages/PeriodicModePage/Controller (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/PeriodicModePage/Protocol
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/PeriodicModePage/Protocol
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/PeriodicModePage/Protocol (0.0.6):
+  - MKLoRaCommonModule/Pages/PeriodicModePage/Protocol (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/StandbyModePage (0.0.6):
+  - MKLoRaCommonModule/Pages/StandbyModePage (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/StandbyModePage/Controller (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/StandbyModePage/Protocol (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/StandbyModePage/Controller (= 0.0.6)
+    - MKLoRaCommonModule/Pages/StandbyModePage/Protocol (= 0.0.6)
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/StandbyModePage/Controller (0.0.6):
+  - MKLoRaCommonModule/Pages/StandbyModePage/Controller (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/StandbyModePage/Protocol
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/StandbyModePage/Protocol
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/StandbyModePage/Protocol (0.0.6):
+  - MKLoRaCommonModule/Pages/StandbyModePage/Protocol (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage (0.0.6):
+  - MKLoRaCommonModule/Pages/TimeSegmentedModePage (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Controller (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Model (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Protocol (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/View (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Controller (= 0.0.6)
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Model (= 0.0.6)
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Protocol (= 0.0.6)
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage/View (= 0.0.6)
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Controller (0.0.6):
+  - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Controller (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Protocol
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/View
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Protocol
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage/View
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Model (0.0.6):
+  - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Model (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Protocol (0.0.6):
+  - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Protocol (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/Model
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/TimeSegmentedModePage/Model
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimeSegmentedModePage/View (0.0.6):
+  - MKLoRaCommonModule/Pages/TimeSegmentedModePage/View (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimingModePage (0.0.6):
+  - MKLoRaCommonModule/Pages/TimingModePage (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/TimingModePage/Controller (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/TimingModePage/Model (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Pages/TimingModePage/Protocol (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/TimingModePage/Controller (= 0.0.6)
+    - MKLoRaCommonModule/Pages/TimingModePage/Model (= 0.0.6)
+    - MKLoRaCommonModule/Pages/TimingModePage/Protocol (= 0.0.6)
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimingModePage/Controller (0.0.6):
+  - MKLoRaCommonModule/Pages/TimingModePage/Controller (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/TimingModePage/Protocol
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/TimingModePage/Protocol
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimingModePage/Model (0.0.6):
+  - MKLoRaCommonModule/Pages/TimingModePage/Model (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Pages/TimingModePage/Protocol (0.0.6):
+  - MKLoRaCommonModule/Pages/TimingModePage/Protocol (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Pages/TimingModePage/Model
-    - MKLoRaDeviceModePageModule/Views
+    - MKLoRaCommonModule/Pages/TimingModePage/Model
+    - MKLoRaCommonModule/Views
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Views (0.0.6):
+  - MKLoRaCommonModule/Views (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaDeviceModePageModule/Views/ReportTimePointCell (= 0.0.6)
-    - MKLoRaDeviceModePageModule/Views/TimingModeAddCell (= 0.0.6)
+    - MKLoRaCommonModule/Views/ReportTimePointCell (= 0.0.6)
+    - MKLoRaCommonModule/Views/TimingModeAddCell (= 0.0.6)
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Views/ReportTimePointCell (0.0.6):
+  - MKLoRaCommonModule/Views/ReportTimePointCell (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
     - MLInputDodger
-  - MKLoRaDeviceModePageModule/Views/TimingModeAddCell (0.0.6):
+  - MKLoRaCommonModule/Views/TimingModeAddCell (0.0.6):
     - MKBaseModuleLibrary
     - MKCustomUIModule
     - MLInputDodger
@@ -591,7 +591,7 @@ PODS:
   - WRNavigationBar (1.4.0)
 
 DEPENDENCIES:
-  - MKLoRaDeviceModePageModule (from `../`)
+  - MKLoRaCommonModule (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -607,7 +607,7 @@ SPEC REPOS:
     - WRNavigationBar
 
 EXTERNAL SOURCES:
-  MKLoRaDeviceModePageModule:
+  MKLoRaCommonModule:
     :path: "../"
 
 SPEC CHECKSUMS:
@@ -617,7 +617,7 @@ SPEC CHECKSUMS:
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   MKBaseModuleLibrary: f4bf4d465dea2096bc5841fbfed2c3d3038a31c9
   MKCustomUIModule: 408a00b2db50f903ac47f36a2a70b87ec4067f07
-  MKLoRaDeviceModePageModule: ab0f85e98750206e1ded68fe667b95f08cbee2c6
+  MKLoRaCommonModule: ab0f85e98750206e1ded68fe667b95f08cbee2c6
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e

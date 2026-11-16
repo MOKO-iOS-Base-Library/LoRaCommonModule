@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "MKLoRaDeviceModePageModule",
+    name: "MKLoRaCommonModule",
     platforms: [
         .iOS(.v18)
     ],
     products: [
         .library(
-            name: "MKLoRaDeviceModePageModule",
-            targets: ["MKLoRaDeviceModePageModule"]
+            name: "MKLoRaCommonModule",
+            targets: ["MKLoRaCommonModule"]
         )
     ],
     dependencies: [
@@ -18,12 +18,12 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "MKLoRaDeviceModePageModule",
+            name: "MKLoRaCommonModule",
             dependencies: [
                 "MKBaseModuleLibrary",
                 "MKCustomUIModule",
             ],
-            path: "MKLoRaDeviceModePageModule",
+            path: "MKLoRaCommonModule",
             exclude: ["Classes/Vendor"],
             sources: ["Classes"],
             resources: [.process("Assets")],

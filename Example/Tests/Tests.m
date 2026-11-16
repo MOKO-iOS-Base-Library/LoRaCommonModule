@@ -1,6 +1,6 @@
 //
-//  MKLoRaDeviceModePageModuleTests.m
-//  MKLoRaDeviceModePageModuleTests
+//  MKLoRaCommonModuleTests.m
+//  MKLoRaCommonModuleTests
 //
 //  Created by lovexiaoxia on 05/11/2025.
 //  Copyright (c) 2025 lovexiaoxia. All rights reserved.

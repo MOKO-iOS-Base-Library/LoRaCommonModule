@@ -14,6 +14,6 @@ source 'https://cdn.cocoapods.org/'
 
 platform :ios, '14.0'
 
-target 'MKLoRaDeviceModePageModule_Example' do
-  pod 'MKLoRaDeviceModePageModule', :path => '../'
+target 'MKLoRaCommonModule_Example' do
+  pod 'MKLoRaCommonModule', :path => '../'
 end
