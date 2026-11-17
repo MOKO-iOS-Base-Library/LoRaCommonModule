@@ -16,6 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)id <MKMotionModePageProtocol>protocol;
 
+- (NSArray<NSString *> *)motionPosStrategyDataList;
+- (NSArray<NSString *> *)motionPosStrategyInTripDataList;
+
+- (NSArray<NSString *> *)motionPosStrategyDataList;
+- (NSArray<NSString *> *)motionPosStrategyInTripDataList;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,1 +1,1 @@
-#import "MKNanoBeaconContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/NanoBeaconContentPage/Protocol/MKNanoBeaconContentPageProtocol.h"

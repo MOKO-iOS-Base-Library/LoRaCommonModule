@@ -1,1 +1,1 @@
-#import "MKOtherTypeContentController.h"
+#import "Pages/PayloadContentSelections/OtherTypeContentPage/Controller/MKOtherTypeContentController.h"

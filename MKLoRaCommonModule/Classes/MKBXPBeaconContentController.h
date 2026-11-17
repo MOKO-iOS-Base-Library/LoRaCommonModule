@@ -1,1 +1,1 @@
-#import "MKBXPBeaconContentController.h"
+#import "Pages/PayloadContentSelections/BXPBeaconContentPage/Controller/MKBXPBeaconContentController.h"

@@ -1,1 +1,1 @@
-#import "MKBXPInfoContentController.h"
+#import "Pages/PayloadContentSelections/BXPInfoContentPage/Controller/MKBXPInfoContentController.h"

@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)id <MKTimingModePageProtocol>protocol;
 
+- (NSArray<NSString *> *)posStrategyDataList;
+
+- (NSArray<NSString *> *)posStrategyDataList;
+
 @end
 
 NS_ASSUME_NONNULL_END

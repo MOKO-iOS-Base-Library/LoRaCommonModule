@@ -705,8 +705,6 @@ MKTextButtonCellDelegate>
     return _headerList;
 }
 
-@end
-
 #pragma mark - Positioning Strategy data lists
 /// OnStart / OnEnd / OnStationary 的 Positioning Strategy 下拉列表。
 /// 子类可 override 以提供含 WIFI 等额外选项的列表。
@@ -718,3 +716,5 @@ MKTextButtonCellDelegate>
 - (NSArray<NSString *> *)motionPosStrategyInTripDataList {
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
 }
+
+@end

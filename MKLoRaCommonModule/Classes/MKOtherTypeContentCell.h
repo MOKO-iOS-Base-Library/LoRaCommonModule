@@ -1,1 +1,1 @@
-#import "MKOtherTypeContentCell.h"
+#import "Views/OtherTypeContentCell/MKOtherTypeContentCell.h"

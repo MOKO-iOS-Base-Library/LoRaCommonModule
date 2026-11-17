@@ -1,1 +1,1 @@
-#import "MKPirContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/MKPirContentPage/Protocol/MKPirContentPageProtocol.h"

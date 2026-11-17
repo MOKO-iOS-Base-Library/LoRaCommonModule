@@ -363,9 +363,9 @@ MKTimeSegmentedCellDelegate>
     return _section2List;
 }
 
-@end
-
 /// Positioning Strategy 下拉列表，子类可 override。
 - (NSArray<NSString *> *)posStrategyDataList {
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
 }
+
+@end

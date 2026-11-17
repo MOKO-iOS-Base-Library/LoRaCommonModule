@@ -1,1 +1,1 @@
-#import "MKTofContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/MKTofContentPage/Protocol/MKTofContentPageProtocol.h"

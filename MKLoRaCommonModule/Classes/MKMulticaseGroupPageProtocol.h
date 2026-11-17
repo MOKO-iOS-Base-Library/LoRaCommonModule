@@ -1,1 +1,1 @@
-#import "MKMulticaseGroupPageProtocol.h"
+#import "Pages/MulticaseGroupPage/Protocol/MKMulticaseGroupPageProtocol.h"

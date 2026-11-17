@@ -1,1 +1,1 @@
-#import "MKBeaconContentController.h"
+#import "Pages/PayloadContentSelections/BeaconContentPage/Controller/MKBeaconContentController.h"

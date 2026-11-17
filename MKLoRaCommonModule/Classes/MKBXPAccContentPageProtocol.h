@@ -1,1 +1,1 @@
-#import "MKBXPAccContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BXPAccContentPage/Protocol/MKBXPAccContentPageProtocol.h"
