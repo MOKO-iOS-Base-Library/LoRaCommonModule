@@ -24,7 +24,6 @@ let package = Package(
                 "MKCustomUIModule",
             ],
             path: "MKLoRaCommonModule",
-            exclude: ["Classes/Vendor"],
             sources: ["Classes"],
             resources: [.process("Assets")],
             publicHeadersPath: "Classes",
