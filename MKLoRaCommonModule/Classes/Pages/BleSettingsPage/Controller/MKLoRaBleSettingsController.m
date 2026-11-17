@@ -97,6 +97,17 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Tx Power
+    if (indexPath.section == 1 && indexPath.row == 0
+        && [self.protocol respondsToSelector:@selector(bleSettingsPageDidSelectTxPowerWithCompletion:)]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MKTextFieldNeedHiddenKeyboard" object:nil];
+        @weakify(self);
+        [self.protocol bleSettingsPageDidSelectTxPowerWithCompletion:^{
+            @strongify(self);
+            [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
+        }];
+        return;
+    }
     // Change Password
     if (indexPath.section == 5 && indexPath.row == 0) {
         BOOL canChangePassword = YES;
@@ -281,6 +292,7 @@ mk_textSwitchCellDelegate>
 - (void)loadSection1Datas {
     MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
     cellModel.leftMsg = @"Tx Power";
+    cellModel.showRightIcon = [self.protocol respondsToSelector:@selector(bleSettingsPageDidSelectTxPowerWithCompletion:)];
     // 如果业务提供了 dBm 显示文本就用业务的，否则显示数值索引
     if ([self.protocol respondsToSelector:@selector(bleSettingsPage_txPowerDisplayString)]) {
         cellModel.rightMsg = [self.protocol bleSettingsPage_txPowerDisplayString];
