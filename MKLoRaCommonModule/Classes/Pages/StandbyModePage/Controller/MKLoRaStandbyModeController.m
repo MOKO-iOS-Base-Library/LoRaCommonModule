@@ -157,8 +157,14 @@ MKTextButtonCellDelegate
     return _dataList;
 }
 
-/// Positioning Strategy 下拉列表，子类可 override。
+/// Positioning Strategy 下拉列表，可通过 protocol 的 strategyDataList 提供，也可由子类 override。
 - (NSArray<NSString *> *)posStrategyDataList {
+    if ([self.protocol respondsToSelector:@selector(strategyDataList)]) {
+        NSArray<NSString *> *list = self.protocol.strategyDataList;
+        if (list.count) {
+            return list;
+        }
+    }
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"];
 }
 

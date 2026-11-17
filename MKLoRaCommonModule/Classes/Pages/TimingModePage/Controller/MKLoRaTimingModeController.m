@@ -35,6 +35,9 @@ MKLoRaReportTimePointCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section2List;
 
+- (BOOL)hideStrategy;
+- (NSString *)pageTitle;
+
 @end
 
 @implementation MKLoRaTimingModeController
@@ -259,6 +262,9 @@ MKLoRaReportTimePointCellDelegate>
 }
 
 - (void)loadSection0Datas {
+    if ([self hideStrategy]) {
+        return;
+    }
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Positioning Strategy";
@@ -287,7 +293,7 @@ MKLoRaReportTimePointCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    self.defaultTitle = @"Timing Mode";
+    self.defaultTitle = [self pageTitle];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaTimingModeController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -330,9 +336,32 @@ MKLoRaReportTimePointCellDelegate>
     return _section2List;
 }
 
-/// Positioning Strategy 下拉列表，子类可 override。
+/// Positioning Strategy 下拉列表，可通过 protocol 的 strategyDataList 提供，也可由子类 override。
 - (NSArray<NSString *> *)posStrategyDataList {
+    if ([self.protocol respondsToSelector:@selector(strategyDataList)]) {
+        NSArray<NSString *> *list = self.protocol.strategyDataList;
+        if (list.count) {
+            return list;
+        }
+    }
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"];
+}
+
+- (BOOL)hideStrategy {
+    if ([self.protocol respondsToSelector:@selector(hideStrategy)]) {
+        return self.protocol.hideStrategy;
+    }
+    return NO;
+}
+
+- (NSString *)pageTitle {
+    if ([self.protocol respondsToSelector:@selector(pageTitle)]) {
+        NSString *value = self.protocol.pageTitle;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"Timing Mode";
 }
 
 @end

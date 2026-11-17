@@ -33,6 +33,12 @@ MKTextFieldCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *headerList;
 
+- (NSArray *)sectionListWithIndex:(NSInteger)index;
+- (BOOL)hideMessageType;
+- (NSString *)checkIntervalTitle;
+- (NSString *)checkIntervalPlaceholder;
+- (NSString *)checkIntervalUnit;
+
 @end
 
 @implementation MKLoRaApplicationController
@@ -64,6 +70,9 @@ MKTextFieldCellDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([self sectionListWithIndex:section].count == 0) {
+        return 0.f;
+    }
     return 10.f;
 }
 
@@ -75,6 +84,10 @@ MKTextFieldCellDelegate>
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
+        if ([self.protocol respondsToSelector:@selector(pushToMessageTypePageFromController:)]) {
+            [self.protocol pushToMessageTypePageFromController:self];
+            return;
+        }
         [self pushToMessageTypePage];
     }
 }
@@ -174,6 +187,9 @@ MKTextFieldCellDelegate>
 }
 
 - (void)loadSection0Datas {
+    if ([self hideMessageType]) {
+        return;
+    }
     MKSettingTextCellModel *cellModel = [[MKSettingTextCellModel alloc] init];
     cellModel.leftMsg = @"Message Type Settings";
     [self.section0List addObject:cellModel];
@@ -194,13 +210,64 @@ MKTextFieldCellDelegate>
 - (void)loadSection2Datas {
     MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
     cellModel.index = 1;
-    cellModel.msg = @"Network Interval";
-    cellModel.textPlaceholder = @"0~255";
+    cellModel.msg = [self checkIntervalTitle];
+    cellModel.textPlaceholder = [self checkIntervalPlaceholder];
     cellModel.textFieldType = mk_realNumberOnly;
     cellModel.maxLength = 3;
-    cellModel.unit = @"H";
+    cellModel.unit = [self checkIntervalUnit];
     cellModel.textFieldValue = self.protocol.checkInterval;
     [self.section2List addObject:cellModel];
+}
+
+#pragma mark - optional protocol
+- (NSArray *)sectionListWithIndex:(NSInteger)index {
+    if (index == 0) {
+        return self.section0List;
+    }
+    if (index == 1) {
+        return self.section1List;
+    }
+    if (index == 2) {
+        return self.section2List;
+    }
+    return @[];
+}
+
+- (BOOL)hideMessageType {
+    if ([self.protocol respondsToSelector:@selector(hideMessageType)]) {
+        return self.protocol.hideMessageType;
+    }
+    return NO;
+}
+
+- (NSString *)checkIntervalTitle {
+    if ([self.protocol respondsToSelector:@selector(checkIntervalTitle)]) {
+        NSString *value = self.protocol.checkIntervalTitle;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"Network Interval";
+}
+
+- (NSString *)checkIntervalPlaceholder {
+    if ([self.protocol respondsToSelector:@selector(checkIntervalPlaceholder)]) {
+        NSString *value = self.protocol.checkIntervalPlaceholder;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"0~255";
+}
+
+- (NSString *)checkIntervalUnit {
+    if ([self.protocol respondsToSelector:@selector(checkIntervalUnit)]) {
+        NSString *value = self.protocol.checkIntervalUnit;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"H";
 }
 
 #pragma mark - Subclass Override
