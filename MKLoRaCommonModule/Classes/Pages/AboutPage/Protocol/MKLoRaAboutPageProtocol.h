@@ -1,3 +1,9 @@
+//
+//  MKLoRaAboutPageProtocol.h
+//  MKLoRaCommonModule
+//
+
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -8,6 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 固件版本（如 "FW Version:V1.0"、"FW Version:1.0"）
 @property (nonatomic, copy) NSString *firmwareLabel;
+
+@optional
+
+/// App 图标，不实现时不显示图标
+@property (nonatomic, strong, nullable) UIImage *aboutIcon;
+
+/// 底部图标，不实现时不显示图标
+@property (nonatomic, strong, nullable) UIImage *bottomIcon;
 
 @end
 

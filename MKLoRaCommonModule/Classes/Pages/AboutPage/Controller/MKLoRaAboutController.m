@@ -36,7 +36,11 @@
     [self.rightButton setHidden:YES];
     
     UIImageView *aboutIcon = [[UIImageView alloc] init];
-    aboutIcon.image = [self aboutIconImage];
+    UIImage *aboutImage = nil;
+    if ([self.protocol respondsToSelector:@selector(aboutIcon)]) {
+        aboutImage = self.protocol.aboutIcon;
+    }
+    aboutIcon.image = aboutImage ?: [self aboutIconImage];
     [self.view addSubview:aboutIcon];
     
     UILabel *appNameLabel = [[UILabel alloc] init];
@@ -87,7 +91,11 @@
     
     UIImageView *bottomIcon = [[UIImageView alloc] init];
     bottomIcon.userInteractionEnabled = YES;
-    bottomIcon.image = [self bottomIconImage];
+    UIImage *bottomImage = nil;
+    if ([self.protocol respondsToSelector:@selector(bottomIcon)]) {
+        bottomImage = self.protocol.bottomIcon;
+    }
+    bottomIcon.image = bottomImage ?: [self bottomIconImage];
     [self.view addSubview:bottomIcon];
     
     [aboutIcon mas_makeConstraints:^(MASConstraintMaker *make) {
