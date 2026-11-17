@@ -31,6 +31,11 @@ MKTextFieldCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section1List;
 
+- (BOOL)isStrategyHidden;
+- (NSString *)intervalPlaceholder;
+- (NSString *)intervalUnit;
+- (NSString *)pageTitle;
+
 @end
 
 @implementation MKLoRaPeriodicModeController
@@ -155,6 +160,9 @@ MKTextFieldCellDelegate>
 }
 
 - (void)loadSection0Datas {
+    if ([self isStrategyHidden]) {
+        return;
+    }
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Positioning Strategy";
@@ -167,17 +175,17 @@ MKTextFieldCellDelegate>
     MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Report Interval";
-    cellModel.textPlaceholder = @"30 ~ 86400";
+    cellModel.textPlaceholder = [self intervalPlaceholder];
     cellModel.textFieldType = mk_realNumberOnly;
     cellModel.maxLength = 5;
-    cellModel.unit = @"S";
+    cellModel.unit = [self intervalUnit];
     cellModel.textFieldValue = self.protocol.interval;
     [self.section1List addObject:cellModel];
 }
 
 #pragma mark - UI
 - (void)loadSubViews {
-    self.defaultTitle = @"Periodic Mode";
+    self.defaultTitle = [self pageTitle];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaPeriodicModeController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -212,9 +220,52 @@ MKTextFieldCellDelegate>
     return _section1List;
 }
 
-/// Positioning Strategy 下拉列表，子类可 override。
+/// Positioning Strategy 下拉列表，可通过 protocol 的 strategyDataList 提供，也可由子类 override。
 - (NSArray<NSString *> *)posStrategyDataList {
+    if ([self.protocol respondsToSelector:@selector(strategyDataList)]) {
+        NSArray<NSString *> *list = self.protocol.strategyDataList;
+        if (list.count) {
+            return list;
+        }
+    }
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
+}
+
+- (BOOL)isStrategyHidden {
+    if ([self.protocol respondsToSelector:@selector(hideStrategy)]) {
+        return self.protocol.hideStrategy;
+    }
+    return NO;
+}
+
+- (NSString *)intervalPlaceholder {
+    if ([self.protocol respondsToSelector:@selector(intervalPlaceholder)]) {
+        NSString *value = self.protocol.intervalPlaceholder;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"30 ~ 86400";
+}
+
+- (NSString *)intervalUnit {
+    if ([self.protocol respondsToSelector:@selector(intervalUnit)]) {
+        NSString *value = self.protocol.intervalUnit;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"S";
+}
+
+- (NSString *)pageTitle {
+    if ([self.protocol respondsToSelector:@selector(pageTitle)]) {
+        NSString *value = self.protocol.pageTitle;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"Periodic Mode";
 }
 
 @end

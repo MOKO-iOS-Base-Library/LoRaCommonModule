@@ -15,4 +15,9 @@
 
 - (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
+@optional
+
+/// Positioning Strategy 下拉列表，不实现时使用默认列表
+@property (nonatomic, copy)NSArray<NSString *> *strategyDataList;
+
 @end

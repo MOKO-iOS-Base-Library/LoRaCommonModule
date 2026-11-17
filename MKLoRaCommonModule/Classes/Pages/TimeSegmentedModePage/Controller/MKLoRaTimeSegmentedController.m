@@ -193,6 +193,15 @@ MKLoRaTimeSegmentedCellDelegate>
     }
 }
 
+/// Report Interval 输入框改变
+- (void)mk_loraModule_timeSegmentedCell_reportIntervalChanged:(NSInteger)index interval:(NSString *)interval {
+    if (index > self.section2List.count - 1) {
+        return;
+    }
+    MKLoRaTimeSegmentedCellModel *cellModel = self.section2List[index];
+    cellModel.interval = interval;
+}
+
 /**
  重新设置cell的子控件位置，主要是删除按钮方面的处理
  */
@@ -320,7 +329,7 @@ MKLoRaTimeSegmentedCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    self.defaultTitle = @"Time-Segmented Mode";
+    self.defaultTitle = [self pageTitle];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaTimeSegmentedController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -363,9 +372,25 @@ MKLoRaTimeSegmentedCellDelegate>
     return _section2List;
 }
 
-/// Positioning Strategy 下拉列表，子类可 override。
+/// Positioning Strategy 下拉列表，可通过 protocol 的 strategyDataList 提供，也可由子类 override。
 - (NSArray<NSString *> *)posStrategyDataList {
+    if ([self.protocol respondsToSelector:@selector(strategyDataList)]) {
+        NSArray<NSString *> *list = self.protocol.strategyDataList;
+        if (list.count) {
+            return list;
+        }
+    }
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
+}
+
+- (NSString *)pageTitle {
+    if ([self.protocol respondsToSelector:@selector(pageTitle)]) {
+        NSString *value = self.protocol.pageTitle;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"Time-Segmented Mode";
 }
 
 @end

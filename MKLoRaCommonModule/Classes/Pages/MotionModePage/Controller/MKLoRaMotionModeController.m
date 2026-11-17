@@ -58,6 +58,15 @@ MKTextButtonCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *headerList;
 
+- (NSArray *)sectionListWithIndex:(NSInteger)index;
+- (BOOL)hideFixCountOnStart;
+- (BOOL)hideStationary;
+- (BOOL)hideStrategy;
+- (NSString *)pageTitle;
+- (NSString *)fixCountOnStartPlaceholder;
+- (NSString *)tripEndTimeoutPlaceholder;
+- (NSString *)numberOfFixOnEndPlaceholder;
+
 @end
 
 @implementation MKLoRaMotionModeController
@@ -99,6 +108,10 @@ MKTextButtonCellDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    NSArray *list = [self sectionListWithIndex:section];
+    if (list.count == 0) {
+        return 0.f;
+    }
     if (section == 0 || section == 3 || section == 6 || section == 9 || section == 12) {
         return 10.f;
     }
@@ -438,17 +451,23 @@ MKTextButtonCellDelegate>
 }
 
 - (void)loadSection1Datas {
+    if ([self hideFixCountOnStart]) {
+        return;
+    }
     MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Number Of Fix On Start";
-    cellModel.textPlaceholder = @"1~10";
+    cellModel.textPlaceholder = [self fixCountOnStartPlaceholder];
     cellModel.textFieldType = mk_realNumberOnly;
-    cellModel.maxLength = 2;
+    cellModel.maxLength = 3;
     cellModel.textFieldValue = self.protocol.numberOfFixOnStart;
     [self.section1List addObject:cellModel];
 }
 
 - (void)loadSection2Datas {
+    if ([self hideStrategy]) {
+        return;
+    }
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Pos-Strategy On Start";
@@ -478,6 +497,9 @@ MKTextButtonCellDelegate>
 }
 
 - (void)loadSection5Datas {
+    if ([self hideStrategy]) {
+        return;
+    }
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 1;
     cellModel.msg = @"Pos-Strategy In Trip";
@@ -498,7 +520,7 @@ MKTextButtonCellDelegate>
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 2;
     cellModel1.msg = @"Trip End Timeout";
-    cellModel1.textPlaceholder = @"1~180";
+    cellModel1.textPlaceholder = [self tripEndTimeoutPlaceholder];
     cellModel1.textFieldType = mk_realNumberOnly;
     cellModel1.maxLength = 3;
     cellModel1.unit = @"x10s";
@@ -508,9 +530,9 @@ MKTextButtonCellDelegate>
     MKTextFieldCellModel *cellModel2 = [[MKTextFieldCellModel alloc] init];
     cellModel2.index = 3;
     cellModel2.msg = @"Number Of Fix On End";
-    cellModel2.textPlaceholder = @"1~10";
+    cellModel2.textPlaceholder = [self numberOfFixOnEndPlaceholder];
     cellModel2.textFieldType = mk_realNumberOnly;
-    cellModel2.maxLength = 2;
+    cellModel2.maxLength = 3;
     cellModel2.unit = @"";
     cellModel2.textFieldValue = self.protocol.numberOfFixOnEnd;
     [self.section7List addObject:cellModel2];
@@ -527,6 +549,9 @@ MKTextButtonCellDelegate>
 }
 
 - (void)loadSection8Datas {
+    if ([self hideStrategy]) {
+        return;
+    }
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 2;
     cellModel.msg = @"Pos-Strategy On End";
@@ -536,6 +561,9 @@ MKTextButtonCellDelegate>
 }
 
 - (void)loadSection9Datas {
+    if ([self hideStationary]) {
+        return;
+    }
     MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
     cellModel.index = 3;
     cellModel.msg = @"Fix On Stationary State";
@@ -544,6 +572,9 @@ MKTextButtonCellDelegate>
 }
 
 - (void)loadSection10Datas {
+    if ([self hideStationary]) {
+        return;
+    }
     MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
     cellModel.index = 5;
     cellModel.msg = @"Report Interval On Stationary";
@@ -556,6 +587,9 @@ MKTextButtonCellDelegate>
 }
 
 - (void)loadSection11Datas {
+    if ([self hideStrategy] || [self hideStationary]) {
+        return;
+    }
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 3;
     cellModel.msg = @"Pos-Strategy On Stationary";
@@ -586,7 +620,7 @@ MKTextButtonCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    self.defaultTitle = @"Motion Mode";
+    self.defaultTitle = [self pageTitle];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaMotionModeController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -707,14 +741,108 @@ MKTextButtonCellDelegate>
 
 #pragma mark - Positioning Strategy data lists
 /// OnStart / OnEnd / OnStationary 的 Positioning Strategy 下拉列表。
-/// 子类可 override 以提供含 WIFI 等额外选项的列表。
+/// 可通过 protocol 的 posStrategyDataList 提供，也可由子类 override。
 - (NSArray<NSString *> *)motionPosStrategyDataList {
+    if ([self.protocol respondsToSelector:@selector(posStrategyDataList)]) {
+        NSArray<NSString *> *list = self.protocol.posStrategyDataList;
+        if (list.count) {
+            return list;
+        }
+    }
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"];
 }
 
 /// InTrip 的 Positioning Strategy 下拉列表（多一个 BLE&GPS）。
+/// 可通过 protocol 的 posStrategyInTripDataList 提供，也可由子类 override。
 - (NSArray<NSString *> *)motionPosStrategyInTripDataList {
+    if ([self.protocol respondsToSelector:@selector(posStrategyInTripDataList)]) {
+        NSArray<NSString *> *list = self.protocol.posStrategyInTripDataList;
+        if (list.count) {
+            return list;
+        }
+    }
     return @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS",@"BLE&GPS"];
+}
+
+#pragma mark - protocol optional configs
+- (NSArray *)sectionListWithIndex:(NSInteger)index {
+    switch (index) {
+        case 0: return self.section0List;
+        case 1: return self.section1List;
+        case 2: return self.section2List;
+        case 3: return self.section3List;
+        case 4: return self.section4List;
+        case 5: return self.section5List;
+        case 6: return self.section6List;
+        case 7: return self.section7List;
+        case 8: return self.section8List;
+        case 9: return self.section9List;
+        case 10: return self.section10List;
+        case 11: return self.section11List;
+        case 12: return self.section12List;
+        default: return @[];
+    }
+}
+
+- (BOOL)hideFixCountOnStart {
+    if ([self.protocol respondsToSelector:@selector(hideFixCountOnStart)]) {
+        return self.protocol.hideFixCountOnStart;
+    }
+    return NO;
+}
+
+- (BOOL)hideStationary {
+    if ([self.protocol respondsToSelector:@selector(hideStationary)]) {
+        return self.protocol.hideStationary;
+    }
+    return NO;
+}
+
+- (BOOL)hideStrategy {
+    if ([self.protocol respondsToSelector:@selector(hideStrategy)]) {
+        return self.protocol.hideStrategy;
+    }
+    return NO;
+}
+
+- (NSString *)pageTitle {
+    if ([self.protocol respondsToSelector:@selector(pageTitle)]) {
+        NSString *value = self.protocol.pageTitle;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"Motion Mode";
+}
+
+- (NSString *)fixCountOnStartPlaceholder {
+    if ([self.protocol respondsToSelector:@selector(fixCountOnStartPlaceholder)]) {
+        NSString *value = self.protocol.fixCountOnStartPlaceholder;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"1~10";
+}
+
+- (NSString *)tripEndTimeoutPlaceholder {
+    if ([self.protocol respondsToSelector:@selector(tripEndTimeoutPlaceholder)]) {
+        NSString *value = self.protocol.tripEndTimeoutPlaceholder;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"1~180";
+}
+
+- (NSString *)numberOfFixOnEndPlaceholder {
+    if ([self.protocol respondsToSelector:@selector(numberOfFixOnEndPlaceholder)]) {
+        NSString *value = self.protocol.numberOfFixOnEndPlaceholder;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"1~10";
 }
 
 @end
