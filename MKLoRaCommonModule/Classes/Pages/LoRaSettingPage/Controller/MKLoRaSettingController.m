@@ -861,7 +861,7 @@ MKLoRaSettingCHCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = @"Connection Settings";
-    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaSettingController", @"mk_loraModule_common_slotSaveIcon.png") forState:UIControlStateNormal];
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaSettingController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

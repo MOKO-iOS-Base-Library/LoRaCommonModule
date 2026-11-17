@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
+@optional
+
+/// 是否隐藏 Shock Thresholds 输入项，默认 NO（显示）
+@property (nonatomic, assign) BOOL hideShockThresholds;
+
 @end
 
 NS_ASSUME_NONNULL_END
