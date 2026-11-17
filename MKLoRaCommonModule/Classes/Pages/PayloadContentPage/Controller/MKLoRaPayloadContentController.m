@@ -91,16 +91,16 @@ UITableViewDataSource>
             vc = [self.protocol bxpTagContentViewController];
             break;
         case 10:
-            vc = [self.protocol otherContentViewController];
-            break;
-        case 11:
             vc = [self.protocol tofContentViewController];
             break;
-        case 12:
+        case 11:
             vc = [self.protocol pirContentViewController];
             break;
-        case 13:
+        case 12:
             vc = [self.protocol nanoBeaconContentViewController];
+            break;
+        case 13:
+            vc = [self.protocol otherContentViewController];
             break;
         default:
             break;
