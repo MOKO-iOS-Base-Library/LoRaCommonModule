@@ -216,6 +216,7 @@ MKTextFieldCellDelegate>
 #pragma mark - UI
 
 - (void)loadSubViews {
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaAxisSettingController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"3-Axis Settings";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

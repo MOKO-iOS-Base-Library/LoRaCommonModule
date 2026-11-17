@@ -204,6 +204,7 @@ mk_textSwitchCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaBXPInfoContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"BXP-Device Info Content";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

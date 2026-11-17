@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 业务自定义 Tx Power cell 时返回 YES
 - (BOOL)bleSettingsPageShouldUseCustomTxPowerCell;
 
+/// 点击 Tx Power 行时由业务弹出选择器修改功率，修改完成后调用 completion 让基础库刷新该行
+- (void)bleSettingsPageDidSelectTxPowerWithCompletion:(void (^)(void))completion;
+
 /// txPower 数值索引转 dBm 显示文本
 - (NSString *)bleSettingsPage_txPowerDisplayString;
 

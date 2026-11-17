@@ -125,6 +125,7 @@
 
 #pragma mark - UI
 - (void)loadSubViews {
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaMulticaseGroupController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"Multicase Group";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

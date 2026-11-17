@@ -141,6 +141,7 @@
     [self.tableView reloadData];
 }
 - (void)loadSubViews {
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaTofContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"MK-TOF Content";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

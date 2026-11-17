@@ -180,6 +180,11 @@ MKTextFieldCellDelegate>
     cellModel2.textFieldValue = self.protocol.vibrationTimeout;
     [self.section1List addObject:cellModel2];
     
+    if ([self.protocol respondsToSelector:@selector(hideShockThresholds)]
+        && self.protocol.hideShockThresholds) {
+        return;
+    }
+    
     MKTextFieldCellModel *cellModel3 = [[MKTextFieldCellModel alloc] init];
     cellModel3.index = 2;
     cellModel3.msg = @"Shock Thresholds";
@@ -193,6 +198,7 @@ MKTextFieldCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaVibrationController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"Shock Detection";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
