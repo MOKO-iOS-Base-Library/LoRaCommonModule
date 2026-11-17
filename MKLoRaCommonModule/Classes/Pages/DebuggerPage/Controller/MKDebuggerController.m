@@ -25,6 +25,9 @@
 
 static NSString * const mk_common_peripheralConnectStateChangedNotification = @"mk_common_peripheralConnectStateChangedNotification";
 static NSString * const mk_common_needDismissAlert = @"mk_common_needDismissAlert";
+static NSString * const mk_common_startDebuggerMode = @"mk_common_startDebuggerMode";
+static NSString * const mk_common_stopDebuggerMode = @"mk_common_stopDebuggerMode";
+static NSString * const mk_common_popToRootViewControllerNotification = @"mk_common_popToRootViewControllerNotification";
 
 @interface MKDebuggerController ()<UITableViewDelegate,
 UITableViewDataSource,

@@ -29,12 +29,47 @@
     return cell;
 }
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
-    NSArray *keys = @"MFG ID",@"mfgID",@"ADV Type",@"advType",@"Voltage",@"voltage",@"Temperature",@"temperature",@"SEC CNT",@"secCnt",@"Trigger Status",@"triggerStatus";
-    if (index >= 0 && index < keys.count) {
-        NSString *key = keys[index];
-        [self.protocol setValue:@(isOn) forKey:key];
-        MKTextSwitchCellModel *cellModel = self.dataList[index];
+    if (index == 0) {
+        //MFG ID
+        self.protocol.mfgID = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[0];
         cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 1) {
+        //ADV Type
+        self.protocol.advType = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[1];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 2) {
+        //Battery Voltage
+        self.protocol.voltage = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[2];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 3) {
+        //Beacon Temperature
+        self.protocol.temperature = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[3];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 4) {
+        //SEC_CNT
+        self.protocol.secCnt = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[4];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 5) {
+        //Trigger Status
+        self.protocol.triggerStatus = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[5];
+        cellModel.isOn = isOn;
+        return;
     }
 }
 - (void)readDatasFromDevice {
@@ -54,20 +89,46 @@
     }];
 }
 - (void)loadSectionDatas {
-    NSArray *titles = @"MFG ID",@"mfgID",@"ADV Type",@"advType",@"Voltage",@"voltage",@"Temperature",@"temperature",@"SEC CNT",@"secCnt",@"Trigger Status",@"triggerStatus";
-    NSArray *keys = @"MFG ID",@"mfgID",@"ADV Type",@"advType",@"Voltage",@"voltage",@"Temperature",@"temperature",@"SEC CNT",@"secCnt",@"Trigger Status",@"triggerStatus";
-    // titles 和 keys 是同一个数组，用 index/2 取 label，index%2 取 key 的方式
-    NSArray *allItems = @[@"MFG ID",@"mfgID",@"ADV Type",@"advType",@"Voltage",@"voltage",@"Temperature",@"temperature",@"SEC CNT",@"secCnt",@"Trigger Status",@"triggerStatus"];
-    for (NSInteger i = 0; i < allItems.count; i += 2) {
-        MKTextSwitchCellModel *m = [[MKTextSwitchCellModel alloc] init];
-        m.index = i/2; m.msg = allItems[i];
-        m.isOn = [[self.protocol valueForKey:allItems[i+1]] boolValue];
-        [self.dataList addObject:m];
-    }
+    MKTextSwitchCellModel *cellModel1 = [[MKTextSwitchCellModel alloc] init];
+    cellModel1.index = 0;
+    cellModel1.msg = @"MFG ID";
+    cellModel1.isOn = self.protocol.mfgID;
+    [self.dataList addObject:cellModel1];
+    
+    MKTextSwitchCellModel *cellModel2 = [[MKTextSwitchCellModel alloc] init];
+    cellModel2.index = 1;
+    cellModel2.msg = @"ADV Type";
+    cellModel2.isOn = self.protocol.advType;
+    [self.dataList addObject:cellModel2];
+    
+    MKTextSwitchCellModel *cellModel3 = [[MKTextSwitchCellModel alloc] init];
+    cellModel3.index = 2;
+    cellModel3.msg = @"Battery Voltage";
+    cellModel3.isOn = self.protocol.voltage;
+    [self.dataList addObject:cellModel3];
+    
+    MKTextSwitchCellModel *cellModel4 = [[MKTextSwitchCellModel alloc] init];
+    cellModel4.index = 3;
+    cellModel4.msg = @"Beacon Temperature";
+    cellModel4.isOn = self.protocol.temperature;
+    [self.dataList addObject:cellModel4];
+    
+    MKTextSwitchCellModel *cellModel5 = [[MKTextSwitchCellModel alloc] init];
+    cellModel5.index = 4;
+    cellModel5.msg = @"SEC_CNT";
+    cellModel5.isOn = self.protocol.secCnt;
+    [self.dataList addObject:cellModel5];
+    
+    MKTextSwitchCellModel *cellModel6 = [[MKTextSwitchCellModel alloc] init];
+    cellModel6.index = 5;
+    cellModel6.msg = @"Trigger Status";
+    cellModel6.isOn = self.protocol.triggerStatus;
+    [self.dataList addObject:cellModel6];
+    
     [self.tableView reloadData];
 }
 - (void)loadSubViews {
-    self.defaultTitle = @"NanoBeacon Info";
+    self.defaultTitle = @"NanoBeacon Content";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);

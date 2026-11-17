@@ -29,12 +29,61 @@
     return cell;
 }
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
-    NSArray *keys = @"Tx Power",@"txPower",@"Ranging Data",@"rangingData",@"ADV Interval",@"advInterval",@"Sample Rate",@"sampleRate",@"Full Scale",@"fullScale",@"Motion Threshold",@"motionThreshold",@"3-axis Data",@"axisData",@"Battery Voltage",@"battery";
-    if (index >= 0 && index < keys.count) {
-        NSString *key = keys[index];
-        [self.protocol setValue:@(isOn) forKey:key];
-        MKTextSwitchCellModel *cellModel = self.dataList[index];
+    if (index == 0) {
+        //Tx Power
+        self.protocol.txPower = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[0];
         cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 1) {
+        //Ranging Data
+        self.protocol.rangingData = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[1];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 2) {
+        //ADV Interval
+        self.protocol.advInterval = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[2];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 3) {
+        //Sample Rate
+        self.protocol.sampleRate = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[3];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 4) {
+        //Full Scale
+        self.protocol.fullScale = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[4];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 5) {
+        //Motion Threshold
+        self.protocol.motionThreshold = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[5];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 6) {
+        //3-axis Data
+        self.protocol.axisData = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[6];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 7) {
+        //Battery Voltage
+        self.protocol.battery = isOn;
+        MKTextSwitchCellModel *cellModel = self.dataList[7];
+        cellModel.isOn = isOn;
+        return;
     }
 }
 - (void)readDatasFromDevice {
@@ -54,16 +103,54 @@
     }];
 }
 - (void)loadSectionDatas {
-    NSArray *titles = @"Tx Power",@"txPower",@"Ranging Data",@"rangingData",@"ADV Interval",@"advInterval",@"Sample Rate",@"sampleRate",@"Full Scale",@"fullScale",@"Motion Threshold",@"motionThreshold",@"3-axis Data",@"axisData",@"Battery Voltage",@"battery";
-    NSArray *keys = @"Tx Power",@"txPower",@"Ranging Data",@"rangingData",@"ADV Interval",@"advInterval",@"Sample Rate",@"sampleRate",@"Full Scale",@"fullScale",@"Motion Threshold",@"motionThreshold",@"3-axis Data",@"axisData",@"Battery Voltage",@"battery";
-    // titles 和 keys 是同一个数组，用 index/2 取 label，index%2 取 key 的方式
-    NSArray *allItems = @[@"Tx Power",@"txPower",@"Ranging Data",@"rangingData",@"ADV Interval",@"advInterval",@"Sample Rate",@"sampleRate",@"Full Scale",@"fullScale",@"Motion Threshold",@"motionThreshold",@"3-axis Data",@"axisData",@"Battery Voltage",@"battery"];
-    for (NSInteger i = 0; i < allItems.count; i += 2) {
-        MKTextSwitchCellModel *m = [[MKTextSwitchCellModel alloc] init];
-        m.index = i/2; m.msg = allItems[i];
-        m.isOn = [[self.protocol valueForKey:allItems[i+1]] boolValue];
-        [self.dataList addObject:m];
-    }
+    MKTextSwitchCellModel *cellModel1 = [[MKTextSwitchCellModel alloc] init];
+    cellModel1.index = 0;
+    cellModel1.msg = @"Tx Power";
+    cellModel1.isOn = self.protocol.txPower;
+    [self.dataList addObject:cellModel1];
+    
+    MKTextSwitchCellModel *cellModel2 = [[MKTextSwitchCellModel alloc] init];
+    cellModel2.index = 1;
+    cellModel2.msg = @"Ranging Data";
+    cellModel2.isOn = self.protocol.rangingData;
+    [self.dataList addObject:cellModel2];
+    
+    MKTextSwitchCellModel *cellModel3 = [[MKTextSwitchCellModel alloc] init];
+    cellModel3.index = 2;
+    cellModel3.msg = @"ADV Interval";
+    cellModel3.isOn = self.protocol.advInterval;
+    [self.dataList addObject:cellModel3];
+    
+    MKTextSwitchCellModel *cellModel4 = [[MKTextSwitchCellModel alloc] init];
+    cellModel4.index = 3;
+    cellModel4.msg = @"Sample Rate";
+    cellModel4.isOn = self.protocol.sampleRate;
+    [self.dataList addObject:cellModel4];
+    
+    MKTextSwitchCellModel *cellModel5 = [[MKTextSwitchCellModel alloc] init];
+    cellModel5.index = 4;
+    cellModel5.msg = @"Full Scale";
+    cellModel5.isOn = self.protocol.fullScale;
+    [self.dataList addObject:cellModel5];
+    
+    MKTextSwitchCellModel *cellModel6 = [[MKTextSwitchCellModel alloc] init];
+    cellModel6.index = 5;
+    cellModel6.msg = @"Motion Threshold";
+    cellModel6.isOn = self.protocol.motionThreshold;
+    [self.dataList addObject:cellModel6];
+    
+    MKTextSwitchCellModel *cellModel7 = [[MKTextSwitchCellModel alloc] init];
+    cellModel7.index = 6;
+    cellModel7.msg = @"3-axis Data";
+    cellModel7.isOn = self.protocol.axisData;
+    [self.dataList addObject:cellModel7];
+    
+    MKTextSwitchCellModel *cellModel8 = [[MKTextSwitchCellModel alloc] init];
+    cellModel8.index = 7;
+    cellModel8.msg = @"Battery Voltage";
+    cellModel8.isOn = self.protocol.battery;
+    [self.dataList addObject:cellModel8];
+    
     [self.tableView reloadData];
 }
 - (void)loadSubViews {

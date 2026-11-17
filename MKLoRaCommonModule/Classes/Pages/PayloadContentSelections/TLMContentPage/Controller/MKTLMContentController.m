@@ -53,19 +53,36 @@
     }];
 }
 - (void)loadSectionDatas {
-    NSArray *items = @[
-        @[@"TLM Version", @"version"],
-        @[@"Battery Voltage", @"battery"],
-        @[@"Temperature", @"temperature"],
-        @[@"ADV_CNT", @"ADV_CNT"],
-        @[@"SEC_CNT", @"SEC_CNT"],
-    ];
-    for (NSInteger i = 0; i < items.count; i++) {
-        MKTextSwitchCellModel *m = [[MKTextSwitchCellModel alloc] init];
-        m.index = i; m.msg = items[i][0];
-        m.isOn = [[self.protocol valueForKey:items[i][1]] boolValue];
-        [self.dataList addObject:m];
-    }
+    MKTextSwitchCellModel *cellModel1 = [[MKTextSwitchCellModel alloc] init];
+    cellModel1.index = 0;
+    cellModel1.msg = @"TLM Version";
+    cellModel1.isOn = self.protocol.version;
+    [self.dataList addObject:cellModel1];
+    
+    MKTextSwitchCellModel *cellModel2 = [[MKTextSwitchCellModel alloc] init];
+    cellModel2.index = 1;
+    cellModel2.msg = @"Battery Voltage";
+    cellModel2.isOn = self.protocol.battery;
+    [self.dataList addObject:cellModel2];
+    
+    MKTextSwitchCellModel *cellModel3 = [[MKTextSwitchCellModel alloc] init];
+    cellModel3.index = 2;
+    cellModel3.msg = @"Temperature";
+    cellModel3.isOn = self.protocol.temperature;
+    [self.dataList addObject:cellModel3];
+    
+    MKTextSwitchCellModel *cellModel4 = [[MKTextSwitchCellModel alloc] init];
+    cellModel4.index = 3;
+    cellModel4.msg = @"ADV_CNT";
+    cellModel4.isOn = self.protocol.ADV_CNT;
+    [self.dataList addObject:cellModel4];
+    
+    MKTextSwitchCellModel *cellModel5 = [[MKTextSwitchCellModel alloc] init];
+    cellModel5.index = 4;
+    cellModel5.msg = @"SEC_CNT";
+    cellModel5.isOn = self.protocol.SEC_CNT;
+    [self.dataList addObject:cellModel5];
+    
     [self.tableView reloadData];
 }
 - (void)loadSubViews {

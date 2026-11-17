@@ -89,7 +89,7 @@
     for (NSInteger i = 0; i < self.section1List.count; i ++) {
         MKOtherTypeContentCellModel *cellModel = self.section1List[i];
         cellModel.blockIndex = i;
-        cellModel.msg = [NSString stringWithFormat:@"Data block %d",(long)(i + 1)];
+        cellModel.msg = [NSString stringWithFormat:@"Data block %ld",(long)(i + 1)];
     }
     [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -162,7 +162,7 @@
         NSDictionary *model = self.protocol.blockList[i];
         MKOtherTypeContentCellModel *cellModel = [[MKOtherTypeContentCellModel alloc] init];
         cellModel.blockNumber = 0; cellModel.blockIndex = i;
-        cellModel.msg = [NSString stringWithFormat:@"Data block %d",(long)(i + 1)];
+        cellModel.msg = [NSString stringWithFormat:@"Data block %ld",(long)(i + 1)];
         cellModel.dataType = SafeStr(model[@"dataType"]);
         cellModel.startIndex = [NSString stringWithFormat:@"%ld",(long)[model[@"minIndex"] integerValue]];
         cellModel.endIndex = [NSString stringWithFormat:@"%ld",(long)[model[@"maxIndex"] integerValue]];
