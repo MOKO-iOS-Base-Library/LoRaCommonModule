@@ -1,0 +1,1 @@
+#import "Pages/PayloadContentSelections/BXPBeaconContentPage/Protocol/MKLoRaBXPBeaconContentPageProtocol.h"
