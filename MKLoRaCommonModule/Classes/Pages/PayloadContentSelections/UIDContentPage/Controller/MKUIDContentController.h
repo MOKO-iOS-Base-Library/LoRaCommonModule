@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKUIDContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/UIDContentPage/Protocol/MKUIDContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,7 +6,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKDeviceInfoPageProtocol.h"
+#import "Pages/DeviceInfoPage/Protocol/MKDeviceInfoPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

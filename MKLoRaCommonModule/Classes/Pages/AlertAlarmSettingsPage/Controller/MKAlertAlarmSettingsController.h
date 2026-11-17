@@ -6,7 +6,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKAlertAlarmSettingsPageProtocol.h"
+#import "Pages/AlertAlarmSettingsPage/Protocol/MKAlertAlarmSettingsPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

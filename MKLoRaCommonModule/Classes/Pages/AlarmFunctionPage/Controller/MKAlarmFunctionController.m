@@ -17,10 +17,10 @@
 #import "MKTextButtonCell.h"
 #import "MKNormalTextCell.h"
 
-#import "MKAlarmFunctionCell.h"
+#import "Pages/AlarmFunctionPage/View/MKAlarmFunctionCell.h"
 
-#import "MKAlertAlarmSettingsController.h"
-#import "MKSosAlarmSettingsController.h"
+#import "Pages/AlertAlarmSettingsPage/Controller/MKAlertAlarmSettingsController.h"
+#import "Pages/SosAlarmSettingsPage/Controller/MKSosAlarmSettingsController.h"
 
 @interface MKAlarmFunctionController ()<UITableViewDelegate,
 UITableViewDataSource,

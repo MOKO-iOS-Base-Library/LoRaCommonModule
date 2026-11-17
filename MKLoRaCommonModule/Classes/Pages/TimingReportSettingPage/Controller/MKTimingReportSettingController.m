@@ -19,9 +19,9 @@
 #import "MKPickerView.h"
 #import "MKTableSectionLineHeader.h"
 
-#import "MKTimingModeAddCell.h"
+#import "Views/TimingModeAddCell/MKTimingModeAddCell.h"
 
-#import "MKTimingReportSettingCell.h"
+#import "Views/TimingReportSettingCell/MKTimingReportSettingCell.h"
 
 @interface MKTimingReportSettingController ()<UITableViewDelegate,
 UITableViewDataSource,

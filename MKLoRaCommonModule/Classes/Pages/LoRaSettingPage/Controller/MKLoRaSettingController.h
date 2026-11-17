@@ -1,5 +1,5 @@
 #import "MKBaseViewController.h"
-#import "MKLoRaSettingPageProtocol.h"
+#import "Pages/LoRaSettingPage/Protocol/MKLoRaSettingPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

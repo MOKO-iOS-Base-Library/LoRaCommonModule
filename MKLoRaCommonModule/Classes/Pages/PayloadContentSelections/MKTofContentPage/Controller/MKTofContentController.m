@@ -1,5 +1,5 @@
 #import "MKTofContentController.h"
-#import "MKTofContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/MKTofContentPage/Protocol/MKTofContentPageProtocol.h"
 #import "Masonry.h"
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"

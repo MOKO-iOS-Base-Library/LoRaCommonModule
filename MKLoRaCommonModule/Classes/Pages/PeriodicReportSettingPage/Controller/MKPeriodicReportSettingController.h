@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKPeriodicReportSettingPageProtocol.h"
+#import "Pages/PeriodicReportSettingPage/Protocol/MKPeriodicReportSettingPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKPeriodicReportSettingController : MKBaseViewController
 @property (nonatomic, strong) id <MKPeriodicReportSettingPageProtocol> protocol;

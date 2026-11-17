@@ -21,10 +21,10 @@
 #import "MKTextFieldCell.h"
 #import "MKTableSectionLineHeader.h"
 
-#import "MKScanTimePointModel.h"
+#import "Models/ScanTimePoint/MKScanTimePointModel.h"
 
-#import "MKReportTimePointCell.h"
-#import "MKTimingModeAddCell.h"
+#import "Views/ReportTimePointCell/MKReportTimePointCell.h"
+#import "Views/TimingModeAddCell/MKTimingModeAddCell.h"
 
 /// 上报时间点cell的index在扫描时间点的基础上偏移，用于区分两个section的回调
 static NSInteger const MKTimingReportPointOffset = 1000;

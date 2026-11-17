@@ -8,7 +8,7 @@
 
 #import "MKBaseViewController.h"
 
-#import "MKTimeSegmentedPageProtocol.h"
+#import "Pages/TimeSegmentedModePage/Protocol/MKTimeSegmentedPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

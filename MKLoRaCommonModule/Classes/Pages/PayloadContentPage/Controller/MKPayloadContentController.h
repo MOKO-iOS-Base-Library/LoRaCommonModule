@@ -1,5 +1,5 @@
 #import "MKBaseViewController.h"
-#import "MKPayloadContentPageProtocol.h"
+#import "Pages/PayloadContentPage/Protocol/MKPayloadContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

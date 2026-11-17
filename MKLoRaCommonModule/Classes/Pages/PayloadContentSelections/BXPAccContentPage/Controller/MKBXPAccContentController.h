@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKBXPAccContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BXPAccContentPage/Protocol/MKBXPAccContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

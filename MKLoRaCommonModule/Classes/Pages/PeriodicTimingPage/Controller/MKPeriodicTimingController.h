@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKPeriodicTimingPageProtocol.h"
+#import "Pages/PeriodicTimingPage/Protocol/MKPeriodicTimingPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKPeriodicTimingController : MKBaseViewController
 @property (nonatomic, strong) id <MKPeriodicTimingPageProtocol> protocol;

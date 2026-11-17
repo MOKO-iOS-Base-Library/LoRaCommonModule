@@ -1,5 +1,5 @@
 #import "MKBXPAccContentController.h"
-#import "MKBXPAccContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BXPAccContentPage/Protocol/MKBXPAccContentPageProtocol.h"
 #import "Masonry.h"
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"

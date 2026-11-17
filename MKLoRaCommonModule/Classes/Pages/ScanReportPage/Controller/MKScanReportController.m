@@ -19,13 +19,13 @@
 #import "MKSettingTextCell.h"
 #import "MKTableSectionLineHeader.h"
 
-#import "MKTimingImmediatelyController.h"
-#import "MKPeriodicImmediatelyController.h"
-#import "MKScanAlwaysController.h"
-#import "MKPeriodicScanController.h"
-#import "MKScanTimingController.h"
-#import "MKTimingReportController.h"
-#import "MKPeriodicTimingController.h"
+#import "Pages/TimingImmediatelyPage/Controller/MKTimingImmediatelyController.h"
+#import "Pages/PeriodicImmediatelyPage/Controller/MKPeriodicImmediatelyController.h"
+#import "Pages/ScanAlwaysPage/Controller/MKScanAlwaysController.h"
+#import "Pages/PeriodicScanPage/Controller/MKPeriodicScanController.h"
+#import "Pages/ScanTimingPage/Controller/MKScanTimingController.h"
+#import "Pages/TimingReportPage/Controller/MKTimingReportController.h"
+#import "Pages/PeriodicTimingPage/Controller/MKPeriodicTimingController.h"
 
 @interface MKScanReportController ()<UITableViewDelegate,
 UITableViewDataSource,

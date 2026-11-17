@@ -21,10 +21,10 @@
 #import "MKTextFieldCell.h"
 #import "MKTableSectionLineHeader.h"
 
-#import "MKScanTimePointModel.h"
+#import "Models/ScanTimePoint/MKScanTimePointModel.h"
 
-#import "MKReportTimePointCell.h"
-#import "MKTimingModeAddCell.h"
+#import "Views/ReportTimePointCell/MKReportTimePointCell.h"
+#import "Views/TimingModeAddCell/MKTimingModeAddCell.h"
 
 @interface MKTimingImmediatelyController ()<UITableViewDelegate,
 UITableViewDataSource,

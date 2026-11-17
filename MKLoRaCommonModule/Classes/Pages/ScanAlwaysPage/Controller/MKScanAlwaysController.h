@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKScanAlwaysPageProtocol.h"
+#import "Pages/ScanAlwaysPage/Protocol/MKScanAlwaysPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKScanAlwaysController : MKBaseViewController
 @property (nonatomic, strong) id <MKScanAlwaysPageProtocol> protocol;

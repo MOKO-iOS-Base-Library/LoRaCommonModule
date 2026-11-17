@@ -1,5 +1,5 @@
 
-#import "MKDeviceModePageBaseProtocol.h"
+#import "Common/Protocol/MKDeviceModePageBaseProtocol.h"
 
 @protocol MKPeriodicModePageProtocol <MKDeviceModePageBaseProtocol>
 

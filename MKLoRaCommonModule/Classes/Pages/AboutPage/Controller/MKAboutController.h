@@ -7,7 +7,7 @@
 
 #import "MKBaseViewController.h"
 
-#import "MKAboutPageProtocol.h"
+#import "Pages/AboutPage/Protocol/MKAboutPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

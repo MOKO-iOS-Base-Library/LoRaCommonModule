@@ -8,7 +8,7 @@
 
 #import "MKBaseViewController.h"
 
-#import "MKTimingModePageProtocol.h"
+#import "Pages/TimingModePage/Protocol/MKTimingModePageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,7 +6,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKAxisSettingPageProtocol.h"
+#import "Pages/AxisSettingPage/Protocol/MKAxisSettingPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

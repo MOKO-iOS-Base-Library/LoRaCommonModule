@@ -1,5 +1,5 @@
 #import "MKNanoBeaconContentController.h"
-#import "MKNanoBeaconContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/NanoBeaconContentPage/Protocol/MKNanoBeaconContentPageProtocol.h"
 #import "Masonry.h"
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"

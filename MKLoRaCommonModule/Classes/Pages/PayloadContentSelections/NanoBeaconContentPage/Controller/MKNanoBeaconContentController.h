@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKNanoBeaconContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/NanoBeaconContentPage/Protocol/MKNanoBeaconContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

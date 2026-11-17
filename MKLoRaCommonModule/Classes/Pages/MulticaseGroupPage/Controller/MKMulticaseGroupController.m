@@ -1,5 +1,5 @@
 #import "MKMulticaseGroupController.h"
-#import "MKMulticaseGroupPageProtocol.h"
+#import "Pages/MulticaseGroupPage/Protocol/MKMulticaseGroupPageProtocol.h"
 
 #import "Masonry.h"
 #import "MLInputDodger.h"

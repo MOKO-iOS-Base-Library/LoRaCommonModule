@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKBXPButtonContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BXPButtonContentPage/Protocol/MKBXPButtonContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

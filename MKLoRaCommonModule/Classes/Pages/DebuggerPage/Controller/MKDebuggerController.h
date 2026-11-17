@@ -1,5 +1,5 @@
 #import "MKBaseViewController.h"
-#import "MKDebuggerPageProtocol.h"
+#import "Pages/DebuggerPage/Protocol/MKDebuggerPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

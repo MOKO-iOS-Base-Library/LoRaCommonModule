@@ -8,7 +8,7 @@
 
 #import "MKBaseViewController.h"
 
-#import "MKPeriodicModePageProtocol.h"
+#import "Pages/PeriodicModePage/Protocol/MKPeriodicModePageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

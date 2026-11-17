@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKScanTimingPageProtocol.h"
+#import "Pages/ScanTimingPage/Protocol/MKScanTimingPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKScanTimingController : MKBaseViewController
 @property (nonatomic, strong) id <MKScanTimingPageProtocol> protocol;

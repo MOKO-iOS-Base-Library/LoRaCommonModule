@@ -8,7 +8,7 @@
 
 #import "MKBaseViewController.h"
 
-#import "MKStandbyModePageProtocol.h"
+#import "Pages/StandbyModePage/Protocol/MKStandbyModePageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKMulticaseGroupPageProtocol.h"
+#import "Pages/MulticaseGroupPage/Protocol/MKMulticaseGroupPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

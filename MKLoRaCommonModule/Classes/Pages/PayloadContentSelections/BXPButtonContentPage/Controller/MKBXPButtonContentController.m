@@ -4,7 +4,7 @@
 //
 
 #import "MKBXPButtonContentController.h"
-#import "MKBXPButtonContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BXPButtonContentPage/Protocol/MKBXPButtonContentPageProtocol.h"
 
 #import "Masonry.h"
 

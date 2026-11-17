@@ -1,6 +1,6 @@
 
-#import "MKTimingModeTimePointModel.h"
-#import "MKDeviceModePageBaseProtocol.h"
+#import "Pages/TimingModePage/Model/MKTimingModeTimePointModel.h"
+#import "Common/Protocol/MKDeviceModePageBaseProtocol.h"
 
 @protocol MKTimingModePageProtocol <MKDeviceModePageBaseProtocol>
 

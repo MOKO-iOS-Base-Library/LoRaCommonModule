@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKOtherTypeContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/OtherTypeContentPage/Protocol/MKOtherTypeContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

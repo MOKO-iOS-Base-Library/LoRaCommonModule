@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKPeriodicImmediatelyPageProtocol.h"
+#import "Pages/PeriodicImmediatelyPage/Protocol/MKPeriodicImmediatelyPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKPeriodicImmediatelyController : MKBaseViewController
 @property (nonatomic, strong) id <MKPeriodicImmediatelyPageProtocol> protocol;

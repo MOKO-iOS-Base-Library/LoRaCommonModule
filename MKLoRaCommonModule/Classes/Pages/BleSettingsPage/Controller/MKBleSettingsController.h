@@ -6,7 +6,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKBleSettingsPageProtocol.h"
+#import "Pages/BleSettingsPage/Protocol/MKBleSettingsPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

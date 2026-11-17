@@ -1,7 +1,7 @@
 #import "MKOtherTypeContentController.h"
-#import "MKOtherTypeContentPageProtocol.h"
-#import "MKOtherAddOptionsCell.h"
-#import "MKOtherTypeContentCell.h"
+#import "Pages/PayloadContentSelections/OtherTypeContentPage/Protocol/MKOtherTypeContentPageProtocol.h"
+#import "Views/OtherAddOptionsCell/MKOtherAddOptionsCell.h"
+#import "Views/OtherTypeContentCell/MKOtherTypeContentCell.h"
 
 #import "Masonry.h"
 #import "MLInputDodger.h"

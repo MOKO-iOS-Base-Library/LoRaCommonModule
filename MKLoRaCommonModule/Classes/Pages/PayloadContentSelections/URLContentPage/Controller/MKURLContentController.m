@@ -4,7 +4,7 @@
 //
 
 #import "MKURLContentController.h"
-#import "MKURLContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/URLContentPage/Protocol/MKURLContentPageProtocol.h"
 
 #import "Masonry.h"
 

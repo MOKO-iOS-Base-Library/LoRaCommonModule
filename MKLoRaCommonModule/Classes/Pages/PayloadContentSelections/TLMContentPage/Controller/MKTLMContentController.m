@@ -1,5 +1,5 @@
 #import "MKTLMContentController.h"
-#import "MKTLMContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/TLMContentPage/Protocol/MKTLMContentPageProtocol.h"
 #import "Masonry.h"
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"

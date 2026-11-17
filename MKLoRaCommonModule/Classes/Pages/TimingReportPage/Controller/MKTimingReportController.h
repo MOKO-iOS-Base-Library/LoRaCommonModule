@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKTimingReportPageProtocol.h"
+#import "Pages/TimingReportPage/Protocol/MKTimingReportPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKTimingReportController : MKBaseViewController
 @property (nonatomic, strong) id <MKTimingReportPageProtocol> protocol;

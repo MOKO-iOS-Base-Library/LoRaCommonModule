@@ -1,5 +1,5 @@
 #import "MKPirContentController.h"
-#import "MKPirContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/MKPirContentPage/Protocol/MKPirContentPageProtocol.h"
 #import "Masonry.h"
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"

@@ -1,6 +1,6 @@
 
-#import "MKTimeSegmentedTimePeriodModel.h"
-#import "MKDeviceModePageBaseProtocol.h"
+#import "Pages/TimeSegmentedModePage/Model/MKTimeSegmentedTimePeriodModel.h"
+#import "Common/Protocol/MKDeviceModePageBaseProtocol.h"
 
 @protocol MKTimeSegmentedPageProtocol <MKDeviceModePageBaseProtocol>
 

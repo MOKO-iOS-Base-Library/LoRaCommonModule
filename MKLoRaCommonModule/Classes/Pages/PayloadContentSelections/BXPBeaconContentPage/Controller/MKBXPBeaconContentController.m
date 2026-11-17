@@ -4,7 +4,7 @@
 //
 
 #import "MKBXPBeaconContentController.h"
-#import "MKBXPBeaconContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BXPBeaconContentPage/Protocol/MKBXPBeaconContentPageProtocol.h"
 
 #import "Masonry.h"
 

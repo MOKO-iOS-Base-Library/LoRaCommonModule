@@ -19,8 +19,8 @@
 #import "MKTextButtonCell.h"
 #import "MKPickerView.h"
 
-#import "MKReportTimePointCell.h"
-#import "MKTimingModeAddCell.h"
+#import "Views/ReportTimePointCell/MKReportTimePointCell.h"
+#import "Views/TimingModeAddCell/MKTimingModeAddCell.h"
 
 @interface MKStandbyModeController ()<UITableViewDelegate,
 UITableViewDataSource,

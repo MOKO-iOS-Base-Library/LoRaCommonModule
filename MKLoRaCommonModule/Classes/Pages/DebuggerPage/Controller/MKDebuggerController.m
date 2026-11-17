@@ -20,8 +20,8 @@
 #import "MKAlertView.h"
 #import "MKHudManager.h"
 
-#import "MKDebuggerButton.h"
-#import "MKDebuggerCell.h"
+#import "Views/DebuggerButton/MKDebuggerButton.h"
+#import "Views/DebuggerCell/MKDebuggerCell.h"
 
 static NSString * const mk_common_peripheralConnectStateChangedNotification = @"mk_common_peripheralConnectStateChangedNotification";
 static NSString * const mk_common_needDismissAlert = @"mk_common_needDismissAlert";

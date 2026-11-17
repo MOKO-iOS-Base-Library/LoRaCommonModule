@@ -6,7 +6,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKManDownPageProtocol.h"
+#import "Pages/ManDownPage/Protocol/MKManDownPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

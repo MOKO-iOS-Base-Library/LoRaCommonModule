@@ -19,8 +19,8 @@
 #import "MKTextButtonCell.h"
 #import "MKPickerView.h"
 
-#import "MKTimeSegmentedCell.h"
-#import "MKTimeSegmentedAddCell.h"
+#import "Pages/TimeSegmentedModePage/View/MKTimeSegmentedCell.h"
+#import "Pages/TimeSegmentedModePage/View/MKTimeSegmentedAddCell.h"
 
 @interface MKTimeSegmentedController ()<UITableViewDelegate,
 UITableViewDataSource,

@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKPeriodicScanPageProtocol.h"
+#import "Pages/PeriodicScanPage/Protocol/MKPeriodicScanPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKPeriodicScanController : MKBaseViewController
 @property (nonatomic, strong) id <MKPeriodicScanPageProtocol> protocol;

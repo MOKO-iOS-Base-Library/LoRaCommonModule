@@ -4,7 +4,7 @@
 //
 
 #import "MKUIDContentController.h"
-#import "MKUIDContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/UIDContentPage/Protocol/MKUIDContentPageProtocol.h"
 
 #import "Masonry.h"
 

@@ -8,7 +8,7 @@
 
 #import "MKBaseViewController.h"
 
-#import "MKMotionModePageProtocol.h"
+#import "Pages/MotionModePage/Protocol/MKMotionModePageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

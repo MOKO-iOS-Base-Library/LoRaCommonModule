@@ -6,7 +6,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKBeaconContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BeaconContentPage/Protocol/MKBeaconContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

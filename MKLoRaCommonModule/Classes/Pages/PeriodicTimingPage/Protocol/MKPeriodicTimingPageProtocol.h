@@ -6,7 +6,7 @@
 //  Copyright © 2025 aadyx2007@163.com. All rights reserved.
 //
 
-#import "MKScanTimePointModel.h"
+#import "Models/ScanTimePoint/MKScanTimePointModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

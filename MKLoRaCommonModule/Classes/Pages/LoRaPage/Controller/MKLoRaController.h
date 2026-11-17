@@ -1,5 +1,5 @@
 #import "MKBaseViewController.h"
-#import "MKLoRaPageProtocol.h"
+#import "Pages/LoRaPage/Protocol/MKLoRaPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKLoRaController : MKBaseViewController
 @property (nonatomic, strong) id <MKLoRaPageProtocol> protocol;

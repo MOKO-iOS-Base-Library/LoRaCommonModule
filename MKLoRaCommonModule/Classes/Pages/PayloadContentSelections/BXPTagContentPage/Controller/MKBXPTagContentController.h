@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKBXPTagContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BXPTagContentPage/Protocol/MKBXPTagContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -4,7 +4,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKURLContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/URLContentPage/Protocol/MKURLContentPageProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

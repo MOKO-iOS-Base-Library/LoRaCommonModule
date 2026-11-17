@@ -18,8 +18,8 @@
 #import "MKHudManager.h"
 #import "MKTextButtonCell.h"
 
-#import "MKReportTimePointCell.h"
-#import "MKTimingModeAddCell.h"
+#import "Views/ReportTimePointCell/MKReportTimePointCell.h"
+#import "Views/TimingModeAddCell/MKTimingModeAddCell.h"
 
 @interface MKTimingModeController ()<UITableViewDelegate,
 UITableViewDataSource,

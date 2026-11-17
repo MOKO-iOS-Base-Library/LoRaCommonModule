@@ -7,7 +7,7 @@
 //
 
 #import "MKBaseViewController.h"
-#import "MKTimingImmediatelyPageProtocol.h"
+#import "Pages/TimingImmediatelyPage/Protocol/MKTimingImmediatelyPageProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface MKTimingImmediatelyController : MKBaseViewController
 @property (nonatomic, strong) id <MKTimingImmediatelyPageProtocol> protocol;

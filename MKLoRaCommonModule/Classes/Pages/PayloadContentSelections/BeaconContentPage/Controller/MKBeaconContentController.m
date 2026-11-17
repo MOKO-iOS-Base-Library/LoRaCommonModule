@@ -6,7 +6,7 @@
 //
 
 #import "MKBeaconContentController.h"
-#import "MKBeaconContentPageProtocol.h"
+#import "Pages/PayloadContentSelections/BeaconContentPage/Protocol/MKBeaconContentPageProtocol.h"
 
 #import "Masonry.h"
 
