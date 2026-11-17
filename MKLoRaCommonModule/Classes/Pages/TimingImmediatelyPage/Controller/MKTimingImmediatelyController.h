@@ -11,5 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface MKTimingImmediatelyController : MKBaseViewController
 @property (nonatomic, strong) id <MKTimingImmediatelyPageProtocol> protocol;
+- (void)connectTimerRun;
 @end
 NS_ASSUME_NONNULL_END

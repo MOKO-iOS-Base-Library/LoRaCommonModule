@@ -11,5 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface MKPeriodicTimingController : MKBaseViewController
 @property (nonatomic, strong) id <MKPeriodicTimingPageProtocol> protocol;
+- (void)connectTimerRun;
 @end
 NS_ASSUME_NONNULL_END

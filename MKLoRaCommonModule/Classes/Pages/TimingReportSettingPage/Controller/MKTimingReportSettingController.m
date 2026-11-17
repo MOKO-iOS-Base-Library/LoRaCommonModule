@@ -305,7 +305,7 @@ MKTimingReportSettingCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = @"Timing Report Settings";
-    [self setNavTitleFont:MKFont(12.f)];
+    [self setNavTitleFont:MKFont(15.f)];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKTimingReportSettingController", @"mk_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

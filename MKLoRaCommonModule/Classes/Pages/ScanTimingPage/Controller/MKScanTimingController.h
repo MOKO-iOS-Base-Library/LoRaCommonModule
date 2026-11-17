@@ -11,5 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface MKScanTimingController : MKBaseViewController
 @property (nonatomic, strong) id <MKScanTimingPageProtocol> protocol;
+- (void)connectTimerRun;
 @end
 NS_ASSUME_NONNULL_END

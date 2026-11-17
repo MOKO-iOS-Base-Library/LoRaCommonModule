@@ -249,7 +249,7 @@ MKTextButtonCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = @"Scan&Report Strategies";
-    [self setNavTitleFont:MKFont(12.f)];
+    [self setNavTitleFont:MKFont(14.f)];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

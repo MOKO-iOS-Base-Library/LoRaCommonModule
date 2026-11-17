@@ -11,5 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface MKTimingReportController : MKBaseViewController
 @property (nonatomic, strong) id <MKTimingReportPageProtocol> protocol;
+- (void)connectTimerRun;
 @end
 NS_ASSUME_NONNULL_END

@@ -24,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
           sucBlock:(void (^)(void))sucBlock
        failedBlock:(void (^)(NSError *error))failedBlock;
 
+@optional
+/// 业务侧同步设备时间（基础库不依赖具体 SDK）
+- (void)configDeviceTimeWithRecordTime:(long long)recordTime
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError * _Nonnull error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END
