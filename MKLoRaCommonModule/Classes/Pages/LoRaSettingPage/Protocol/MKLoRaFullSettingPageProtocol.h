@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly)BOOL supportMaxRetransmissionTimes;
 
+@property (nonatomic, assign, readonly)BOOL supportADRACK;
+
 /// 0:非确认帧，1:确认帧
 @property (nonatomic, assign)NSInteger messageType;
 

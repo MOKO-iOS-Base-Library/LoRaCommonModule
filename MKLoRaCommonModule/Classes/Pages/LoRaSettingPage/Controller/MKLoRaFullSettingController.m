@@ -326,11 +326,12 @@ MKLoRaSettingAccountCellDelegate>
     }
     if (section == 17) {
         //Max retransmission times
-        return ((self.protocol.supportMessageType && self.protocol.messageType == 1) ? self.optionsList8.count : 0);
+        return ((self.protocol.supportMessageType && self.protocol.supportMaxRetransmissionTimes
+                 && self.protocol.messageType == 1) ? self.optionsList8.count : 0);
     }
     if (section == 18) {
         //ADR_ACK_LIMIT、ADR_ACK_DELAY
-        return self.optionsList9.count;
+        return (self.protocol.supportADRACK ? self.optionsList9.count : 0);
     }
     return 0;
 }
