@@ -143,6 +143,8 @@ let package = Package(
                 .headerSearchPath("Classes/Views/DebuggerButton"),
                 .headerSearchPath("Classes/Views/DebuggerCell"),
                 .headerSearchPath("Classes/Views/DeviceInfoCell"),
+                .headerSearchPath("Classes/Views/DevEUICell"),
+                .headerSearchPath("Classes/Views/LoRaSettingAccountCell"),
                 .headerSearchPath("Classes/Views/FilterCell/FilterBeaconCell"),
                 .headerSearchPath("Classes/Views/FilterCell/FilterByRawDataCell"),
                 .headerSearchPath("Classes/Views/FilterCell/FilterEditSectionHeaderView"),
