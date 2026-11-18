@@ -1,6 +1,15 @@
 {
-  "originHash" : "131442188fb7d4e40a68efd00d0622a3773b16ff5e5fa6de318d9a31c608ec70",
+  "originHash" : "4f881c46bfbcf50a1ebc042733e6c2a833d4c2ec6206e354394c3caded5f0318",
   "pins" : [
+    {
+      "identity" : "fmdb",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ccgus/fmdb.git",
+      "state" : {
+        "revision" : "1227a3fa2b9916bfd75fe380eb45cd210e69e251",
+        "version" : "2.7.12"
+      }
+    },
     {
       "identity" : "mkbasemodulelibrary",
       "kind" : "remoteSourceControl",

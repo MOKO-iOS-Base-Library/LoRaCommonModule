@@ -15,6 +15,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/MOKO-iOS-Base-Library/MKBaseModuleLibrary.git", from: "2.2.21"),
         .package(url: "https://github.com/MOKO-iOS-Base-Library/MKCustomUIModule.git", from: "2.1.17"),
+        .package(url: "https://github.com/ccgus/fmdb.git", from: "2.7.0"),
     ],
     targets: [
         .target(
@@ -22,6 +23,7 @@ let package = Package(
             dependencies: [
                 "MKBaseModuleLibrary",
                 "MKCustomUIModule",
+                .product(name: "FMDB", package: "fmdb"),
             ],
             path: "MKLoRaCommonModule",
             sources: ["Classes"],
@@ -30,6 +32,8 @@ let package = Package(
             cSettings: [
                 .headerSearchPath("Classes"),
                 .headerSearchPath("Classes/Common/Protocol"),
+                .headerSearchPath("Classes/Database/LogDatabase"),
+                .headerSearchPath("Classes/Database/SyncDatabase"),
                 .headerSearchPath("Classes/Models/ScanTimePoint"),
                 .headerSearchPath("Classes/Pages/AboutPage/Controller"),
                 .headerSearchPath("Classes/Pages/AboutPage/Protocol"),
