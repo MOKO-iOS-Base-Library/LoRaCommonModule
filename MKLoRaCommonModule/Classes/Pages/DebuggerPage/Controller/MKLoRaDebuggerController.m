@@ -57,6 +57,8 @@ MKLoRaDebuggerCellDelegate>
 /// 用户是否是点击了返回按钮
 @property (nonatomic, assign)BOOL leftAction;
 
+- (void)postNotificationWithName:(NSString *)name;
+
 @end
 
 @implementation MKLoRaDebuggerController
@@ -64,6 +66,9 @@ MKLoRaDebuggerCellDelegate>
 - (void)dealloc {
     NSLog(@"MKLoRaDebuggerController销毁");
     [[NSNotificationCenter defaultCenter] postNotificationName:mk_loraModule_common_stopDebuggerMode object:nil];
+    if ([self.protocol respondsToSelector:@selector(debuggerModeStopNotificationName)]) {
+        [self postNotificationWithName:[self.protocol debuggerModeStopNotificationName]];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -84,10 +89,22 @@ MKLoRaDebuggerCellDelegate>
     [self readDataFromLocal];
     //进入debugger模式之后，即使设备断开连接，也要停留在当前页面
     [[NSNotificationCenter defaultCenter] postNotificationName:mk_loraModule_common_startDebuggerMode object:nil];
+    if ([self.protocol respondsToSelector:@selector(debuggerModeStartNotificationName)]) {
+        [self postNotificationWithName:[self.protocol debuggerModeStartNotificationName]];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(deviceDisconnect)
                                                  name:mk_loraModule_common_peripheralConnectStateChangedNotification
                                                object:nil];
+    if ([self.protocol respondsToSelector:@selector(peripheralConnectStateChangedNotificationName)]) {
+        NSString *notificationName = [self.protocol peripheralConnectStateChangedNotificationName];
+        if (ValidStr(notificationName)) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(deviceDisconnect)
+                                                         name:notificationName
+                                                       object:nil];
+        }
+    }
 }
 
 #pragma mark - super method
@@ -95,6 +112,9 @@ MKLoRaDebuggerCellDelegate>
     if (!self.protocol.isDeviceConnected) {
         //当前设备已经断开连接，则返回扫描页面
         [[NSNotificationCenter defaultCenter] postNotificationName:mk_loraModule_common_popToRootViewControllerNotification object:nil];
+        if ([self.protocol respondsToSelector:@selector(popToRootViewControllerNotificationName)]) {
+            [self postNotificationWithName:[self.protocol popToRootViewControllerNotificationName]];
+        }
         return;
     }
     //当前设备正常连接，返回上一级页面
@@ -274,6 +294,13 @@ MKLoRaDebuggerCellDelegate>
 }
 
 #pragma mark - private method
+- (void)postNotificationWithName:(NSString *)name {
+    if (!ValidStr(name)) {
+        return;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:name object:nil];
+}
+
 - (void)readDataFromLocal {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
@@ -408,6 +435,16 @@ MKLoRaDebuggerCellDelegate>
 }
 
 #pragma mark - getter
+- (NSString *)macAddress {
+    return self.protocol.macAddress;
+}
+
+- (void)setMacAddress:(NSString *)macAddress {
+    if ([self.protocol respondsToSelector:@selector(setMacAddress:)]) {
+        [(id)self.protocol setMacAddress:macAddress];
+    }
+}
+
 - (MKBaseTableView *)tableView {
     if (!_tableView) {
         _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];

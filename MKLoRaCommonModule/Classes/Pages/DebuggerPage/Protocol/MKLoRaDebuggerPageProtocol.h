@@ -33,6 +33,18 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (NSString *)currentFirmwareLabel;
 
+/// 进入 Debugger 模式时需要发送的模块通知名（可选，用于 TabBar 等）
+- (NSString *)debuggerModeStartNotificationName;
+
+/// 退出 Debugger 模式时需要发送的模块通知名（可选）
+- (NSString *)debuggerModeStopNotificationName;
+
+/// 设备断开连接时需要发送的返回根页面通知名（可选）
+- (NSString *)popToRootViewControllerNotificationName;
+
+/// 模块自身的设备连接状态改变通知名（可选）
+- (NSString *)peripheralConnectStateChangedNotificationName;
+
 @end
 
 NS_ASSUME_NONNULL_END
