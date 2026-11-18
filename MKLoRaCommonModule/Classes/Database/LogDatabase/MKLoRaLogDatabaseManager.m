@@ -14,24 +14,17 @@
 
 @implementation MKLoRaLogDatabaseManager
 
-+ (NSString *)databaseName {
-    return @"MKLoRaLogDB";
-}
-
-+ (NSString *)tableName {
-    return @"MKLoRaLogDataTable";
-}
-
 + (void)insertLogDatas:(NSArray <NSDictionary *>*)logList
             macAddress:(NSString *)macAddress
+          databaseName:(NSString *)databaseName
+             tableName:(NSString *)tableName
               sucBlock:(void (^)(void))sucBlock
            failedBlock:(void (^)(NSError *error))failedBlock {
     if (!logList) {
         [self operationInsertFailedBlock:failedBlock];
         return ;
     }
-    NSString *dbPath = kFilePath([self databaseName]);
-    NSString *tableName = [self tableName];
+    NSString *dbPath = kFilePath(databaseName);
     FMDatabase* db = [FMDatabase databaseWithPath:dbPath];
     if (![db open]) {
         [self operationInsertFailedBlock:failedBlock];
@@ -70,10 +63,11 @@
 }
 
 + (void)readLocalLogsWithMacAddress:(NSString *)macAddress
+                       databaseName:(NSString *)databaseName
+                          tableName:(NSString *)tableName
                            sucBlock:(void (^)(NSArray <NSDictionary *>*logList))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock {
-    NSString *dbPath = kFilePath([self databaseName]);
-    NSString *tableName = [self tableName];
+    NSString *dbPath = kFilePath(databaseName);
     FMDatabase* db = [FMDatabase databaseWithPath:dbPath];
     if (![db open]) {
         [self operationGetDataFailedBlock:failedBlock];
@@ -101,10 +95,11 @@
 }
 
 + (void)deleteDatasWithMacAddress:(NSString *)macAddress
+                     databaseName:(NSString *)databaseName
+                        tableName:(NSString *)tableName
                          sucBlock:(void (^)(void))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock {
-    NSString *dbPath = kFilePath([self databaseName]);
-    NSString *tableName = [self tableName];
+    NSString *dbPath = kFilePath(databaseName);
     [[FMDatabaseQueue databaseQueueWithPath:dbPath] inDatabase:^(FMDatabase *db) {
         BOOL result = [db executeUpdate:[NSString stringWithFormat:@"DELETE FROM %@ where macAddress = ?", tableName], macAddress];
         if (!result) {

@@ -10,25 +10,42 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 同步数据数据库管理，各模块通过子类重写 databaseName / tableName 指定自己的库表名
+/// 同步数据数据库管理
 @interface MKLoRaSyncDatabaseManager : NSObject
 
-/// 数据库名称，默认 MKLoRaSyncDB
-+ (NSString *)databaseName;
+/// 初始化数据库
+/// @param databaseName 数据库名称
+/// @param tableName 数据表名称
++ (BOOL)initDataBaseWithDatabaseName:(NSString *)databaseName
+                           tableName:(NSString *)tableName;
 
-/// 数据表名称，默认 MKLoRaSyncDataTable
-+ (NSString *)tableName;
-
-+ (BOOL)initDataBase;
-
+/// 插入同步数据
+/// @param dataList 数据列表
+/// @param databaseName 数据库名称
+/// @param tableName 数据表名称
+/// @param sucBlock 成功回调
+/// @param failedBlock 失败回调
 + (void)insertDataList:(NSArray <NSDictionary *>*)dataList
+          databaseName:(NSString *)databaseName
+             tableName:(NSString *)tableName
               sucBlock:(void (^)(void))sucBlock
            failedBlock:(void (^)(NSError *error))failedBlock;
 
-+ (void)readDataListWithSucBlock:(void (^)(NSArray <NSDictionary *>*dataList))sucBlock
-                     failedBlock:(void (^)(NSError *error))failedBlock;
+/// 读取同步数据
+/// @param databaseName 数据库名称
+/// @param tableName 数据表名称
+/// @param sucBlock 成功回调
+/// @param failedBlock 失败回调
++ (void)readDataListWithDatabaseName:(NSString *)databaseName
+                           tableName:(NSString *)tableName
+                            sucBlock:(void (^)(NSArray <NSDictionary *>*dataList))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock;
 
-+ (BOOL)clearDataTable;
+/// 清空数据表
+/// @param databaseName 数据库名称
+/// @param tableName 数据表名称
++ (BOOL)clearDataTableWithDatabaseName:(NSString *)databaseName
+                             tableName:(NSString *)tableName;
 
 @end
 

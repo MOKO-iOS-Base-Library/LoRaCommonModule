@@ -10,30 +10,44 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 设备日志数据库管理，各模块通过子类重写 databaseName / tableName 指定自己的库表名
+/// 设备日志数据库管理
 @interface MKLoRaLogDatabaseManager : NSObject
-
-/// 数据库名称，默认 MKLoRaLogDB
-+ (NSString *)databaseName;
-
-/// 日志表名称，默认 MKLoRaLogDataTable
-+ (NSString *)tableName;
 
 /// 插入设备日志
 /// @param logList 日志列表
 /// @param macAddress 设备的mac地址，作为数据库前缀名字区分不同设备
+/// @param databaseName 数据库名称
+/// @param tableName 日志表名称
 /// @param sucBlock 成功回调
 /// @param failedBlock 失败回调
 + (void)insertLogDatas:(NSArray <NSDictionary *>*)logList
             macAddress:(NSString *)macAddress
+          databaseName:(NSString *)databaseName
+             tableName:(NSString *)tableName
               sucBlock:(void (^)(void))sucBlock
            failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// 读取本地日志
+/// @param macAddress 设备的mac地址
+/// @param databaseName 数据库名称
+/// @param tableName 日志表名称
+/// @param sucBlock 成功回调
+/// @param failedBlock 失败回调
 + (void)readLocalLogsWithMacAddress:(NSString *)macAddress
+                       databaseName:(NSString *)databaseName
+                          tableName:(NSString *)tableName
                            sucBlock:(void (^)(NSArray <NSDictionary *>*logList))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// 删除本地日志
+/// @param macAddress 设备的mac地址
+/// @param databaseName 数据库名称
+/// @param tableName 日志表名称
+/// @param sucBlock 成功回调
+/// @param failedBlock 失败回调
 + (void)deleteDatasWithMacAddress:(NSString *)macAddress
+                     databaseName:(NSString *)databaseName
+                        tableName:(NSString *)tableName
                          sucBlock:(void (^)(void))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock;
 

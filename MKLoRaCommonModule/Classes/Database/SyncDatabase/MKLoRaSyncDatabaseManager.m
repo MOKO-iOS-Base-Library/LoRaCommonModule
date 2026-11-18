@@ -14,20 +14,13 @@
 
 @implementation MKLoRaSyncDatabaseManager
 
-+ (NSString *)databaseName {
-    return @"MKLoRaSyncDB";
-}
-
-+ (NSString *)tableName {
-    return @"MKLoRaSyncDataTable";
-}
-
-+ (BOOL)initDataBase {
-    FMDatabase* db = [FMDatabase databaseWithPath:kFilePath([self databaseName])];
++ (BOOL)initDataBaseWithDatabaseName:(NSString *)databaseName
+                           tableName:(NSString *)tableName {
+    FMDatabase* db = [FMDatabase databaseWithPath:kFilePath(databaseName)];
     if (![db open]) {
         return NO;
     }
-    NSString *sqlCreateTable = [NSString stringWithFormat:@"create table if not exists %@ (date text,rawData text)", [self tableName]];
+    NSString *sqlCreateTable = [NSString stringWithFormat:@"create table if not exists %@ (date text,rawData text)", tableName];
     BOOL resCreate = [db executeUpdate:sqlCreateTable];
     if (!resCreate) {
         [db close];
@@ -37,14 +30,15 @@
 }
 
 + (void)insertDataList:(NSArray <NSDictionary *>*)dataList
+          databaseName:(NSString *)databaseName
+             tableName:(NSString *)tableName
               sucBlock:(void (^)(void))sucBlock
            failedBlock:(void (^)(NSError *error))failedBlock {
     if (!dataList) {
         [self operationInsertFailedBlock:failedBlock];
         return ;
     }
-    NSString *dbPath = kFilePath([self databaseName]);
-    NSString *tableName = [self tableName];
+    NSString *dbPath = kFilePath(databaseName);
     FMDatabase* db = [FMDatabase databaseWithPath:dbPath];
     if (![db open]) {
         [self operationInsertFailedBlock:failedBlock];
@@ -70,10 +64,11 @@
     }];
 }
 
-+ (void)readDataListWithSucBlock:(void (^)(NSArray <NSDictionary *>*dataList))sucBlock
-                     failedBlock:(void (^)(NSError *error))failedBlock {
-    NSString *dbPath = kFilePath([self databaseName]);
-    NSString *tableName = [self tableName];
++ (void)readDataListWithDatabaseName:(NSString *)databaseName
+                           tableName:(NSString *)tableName
+                            sucBlock:(void (^)(NSArray <NSDictionary *>*dataList))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *dbPath = kFilePath(databaseName);
     FMDatabase* db = [FMDatabase databaseWithPath:dbPath];
     if (![db open]) {
         [self operationGetDataFailedBlock:failedBlock];
@@ -98,10 +93,11 @@
     }];
 }
 
-+ (BOOL)clearDataTable {
-    FMDatabase* db = [FMDatabase databaseWithPath:kFilePath([self databaseName])];
++ (BOOL)clearDataTableWithDatabaseName:(NSString *)databaseName
+                             tableName:(NSString *)tableName {
+    FMDatabase* db = [FMDatabase databaseWithPath:kFilePath(databaseName)];
     if ([db open]) {
-        BOOL success = [db executeUpdate:[NSString stringWithFormat:@"DELETE FROM %@", [self tableName]]];
+        BOOL success = [db executeUpdate:[NSString stringWithFormat:@"DELETE FROM %@", tableName]];
         [db close];
         return success;
     }
