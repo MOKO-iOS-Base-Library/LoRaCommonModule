@@ -1083,6 +1083,9 @@ MKLoRaSettingAccountCellDelegate>
     retransmissionModel.index = 7;
     retransmissionModel.msg = @"Max retransmission times";
     retransmissionModel.dataList = @[@"0",@"1",@"2",@"3"];
+    if ([self.protocol respondsToSelector:@selector(retransmissionValueList)]) {
+        retransmissionModel.dataList = [self.protocol retransmissionValueList];
+    }
     retransmissionModel.buttonLabelFont = MKFont(13.f);
     retransmissionModel.dataListIndex = self.protocol.retransmission;
     [self.optionsList8 addObject:retransmissionModel];

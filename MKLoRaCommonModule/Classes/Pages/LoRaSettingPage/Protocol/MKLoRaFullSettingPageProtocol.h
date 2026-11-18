@@ -53,6 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDeviceToCloudWithSucBlock:(void (^)(void))sucBlock
                          failedBlock:(void (^)(NSError *error))failedBlock;
 
+@optional
+
+/// 确认帧最大重传次数选项，默认 0~3
+- (NSArray <NSString *>*)retransmissionValueList;
+
 @end
 
 NS_ASSUME_NONNULL_END
