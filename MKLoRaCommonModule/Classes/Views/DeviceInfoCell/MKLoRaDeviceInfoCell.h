@@ -2,7 +2,7 @@
 //  MKLoRaDeviceInfoCell.h
 //  MKLoRaCommonModule
 //
-//  Created by aa on 2023/8/1.
+//  Created by aa on 2026/11/18.
 //  Copyright © 2023 aadyx2007@163.com. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  MKLoRaLogDatabaseManager.h
 //  MKLoRaCommonModule
 //
-//  Created by aa on 2023/6/29.
+//  Created by aa on 2026/11/18.
 //  Copyright © 2023 aadyx2007@163.com. All rights reserved.
 //
 

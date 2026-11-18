@@ -2,7 +2,7 @@
 //  MKLoRaSettingController.m
 //  MKLoRaCommonModule
 //
-//  Created by aa on 2024/7/2.
+//  Created by aa on 2026/11/18.
 //
 
 #import "MKLoRaSettingController.h"
