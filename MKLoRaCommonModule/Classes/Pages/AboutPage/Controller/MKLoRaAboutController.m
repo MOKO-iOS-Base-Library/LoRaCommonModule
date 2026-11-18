@@ -2,7 +2,7 @@
 //  MKLoRaAboutController.m
 //  MKLoRaCommonModule
 //
-//  Created by aa on 2025/xx/xx.
+//  Created by aa on 2026/11/18.
 //
 
 #import "MKLoRaAboutController.h"
@@ -97,6 +97,8 @@
     }
     bottomIcon.image = bottomImage ?: [self bottomIconImage];
     [self.view addSubview:bottomIcon];
+    //底部装饰图覆盖在网站链接之上，需将链接置于最上层，否则点击无响应
+    [self.view bringSubviewToFront:companyNetLabel];
     
     [aboutIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view.mas_centerX);

@@ -2,7 +2,7 @@
 //  MKLoRaTimeSegmentedCell.h
 //  MKLoRaCommonModule_Example
 //
-//  Created by aa on 2024/11/21.
+//  Created by aa on 2026/11/18.
 //  Copyright © 2024 lovexiaoxia. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  MKLoRaAlarmFunctionPageProtocol.h
 //  MKLoRaCommonModule
 //
-//  Created by aa on 2025/xx/xx.
+//  Created by aa on 2026/11/18.
 //
 
 #import <Foundation/Foundation.h>

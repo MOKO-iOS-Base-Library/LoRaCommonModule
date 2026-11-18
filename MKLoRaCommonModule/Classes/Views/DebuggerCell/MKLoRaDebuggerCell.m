@@ -2,7 +2,7 @@
 //  MKLoRaDebuggerCell.m
 //  MKLoRaCommonModule
 //
-//  Created by aa on 2026/xx/xx.
+//  Created by aa on 2026/11/18.
 //
 
 #import "MKLoRaDebuggerCell.h"

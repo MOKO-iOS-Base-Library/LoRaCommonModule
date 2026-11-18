@@ -2,7 +2,7 @@
 //  MKLoRaDeviceModePageBaseProtocol.h
 //  MKLoRaCommonModule
 //
-//  Created by Trae on 2026/11/17.
+//  Created by Trae on 2026/11/18.
 //
 
 #import <Foundation/Foundation.h>
