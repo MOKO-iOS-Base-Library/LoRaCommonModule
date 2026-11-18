@@ -16,6 +16,8 @@ let package = Package(
         .package(url: "https://github.com/MOKO-iOS-Base-Library/MKBaseModuleLibrary.git", from: "2.2.21"),
         .package(url: "https://github.com/MOKO-iOS-Base-Library/MKCustomUIModule.git", from: "2.1.17"),
         .package(url: "https://github.com/ccgus/fmdb.git", from: "2.7.0"),
+        .package(url: "https://github.com/nordicsemi/IOS-DFU-Library.git", from: "4.17.0"),
+        .package(url: "https://github.com/MOKO-iOS-Base-Library/MKDFUWapper.git", from: "1.0.6"),
     ],
     targets: [
         .target(
@@ -24,6 +26,8 @@ let package = Package(
                 "MKBaseModuleLibrary",
                 "MKCustomUIModule",
                 .product(name: "FMDB", package: "fmdb"),
+                .product(name: "NordicDFU", package: "ios-dfu-library"),
+                "MKDFUWapper",
             ],
             path: "MKLoRaCommonModule",
             sources: ["Classes"],
@@ -131,6 +135,9 @@ let package = Package(
                 .headerSearchPath("Classes/Pages/TimingReportPage/Protocol"),
                 .headerSearchPath("Classes/Pages/TimingReportSettingPage/Controller"),
                 .headerSearchPath("Classes/Pages/TimingReportSettingPage/Protocol"),
+                .headerSearchPath("Classes/Pages/UpdatePage/Controller"),
+                .headerSearchPath("Classes/Pages/UpdatePage/Model"),
+                .headerSearchPath("Classes/Pages/UpdatePage/Protocol"),
                 .headerSearchPath("Classes/Pages/VibrationPage/Controller"),
                 .headerSearchPath("Classes/Pages/VibrationPage/Protocol"),
                 .headerSearchPath("Classes/Views/DebuggerButton"),
@@ -149,6 +156,7 @@ let package = Package(
             ],
             linkerSettings: [
                 .linkedFramework("UIKit"),
+                .linkedFramework("CoreBluetooth"),
             ]
         )
     ]
