@@ -58,6 +58,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否显示 Transmissions，默认显示
 @property (nonatomic, assign, readonly)BOOL supportTransmissions;
 
+/// 是否使用独立型设置页布局，默认使用全功能设置页布局
+@property (nonatomic, assign, readonly)BOOL supportStandaloneSetting;
+
+/// 独立型设置页单值 DR
+@property (nonatomic, assign)NSInteger DR;
+
+/// 独立型设置页 UplinkDellTime，0/1
+@property (nonatomic, assign)NSInteger dellTime;
+
+/// 独立型设置页 CH 索引，默认按照 CH 值在列表中查找
+- (NSInteger)standaloneCHLIndex;
+- (NSInteger)standaloneCHHIndex;
+
 /// 确认帧最大重传次数选项，默认 0~3
 - (NSArray <NSString *>*)retransmissionValueList;
 

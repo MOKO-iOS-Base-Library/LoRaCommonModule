@@ -135,7 +135,7 @@ MKLoRaSettingAccountCellDelegate>
 
 #pragma mark - super method
 - (void)rightButtonMethod {
-    if (self.protocol.platform == 0) {
+    if ([self isStandaloneSetting] || !self.protocol.supportServerPlatform || self.protocol.platform == 0) {
         //不需要跟服务器交互
         [self saveDataToDevice];
         return;
@@ -156,6 +156,9 @@ MKLoRaSettingAccountCellDelegate>
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isStandaloneSetting]) {
+        return [self standaloneHeightForRowAtIndexPath:indexPath];
+    }
     if (indexPath.section == 8) {
         //LoRaWAN Server Platform
         MKTextFieldCellModel *cellModel = self.section7List[indexPath.row];
@@ -190,6 +193,9 @@ MKLoRaSettingAccountCellDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([self isStandaloneSetting]) {
+        return 0.f;
+    }
     if (section == 0 && (self.protocol.supportServerPlatform && self.protocol.platform == 0)) {
         //LoRaWAN Mode
         return 10.f;
@@ -241,6 +247,9 @@ MKLoRaSettingAccountCellDelegate>
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self isStandaloneSetting]) {
+        return [self standaloneNumberOfRowsInSection:section];
+    }
     if (section == 0) {
         return (self.protocol.supportServerPlatform && self.protocol.platform == 0) ? self.section0List.count : 0;
     }
@@ -361,6 +370,9 @@ MKLoRaSettingAccountCellDelegate>
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isStandaloneSetting]) {
+        return [self standaloneCellForRowAtIndexPath:indexPath tableView:tableView];
+    }
     if (indexPath.section == 0) {
         //LoRaWAN Mode
         MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
@@ -514,6 +526,10 @@ MKLoRaSettingAccountCellDelegate>
 - (void)mk_loraTextButtonCellSelected:(NSInteger)index
                         dataListIndex:(NSInteger)dataListIndex
                                 value:(NSString *)value {
+    if ([self isStandaloneSetting]) {
+        [self standaloneTextButtonCellSelected:index dataListIndex:dataListIndex];
+        return;
+    }
     if (index == 0) {
         //modem
         self.protocol.modem = (dataListIndex + 1);
@@ -657,6 +673,10 @@ MKLoRaSettingAccountCellDelegate>
 
 #pragma mark - mk_textSwitchCellDelegate
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
+    if ([self isStandaloneSetting]) {
+        [self standaloneSwitchCellStatusChanged:isOn index:index];
+        return;
+    }
     if (index == 0) {
         //Duty-cycle
         self.protocol.dutyIsOn = isOn;
@@ -760,6 +780,9 @@ MKLoRaSettingAccountCellDelegate>
 
     NSInteger advancedSections = ([self.protocol respondsToSelector:@selector(supportEU868SingleChannel)] ? 21 : 19);
     NSInteger sections = (self.protocol.advancedStatus ? advancedSections : 10);
+    if ([self isStandaloneSetting]) {
+        sections = [self standaloneSectionCount];
+    }
     for (NSInteger i = 0; i < sections; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
@@ -822,8 +845,331 @@ MKLoRaSettingAccountCellDelegate>
     }];
 }
 
+#pragma mark - standalone setting
+- (BOOL)isStandaloneSetting {
+    return ([self.protocol respondsToSelector:@selector(supportStandaloneSetting)]
+            && self.protocol.supportStandaloneSetting);
+}
+
+- (NSInteger)standaloneSectionCount {
+    if (!self.protocol.needAdvanceSetting) {
+        return 3;
+    }
+    return (self.protocol.advancedStatus ? 9 : 4);
+}
+
+- (CGFloat)standaloneHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 2) {
+        return 44.f;
+    }
+    if (indexPath.section == 3 || indexPath.section == 4) {
+        return 80.f;
+    }
+    if (indexPath.section == 5) {
+        MKTextSwitchCellModel *cellModel = self.optionsList2[indexPath.row];
+        return [cellModel cellHeightWithContentWidth:kViewWidth];
+    }
+    if (indexPath.section == 7) {
+        MKTextButtonCellModel *cellModel = self.optionsList4[indexPath.row];
+        return [cellModel cellHeightWithContentWidth:kViewWidth];
+    }
+    if (indexPath.section == 8) {
+        MKTextButtonCellModel *cellModel = self.optionsList5[indexPath.row];
+        return [cellModel cellHeightWithContentWidth:kViewWidth];
+    }
+    return 44.f;
+}
+
+- (NSInteger)standaloneNumberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return self.section0List.count;
+    }
+    if (section == 1) {
+        if (self.protocol.modem == 1) {
+            return self.abpDataList.count;
+        }
+        if (self.protocol.modem == 2) {
+            return self.otaaDataList.count;
+        }
+    }
+    if (section == 2) {
+        return self.section2List.count;
+    }
+    if (section == 3) {
+        return self.optionsList0.count;
+    }
+    if (!self.protocol.advancedStatus) {
+        return 0;
+    }
+    if (section == 4) {
+        if (self.protocol.region == 1 || self.protocol.region == 2 || self.protocol.region == 8) {
+            return self.optionsList1.count;
+        }
+        return 0;
+    }
+    if (section == 5) {
+        if (self.protocol.region == 3 || self.protocol.region == 4
+            || self.protocol.region == 5 || self.protocol.region == 9) {
+            return self.optionsList2.count;
+        }
+        return 0;
+    }
+    if (section == 6) {
+        return self.optionsList3.count;
+    }
+    if (section == 7) {
+        return self.optionsList4.count;
+    }
+    if (section == 8 && (self.protocol.region == 0 || self.protocol.region == 1)) {
+        return self.optionsList5.count;
+    }
+    return 0;
+}
+
+- (UITableViewCell *)standaloneCellForRowAtIndexPath:(NSIndexPath *)indexPath
+                                            tableView:(UITableView *)tableView {
+    if (indexPath.section == 1) {
+        MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
+        MKTextFieldCellModel *model = (self.protocol.modem == 1) ? self.abpDataList[indexPath.row] : self.otaaDataList[indexPath.row];
+        cell.dataModel = model;
+        cell.delegate = self;
+        return cell;
+    }
+    if (indexPath.section == 3) {
+        MKLoRaAdvancedSettingCell *cell = [MKLoRaAdvancedSettingCell initCellWithTableView:tableView];
+        cell.dataModel = self.optionsList0[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
+    if (indexPath.section == 4) {
+        MKLoRaSettingCHCell *cell = [MKLoRaSettingCHCell initCellWithTableView:tableView];
+        cell.dataModel = self.optionsList1[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
+    if (indexPath.section == 5 || indexPath.section == 6) {
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
+        cell.dataModel = (indexPath.section == 5) ? self.optionsList2[indexPath.row] : self.optionsList3[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
+    MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
+    if (indexPath.section == 0) {
+        cell.dataModel = self.section0List[indexPath.row];
+    }else if (indexPath.section == 2) {
+        cell.dataModel = self.section2List[indexPath.row];
+    }else if (indexPath.section == 7) {
+        cell.dataModel = self.optionsList4[indexPath.row];
+    }else {
+        cell.dataModel = self.optionsList5[indexPath.row];
+    }
+    cell.delegate = self;
+    return cell;
+}
+
+- (void)standaloneTextButtonCellSelected:(NSInteger)index dataListIndex:(NSInteger)dataListIndex {
+    if (index == 0) {
+        self.protocol.modem = (dataListIndex + 1);
+        MKTextButtonCellModel *modeModel = self.section0List[0];
+        modeModel.dataListIndex = dataListIndex;
+        [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
+        return;
+    }
+    if (index == 1) {
+        self.protocol.region = dataListIndex;
+        MKTextButtonCellModel *regionModel = self.section2List[0];
+        regionModel.dataListIndex = dataListIndex;
+        if (self.protocol.needAdvanceSetting) {
+            [self standaloneRegionValueChanged];
+        }
+        return;
+    }
+    if (index == 2) {
+        self.protocol.messageType = dataListIndex;
+        MKTextButtonCellModel *messageModel = self.section2List[1];
+        messageModel.dataListIndex = dataListIndex;
+        return;
+    }
+    if (index == 3) {
+        self.protocol.classType = dataListIndex;
+        MKTextButtonCellModel *classModel = self.section2List[2];
+        classModel.dataListIndex = dataListIndex;
+        return;
+    }
+    if (index == 4) {
+        self.protocol.DR = dataListIndex;
+        MKTextButtonCellModel *drModel = self.optionsList4[0];
+        drModel.dataListIndex = dataListIndex;
+        return;
+    }
+    if (index == 5) {
+        self.protocol.dellTime = dataListIndex;
+        MKTextButtonCellModel *dellTimeModel = self.optionsList5[0];
+        dellTimeModel.dataListIndex = dataListIndex;
+    }
+}
+
+- (void)standaloneSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
+    if (index == 0) {
+        self.protocol.dutyIsOn = isOn;
+        MKTextSwitchCellModel *dutyModel = self.optionsList2[0];
+        dutyModel.isOn = isOn;
+        return;
+    }
+    if (index == 1) {
+        self.protocol.adrIsOn = isOn;
+        MKTextSwitchCellModel *adrModel = self.optionsList3[0];
+        adrModel.isOn = isOn;
+        MKTextButtonCellModel *drModel = self.optionsList4[0];
+        drModel.buttonEnable = !isOn;
+        [self.tableView mk_reloadRow:0
+                           inSection:7
+                    withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
+- (void)standaloneRegionValueChanged {
+    [self.protocol configAdvanceSettingDefaultParams];
+    MKLoRaSettingCHCellModel *cellModel = self.optionsList1[0];
+    cellModel.chLowValueList = [self.protocol CHLValueList];
+    cellModel.chLowIndex = [self currentStandaloneCHLIndex];
+    cellModel.chHighValueList = [self.protocol CHHValueList];
+    cellModel.chHighIndex = [self currentStandaloneCHHIndex];
+
+    MKTextSwitchCellModel *dutyModel = self.optionsList2[0];
+    dutyModel.isOn = self.protocol.dutyIsOn;
+
+    MKTextSwitchCellModel *adrModel = self.optionsList3[0];
+    adrModel.isOn = self.protocol.adrIsOn;
+
+    MKTextButtonCellModel *drModel = self.optionsList4[0];
+    drModel.dataList = [self.protocol DRValueList];
+    drModel.buttonEnable = !self.protocol.adrIsOn;
+    drModel.dataListIndex = self.protocol.DR;
+
+    MKTextButtonCellModel *dellTimeModel = self.optionsList5[0];
+    dellTimeModel.dataListIndex = self.protocol.dellTime;
+    [self.tableView reloadData];
+}
+
+- (NSInteger)currentStandaloneCHLIndex {
+    if ([self.protocol respondsToSelector:@selector(standaloneCHLIndex)]) {
+        return [self.protocol standaloneCHLIndex];
+    }
+    return [self getCurrentCHLIndex];
+}
+
+- (NSInteger)currentStandaloneCHHIndex {
+    if ([self.protocol respondsToSelector:@selector(standaloneCHHIndex)]) {
+        return [self.protocol standaloneCHHIndex];
+    }
+    return [self getCurrentCHHIndex];
+}
+
+- (void)loadStandaloneSectionDatas {
+    [self loadSection0Datas];
+    [self loadABPDatas];
+    [self loadOTAADatas];
+    [self loadStandaloneSection2Datas];
+    if (self.protocol.needAdvanceSetting) {
+        [self loadOptionsList0];
+        [self loadStandaloneOptionsList1];
+        [self loadOptionsList2];
+        [self loadStandaloneOptionsList3];
+        [self loadStandaloneOptionsList4];
+        [self loadStandaloneOptionsList5];
+    }
+    NSInteger sections = [self standaloneSectionCount];
+    for (NSInteger i = 0; i < sections; i ++) {
+        MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
+        [self.headerList addObject:headerModel];
+    }
+    [self.tableView reloadData];
+}
+
+- (void)loadStandaloneSection2Datas {
+    MKTextButtonCellModel *regionModel = [[MKTextButtonCellModel alloc] init];
+    regionModel.index = 1;
+    regionModel.msg = @"Region/Subnet";
+    regionModel.dataList = [self.protocol RegionList];
+    regionModel.buttonLabelFont = MKFont(13.f);
+    regionModel.dataListIndex = self.protocol.region;
+    [self.section2List addObject:regionModel];
+
+    if (self.protocol.supportMessageType) {
+        MKTextButtonCellModel *messageModel = [[MKTextButtonCellModel alloc] init];
+        messageModel.index = 2;
+        messageModel.msg = @"Message Type";
+        messageModel.dataList = @[@"Unconfirmed",@"Confirmed"];
+        messageModel.buttonLabelFont = MKFont(13.f);
+        messageModel.dataListIndex = self.protocol.messageType;
+        [self.section2List addObject:messageModel];
+    }
+
+    if (self.protocol.supportClassType) {
+        MKTextButtonCellModel *classModel = [[MKTextButtonCellModel alloc] init];
+        classModel.index = 3;
+        classModel.msg = @"Device Type";
+        classModel.dataList = @[@"ClassA",@"ClassC"];
+        classModel.buttonLabelFont = MKFont(13.f);
+        classModel.dataListIndex = self.protocol.classType;
+        [self.section2List addObject:classModel];
+    }
+}
+
+- (void)loadStandaloneOptionsList1 {
+    MKLoRaSettingCHCellModel *cellModel = [[MKLoRaSettingCHCellModel alloc] init];
+    cellModel.index = 0;
+    cellModel.msg = @"CH";
+    cellModel.noteMsg = @"*It is only used for US915,AU915,CN470";
+    if ([self.protocol respondsToSelector:@selector(CHNoteMsg)]) {
+        cellModel.noteMsg = [self.protocol CHNoteMsg];
+    }
+    cellModel.noteMsgColor = RGBCOLOR(102, 102, 102);
+    cellModel.chLowValueList = [self.protocol CHLValueList];
+    cellModel.chLowIndex = [self currentStandaloneCHLIndex];
+    cellModel.chHighValueList = [self.protocol CHHValueList];
+    cellModel.chHighIndex = [self currentStandaloneCHHIndex];
+    [self.optionsList1 addObject:cellModel];
+}
+
+- (void)loadStandaloneOptionsList3 {
+    MKTextSwitchCellModel *adrModel = [[MKTextSwitchCellModel alloc] init];
+    adrModel.index = 1;
+    adrModel.msg = @"ADR";
+    adrModel.isOn = self.protocol.adrIsOn;
+    [self.optionsList3 addObject:adrModel];
+}
+
+- (void)loadStandaloneOptionsList4 {
+    MKTextButtonCellModel *drModel = [[MKTextButtonCellModel alloc] init];
+    drModel.msg = @"DR";
+    drModel.dataList = [self.protocol DRValueList];
+    drModel.dataListIndex = self.protocol.DR;
+    drModel.buttonEnable = !self.protocol.adrIsOn;
+    drModel.index = 4;
+    drModel.noteMsg = @"*DR only can be changed after the ADR off.";
+    drModel.noteMsgColor = RGBCOLOR(102, 102, 102);
+    [self.optionsList4 addObject:drModel];
+}
+
+- (void)loadStandaloneOptionsList5 {
+    MKTextButtonCellModel *dellTimeModel = [[MKTextButtonCellModel alloc] init];
+    dellTimeModel.msg = @"UplinkDellTime";
+    dellTimeModel.dataList = @[@"0",@"1"];
+    dellTimeModel.dataListIndex = self.protocol.dellTime;
+    dellTimeModel.index = 5;
+    dellTimeModel.noteMsg = @"*It is only used for AS923 and AU915.0: Dell Time no limit,1:Dell Time 400ms.";
+    dellTimeModel.noteMsgColor = RGBCOLOR(102, 102, 102);
+    [self.optionsList5 addObject:dellTimeModel];
+}
+
 #pragma mark - private method
 - (void)regionValueChanged {
+    if ([self isStandaloneSetting]) {
+        [self standaloneRegionValueChanged];
+        return;
+    }
     [self.protocol configAdvanceSettingDefaultParams];
     //CH
     MKLoRaSettingCHCellModel *cellModel = self.optionsList1[0];
@@ -864,6 +1210,10 @@ MKLoRaSettingAccountCellDelegate>
 
 #pragma mark - loadSections
 - (void)loadSectionDatas {
+    if ([self isStandaloneSetting]) {
+        [self loadStandaloneSectionDatas];
+        return;
+    }
     [self loadLoRaDataList];
     [self loadOptionsDataList];
     //底部需要高级设置
@@ -1256,7 +1606,7 @@ MKLoRaSettingAccountCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    self.defaultTitle = @"Connection Settings";
+    self.defaultTitle = ([self isStandaloneSetting] ? @"LoRa Setting" : @"Connection Settings");
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaFullSettingController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1274,7 +1624,9 @@ MKLoRaSettingAccountCellDelegate>
         _tableView.delegate = self;
         _tableView.dataSource = self;
 
-        _tableView.backgroundColor = RGBCOLOR(242, 242, 242);
+        if (![self isStandaloneSetting]) {
+            _tableView.backgroundColor = RGBCOLOR(242, 242, 242);
+        }
     }
     return _tableView;
 }
