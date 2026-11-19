@@ -54,11 +54,17 @@ NS_ASSUME_NONNULL_BEGIN
 //EU868,RU864
 @property (nonatomic, assign)BOOL dutyIsOn;
 
+@optional
+
 /// It is only used for EU868,KR920, IN865, RU864
 /// 0~15
 @property (nonatomic, assign)NSInteger join;
 
+@required
+
 @property (nonatomic, assign)BOOL adrIsOn;
+
+@optional
 
 @property (nonatomic, assign)NSInteger DRL;
 
@@ -70,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 1~255
 @property (nonatomic, copy)NSString *ackDelay;
 
+@required
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 - (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
@@ -80,6 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSString *>*)CHLValueList;
 - (NSArray <NSString *>*)CHHValueList;
 - (NSArray <NSString *>*)DRValueList;
+
+@optional
+
 - (NSArray <NSString *>*)DRLValueList;
 - (NSArray <NSString *>*)DRHValueList;
 

@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 0:classA，1:classC
 @property (nonatomic, assign)NSInteger classType;
 
+@optional
+
 /// 0:Third Party NS，1:MOKO IoT DM
 @property (nonatomic, assign)NSInteger platform;
 
@@ -40,9 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly)BOOL isLoggedIn;
 
+@required
+
 - (NSInteger)currentRegion;
 
 - (NSArray <NSString *>*)RegionList;
+
+@optional
 
 - (void)showLoginFromViewController:(UIViewController *)viewController
                          completion:(void (^)(void))completion;
