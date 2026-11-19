@@ -1172,6 +1172,9 @@ MKLoRaSettingAccountCellDelegate>
     cellModel1.msg = @"ADR_ACK_LIMIT";
     cellModel1.textFieldType = mk_realNumberOnly;
     cellModel1.textPlaceholder = @"1-255";
+    if ([self.protocol respondsToSelector:@selector(ACKLimitPlaceholder)]) {
+        cellModel1.textPlaceholder = [self.protocol ACKLimitPlaceholder];
+    }
     cellModel1.maxLength = 3;
     cellModel1.textFieldValue = self.protocol.ackLimit;
     [self.optionsList9 addObject:cellModel1];
@@ -1181,6 +1184,9 @@ MKLoRaSettingAccountCellDelegate>
     cellModel2.msg = @"ADR_ACK_DELAY";
     cellModel2.textFieldType = mk_realNumberOnly;
     cellModel2.textPlaceholder = @"1-255";
+    if ([self.protocol respondsToSelector:@selector(ACKDelayPlaceholder)]) {
+        cellModel2.textPlaceholder = [self.protocol ACKDelayPlaceholder];
+    }
     cellModel2.maxLength = 3;
     cellModel2.textFieldValue = self.protocol.ackDelay;
     [self.optionsList9 addObject:cellModel2];

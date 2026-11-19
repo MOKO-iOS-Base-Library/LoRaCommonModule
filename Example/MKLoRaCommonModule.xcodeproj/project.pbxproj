@@ -236,12 +236,7 @@ exit 0</string>
 				<string>6003F587195388D20070C39A</string>
 				<string>6003F588195388D20070C39A</string>
 				<string>802C9E79749502B93102A0EB</string>
-				<dict>
-					<key>comment</key>
-					<string>Moko deps auto-update</string>
-					<key>value</key>
-					<string>2E7568D67EEB44A09F43445B</string>
-				</dict>
+				<string>2E7568D67EEB44A09F43445B</string>
 			</array>
 			<key>buildRules</key>
 			<array/>
@@ -599,12 +594,7 @@ exit 0</string>
 				<string>6003F5AA195388D20070C39A</string>
 				<string>6003F5AB195388D20070C39A</string>
 				<string>6003F5AC195388D20070C39A</string>
-				<dict>
-					<key>comment</key>
-					<string>Moko deps auto-update</string>
-					<key>value</key>
-					<string>2E7568D67EEB44A09F43445B</string>
-				</dict>
+				<string>2E7568D67EEB44A09F43445B</string>
 			</array>
 			<key>buildRules</key>
 			<array/>

@@ -66,6 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)dutyCycleNoteMsg;
 - (NSString *)DRForJoinNoteMsg;
 
+/// ADR ACK 输入框占位文案，默认 1-255
+- (NSString *)ACKLimitPlaceholder;
+- (NSString *)ACKDelayPlaceholder;
+
 /// 当前设备是否支持 EU868 单通道，页面仅在 EU868 Region 下显示
 @property (nonatomic, assign, readonly)BOOL supportEU868SingleChannel;
 
