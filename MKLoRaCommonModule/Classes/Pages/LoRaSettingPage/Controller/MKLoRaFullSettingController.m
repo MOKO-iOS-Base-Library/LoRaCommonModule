@@ -1079,6 +1079,9 @@ MKLoRaSettingAccountCellDelegate>
     cellModel.index = 0;
     cellModel.msg = @"CH";
     cellModel.noteMsg = @"*It is only used for US915,AU915,CN470";
+    if ([self.protocol respondsToSelector:@selector(CHNoteMsg)]) {
+        cellModel.noteMsg = [self.protocol CHNoteMsg];
+    }
     cellModel.noteMsgColor = RGBCOLOR(102, 102, 102);
     cellModel.chLowValueList = [self.protocol CHLValueList];
     cellModel.chLowIndex = [self getCurrentCHLIndex];
@@ -1092,6 +1095,9 @@ MKLoRaSettingAccountCellDelegate>
     dutyModel.index = 0;
     dutyModel.msg = @"Duty-cycle";
     dutyModel.noteMsg = @"*It is only used for EU868,CN779, EU433,and RU864. Off: The uplink report interval will not be limit by region freqency. On:The uplink report interval will be limit by region freqency.";
+    if ([self.protocol respondsToSelector:@selector(dutyCycleNoteMsg)]) {
+        dutyModel.noteMsg = [self.protocol dutyCycleNoteMsg];
+    }
     dutyModel.noteMsgColor = RGBCOLOR(102, 102, 102);
     dutyModel.isOn = self.protocol.dutyIsOn;
     [self.optionsList2 addObject:dutyModel];
@@ -1105,6 +1111,9 @@ MKLoRaSettingAccountCellDelegate>
     joinModel.buttonLabelFont = MKFont(13.f);
     joinModel.dataListIndex = self.protocol.join;
     joinModel.noteMsg = @"*It is only used for CN470, CN779, EU433, EU868,KR920, IN865, RU864.";
+    if ([self.protocol respondsToSelector:@selector(DRForJoinNoteMsg)]) {
+        joinModel.noteMsg = [self.protocol DRForJoinNoteMsg];
+    }
     joinModel.noteMsgColor = RGBCOLOR(102, 102, 102);
     [self.optionsList3 addObject:joinModel];
 }

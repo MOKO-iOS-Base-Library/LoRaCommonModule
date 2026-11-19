@@ -61,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 确认帧最大重传次数选项，默认 0~3
 - (NSArray <NSString *>*)retransmissionValueList;
 
+/// 高级设置说明文案，默认使用全功能设置页文案
+- (NSString *)CHNoteMsg;
+- (NSString *)dutyCycleNoteMsg;
+- (NSString *)DRForJoinNoteMsg;
+
 /// 当前设备是否支持 EU868 单通道，页面仅在 EU868 Region 下显示
 @property (nonatomic, assign, readonly)BOOL supportEU868SingleChannel;
 
