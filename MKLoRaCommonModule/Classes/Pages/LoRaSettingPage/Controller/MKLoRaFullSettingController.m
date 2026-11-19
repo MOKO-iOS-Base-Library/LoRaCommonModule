@@ -318,7 +318,11 @@ MKLoRaSettingAccountCellDelegate>
     }
     if (section == 15) {
         //Transmissions
-        return (self.protocol.adrIsOn ? 0 : self.optionsList6.count);
+        BOOL supportTransmissions = YES;
+        if ([self.protocol respondsToSelector:@selector(supportTransmissions)]) {
+            supportTransmissions = self.protocol.supportTransmissions;
+        }
+        return ((!supportTransmissions || self.protocol.adrIsOn) ? 0 : self.optionsList6.count);
     }
     if (section == 16) {
         //DR For Payload

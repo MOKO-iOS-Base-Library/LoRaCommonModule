@@ -55,6 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+/// 是否显示 Transmissions，默认显示
+@property (nonatomic, assign, readonly)BOOL supportTransmissions;
+
 /// 确认帧最大重传次数选项，默认 0~3
 - (NSArray <NSString *>*)retransmissionValueList;
 
