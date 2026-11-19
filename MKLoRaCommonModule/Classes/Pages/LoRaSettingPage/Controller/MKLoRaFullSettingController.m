@@ -98,6 +98,12 @@ MKLoRaSettingAccountCellDelegate>
 /// ADR_ACK_LIMIT/ADR_ACK_DELAY
 @property (nonatomic, strong)NSMutableArray *optionsList9;
 
+/// EU868 Single Channel Function
+@property (nonatomic, strong)NSMutableArray *optionsList10;
+
+/// Single Channel Selection
+@property (nonatomic, strong)NSMutableArray *optionsList11;
+
 @property (nonatomic, strong)NSMutableArray *headerList;
 
 @end
@@ -175,6 +181,11 @@ MKLoRaSettingAccountCellDelegate>
         MKTextButtonCellModel *cellModel = self.optionsList3[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
+    if (indexPath.section == 19) {
+        //EU868 Single Channel Function
+        MKTextSwitchCellModel *cellModel = self.optionsList10[indexPath.row];
+        return [cellModel cellHeightWithContentWidth:kViewWidth];
+    }
     return 44.f;
 }
 
@@ -211,7 +222,7 @@ MKLoRaSettingAccountCellDelegate>
         //Gateway EUI(Gateway ID)
         return 10.f;
     }
-    if (section == 13 || section == 18) {
+    if (section == 13 || section == 18 || section == 19) {
         return 10.f;
     }
 
@@ -336,6 +347,15 @@ MKLoRaSettingAccountCellDelegate>
     if (section == 18) {
         //ADR_ACK_LIMIT、ADR_ACK_DELAY
         return (self.protocol.supportADRACK ? self.optionsList9.count : 0);
+    }
+    if ([self.protocol respondsToSelector:@selector(supportEU868SingleChannel)]
+        && self.protocol.supportEU868SingleChannel && self.protocol.currentRegion == 5) {
+        if (section == 19) {
+            return self.optionsList10.count;
+        }
+        if (section == 20) {
+            return self.optionsList11.count;
+        }
     }
     return 0;
 }
@@ -466,8 +486,22 @@ MKLoRaSettingAccountCellDelegate>
         cell.delegate = self;
         return cell;
     }
-    MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
-    cell.dataModel = self.optionsList9[indexPath.row];
+    if (indexPath.section == 18) {
+        MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
+        cell.dataModel = self.optionsList9[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
+    if (indexPath.section == 19) {
+        //EU868 Single Channel Function
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
+        cell.dataModel = self.optionsList10[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
+    //Single Channel Selection
+    MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
+    cell.dataModel = self.optionsList11[indexPath.row];
     cell.delegate = self;
     return cell;
 }
@@ -547,6 +581,13 @@ MKLoRaSettingAccountCellDelegate>
         self.protocol.retransmission = dataListIndex;
         MKTextButtonCellModel *drModel = self.optionsList8[0];
         drModel.dataListIndex = dataListIndex;
+        return;
+    }
+    if (index == 8) {
+        //Single Channel Selection
+        self.protocol.eu868SignleChannel = dataListIndex;
+        MKTextButtonCellModel *channelModel = self.optionsList11[0];
+        channelModel.dataListIndex = dataListIndex;
         return;
     }
 }
@@ -632,6 +673,13 @@ MKLoRaSettingAccountCellDelegate>
         [self.tableView reloadData];
         return;
     }
+    if (index == 2) {
+        //EU868 Single Channel Function
+        self.protocol.eu868SignleChannelStatus = isOn;
+        MKTextSwitchCellModel *channelStatusModel = self.optionsList10[0];
+        channelStatusModel.isOn = isOn;
+        return;
+    }
 }
 
 #pragma mark - MKLoRaSettingCHCellDelegate
@@ -710,7 +758,8 @@ MKLoRaSettingAccountCellDelegate>
 
     [self.headerList removeAllObjects];
 
-    NSInteger sections = (self.protocol.advancedStatus ? 19 : 10);
+    NSInteger advancedSections = ([self.protocol respondsToSelector:@selector(supportEU868SingleChannel)] ? 21 : 19);
+    NSInteger sections = (self.protocol.advancedStatus ? advancedSections : 10);
     for (NSInteger i = 0; i < sections; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
@@ -801,6 +850,14 @@ MKLoRaSettingAccountCellDelegate>
     //Max retransmission times
     MKTextButtonCellModel *trModel = self.optionsList8[0];
     trModel.dataListIndex = self.protocol.retransmission;
+    if ([self.protocol respondsToSelector:@selector(supportEU868SingleChannel)]) {
+        //EU868 Single Channel Function
+        MKTextSwitchCellModel *eu868ChannelStatusModel = self.optionsList10[0];
+        eu868ChannelStatusModel.isOn = self.protocol.eu868SignleChannelStatus;
+        //Single Channel Selection
+        MKTextButtonCellModel *eu868ChannelModel = self.optionsList11[0];
+        eu868ChannelModel.dataListIndex = self.protocol.eu868SignleChannel;
+    }
 
     [self.tableView reloadData];
 }
@@ -810,7 +867,8 @@ MKLoRaSettingAccountCellDelegate>
     [self loadLoRaDataList];
     [self loadOptionsDataList];
     //底部需要高级设置
-    NSInteger sections = (self.protocol.advancedStatus ? 19 : 10);
+    NSInteger advancedSections = ([self.protocol respondsToSelector:@selector(supportEU868SingleChannel)] ? 21 : 19);
+    NSInteger sections = (self.protocol.advancedStatus ? advancedSections : 10);
     for (NSInteger i = 0; i < sections; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
@@ -1004,6 +1062,10 @@ MKLoRaSettingAccountCellDelegate>
     [self loadOptionsList7];
     [self loadOptionsList8];
     [self loadOptionsList9];
+    if ([self.protocol respondsToSelector:@selector(supportEU868SingleChannel)]) {
+        [self loadOptionsList10];
+        [self loadOptionsList11];
+    }
 }
 
 - (void)loadOptionsList0 {
@@ -1113,6 +1175,24 @@ MKLoRaSettingAccountCellDelegate>
     cellModel2.maxLength = 3;
     cellModel2.textFieldValue = self.protocol.ackDelay;
     [self.optionsList9 addObject:cellModel2];
+}
+
+- (void)loadOptionsList10 {
+    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
+    cellModel.index = 2;
+    cellModel.msg = @"EU868 Single Channel Function";
+    cellModel.isOn = self.protocol.eu868SignleChannelStatus;
+    [self.optionsList10 addObject:cellModel];
+}
+
+- (void)loadOptionsList11 {
+    MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
+    cellModel.index = 8;
+    cellModel.msg = @"Single Channel Selection";
+    cellModel.dataList = @[@"868.1MHz",@"868.3MHz",@"868.5MHz"];
+    cellModel.buttonLabelFont = MKFont(13.f);
+    cellModel.dataListIndex = self.protocol.eu868SignleChannel;
+    [self.optionsList11 addObject:cellModel];
 }
 
 - (NSInteger)getCurrentCHLIndex {
@@ -1322,6 +1402,20 @@ MKLoRaSettingAccountCellDelegate>
         _optionsList9 = [NSMutableArray array];
     }
     return _optionsList9;
+}
+
+- (NSMutableArray *)optionsList10 {
+    if (!_optionsList10) {
+        _optionsList10 = [NSMutableArray array];
+    }
+    return _optionsList10;
+}
+
+- (NSMutableArray *)optionsList11 {
+    if (!_optionsList11) {
+        _optionsList11 = [NSMutableArray array];
+    }
+    return _optionsList11;
 }
 
 - (NSMutableArray *)headerList {

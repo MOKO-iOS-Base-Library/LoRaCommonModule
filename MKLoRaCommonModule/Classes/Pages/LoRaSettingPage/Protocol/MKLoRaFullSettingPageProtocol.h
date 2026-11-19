@@ -61,6 +61,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 确认帧最大重传次数选项，默认 0~3
 - (NSArray <NSString *>*)retransmissionValueList;
 
+/// 当前设备是否支持 EU868 单通道，页面仅在 EU868 Region 下显示
+@property (nonatomic, assign, readonly)BOOL supportEU868SingleChannel;
+
+@property (nonatomic, assign)BOOL eu868SignleChannelStatus;
+
+/// 0: 868.1MHz 1:868.3MHz 2:868.5MHz
+@property (nonatomic, assign)NSInteger eu868SignleChannel;
+
 @end
 
 NS_ASSUME_NONNULL_END
