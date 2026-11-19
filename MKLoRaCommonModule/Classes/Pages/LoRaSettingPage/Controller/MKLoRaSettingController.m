@@ -170,25 +170,30 @@ MKLoRaSettingCHCellDelegate>
     }
     if (section == 4) {
         //CH
-        if (self.protocol.region == 1 || self.protocol.region == 5) {
-            //AU915、US915
+        //旧简化值: AU915=1, US915=5; 新通用值: AU915=1, CN470=2, US915=8
+        if (self.protocol.region == 1 || self.protocol.region == 2
+            || self.protocol.region == 5 || self.protocol.region == 8) {
             return self.optionsList1.count;
         }
         return 0;
     }
     if (section == 5) {
         //Duty-cycle
-        if (self.protocol.region == 2 || self.protocol.region == 6) {
-            //EU868,RU864
+        //旧简化值: EU868=2, RU864=6; 新通用值: CN779=3, EU433=4, EU868=5, RU864=9
+        if (self.protocol.region == 2 || self.protocol.region == 3
+            || self.protocol.region == 4 || self.protocol.region == 5
+            || self.protocol.region == 6 || self.protocol.region == 9) {
             return self.optionsList2.count;
         }
         return 0;
     }
     if (section == 6) {
         //DR For Join
+        //旧简化值: EU868=2, KR920=3, IN865=4, RU864=6
+        //新通用值: CN470=2, CN779=3, EU433=4, EU868=5, KR920=6, IN865=7, RU864=9
         if (self.protocol.region == 2 || self.protocol.region == 3 || self.protocol.region == 4
-            || self.protocol.region == 6) {
-            //EU868,KR920, IN865, RU864
+            || self.protocol.region == 5 || self.protocol.region == 6
+            || self.protocol.region == 7 || self.protocol.region == 9) {
             return self.optionsList3.count;
         }
         return 0;
@@ -703,7 +708,11 @@ MKLoRaSettingCHCellDelegate>
     MKTextButtonCellModel *regionModel = [[MKTextButtonCellModel alloc] init];
     regionModel.index = 1;
     regionModel.msg = @"Region/Subnet";
-    regionModel.dataList = @[@"AS923",@"AU915",@"EU868",@"KR920",@"IN865",@"US915",@"RU864",@"AS923-1",@"AS923-2",@"AS923-3",@"AS923-4"];
+    if ([self.protocol respondsToSelector:@selector(RegionList)]) {
+        regionModel.dataList = [self.protocol RegionList];
+    } else {
+        regionModel.dataList = @[@"AS923",@"AU915",@"EU868",@"KR920",@"IN865",@"US915",@"RU864",@"AS923-1",@"AS923-2",@"AS923-3",@"AS923-4"];
+    }
     regionModel.buttonLabelFont = MKFont(13.f);
     regionModel.dataListIndex = self.protocol.region;
     [self.section2List addObject:regionModel];
