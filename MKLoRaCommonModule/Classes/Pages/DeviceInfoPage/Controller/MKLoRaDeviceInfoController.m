@@ -83,6 +83,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     // section0 / section3 / section4 / section5 / section6 有 header
+    if (section == 5 && self.hideBatteryConsumption) {
+        return 0.f;
+    }
     if (section == 0 || section == 3 || section == 4 || section == 5 || section == 6) {
         return 10.f;
     }
@@ -287,6 +290,9 @@
 }
 
 - (void)loadSection5Datas {
+    if (self.hideBatteryConsumption) {
+        return;
+    }
     MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
     cellModel.showRightIcon = YES;
     cellModel.leftMsg = @"Battery Consumption Information";
