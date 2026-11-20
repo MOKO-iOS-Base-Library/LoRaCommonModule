@@ -37,14 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Change Password 入口点击（业务侧处理 alert + SDK 调用）
 - (void)bleSettingsPageDidSelectChangePassword;
 
-/// 业务自定义 Tx Power cell 时返回 YES
-- (BOOL)bleSettingsPageShouldUseCustomTxPowerCell;
-
-/// 点击 Tx Power 行时由业务弹出选择器修改功率，修改完成后调用 completion 让基础库刷新该行
-- (void)bleSettingsPageDidSelectTxPowerWithCompletion:(void (^)(void))completion;
-
-/// txPower 数值索引转 dBm 显示文本
-- (NSString *)bleSettingsPage_txPowerDisplayString;
+/// 各档位Tx Power的dBm文案，顺序与设备数值索引一致（各产品档位不同，必须由业务传入）
+- (NSArray <NSString *>*)bleSettingsPageTxPowerValues;
 
 @end
 

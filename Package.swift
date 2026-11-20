@@ -153,6 +153,7 @@ let package = Package(
                 .headerSearchPath("Classes/Views/OtherTypeContentCell"),
                 .headerSearchPath("Classes/Views/ReportTimePointCell"),
                 .headerSearchPath("Classes/Views/TextButtonCell"),
+                .headerSearchPath("Classes/Views/TxPowerCell"),
                 .headerSearchPath("Classes/Views/TimingModeAddCell"),
                 .headerSearchPath("Classes/Views/TimingReportSettingCell")
             ],
