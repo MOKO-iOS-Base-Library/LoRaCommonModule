@@ -15,9 +15,10 @@
 
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
+#import "MKDeviceInfoDfuCell.h"
 #import "MKTableSectionLineHeader.h"
 
-@interface MKLoRaDeviceInfoController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MKLoRaDeviceInfoController ()<UITableViewDelegate, UITableViewDataSource, MKDeviceInfoDfuCellDelegate>
 
 @property (nonatomic, strong) MKBaseTableView *tableView;
 
@@ -127,6 +128,18 @@
     }
 }
 
+#pragma mark - MKDeviceInfoDfuCellDelegate
+
+/// 用户点击了右侧DFU按钮
+/// @param index cell所在序列号
+- (void)mk_textButtonCell_buttonAction:(NSInteger)index {
+    if (index == 0) {
+        //DFU，交给业务的didSelectRowAtIndexPath处理
+        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        return;
+    }
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -149,7 +162,11 @@
     if (indexPath.section == 0) {
         cell.dataModel = self.section0List[indexPath.row];
     } else if (indexPath.section == 1) {
-        cell.dataModel = self.section1List[indexPath.row];
+        //Firmware Version，右侧带DFU按钮
+        MKDeviceInfoDfuCell *dfuCell = [MKDeviceInfoDfuCell initCellWithTableView:tableView];
+        dfuCell.dataModel = self.section1List[indexPath.row];
+        dfuCell.delegate = self;
+        return dfuCell;
     } else if (indexPath.section == 2) {
         cell.dataModel = self.section2List[indexPath.row];
     } else if (indexPath.section == 3) {
@@ -186,7 +203,7 @@
         softwareModel.rightMsg = self.protocol.software;
     }
     if (ValidStr(self.protocol.firmware)) {
-        MKNormalTextCellModel *firmwareModel = self.section1List[0];
+        MKDeviceInfoDfuCellModel *firmwareModel = self.section1List[0];
         firmwareModel.rightMsg = self.protocol.firmware;
     }
     if (ValidStr(self.protocol.hardware)) {
@@ -258,8 +275,10 @@
 }
 
 - (void)loadSection1Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    MKDeviceInfoDfuCellModel *cellModel = [[MKDeviceInfoDfuCellModel alloc] init];
+    cellModel.index = 0;
     cellModel.leftMsg = @"Firmware Version";
+    cellModel.rightButtonTitle = @"DFU";
     [self.section1List addObject:cellModel];
 }
 
