@@ -29,8 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 #pragma mark - Cellular/WB 专属字段
-/// 定位策略（仅 Cellular/WB 有）
-@property (nonatomic, assign) NSInteger strategy;
 /// 上报间隔（仅 Cellular/WB 有）
 @property (nonatomic, copy, nullable) NSString *reportInterval;
 /// 开始时间（仅 Cellular/WB 有）

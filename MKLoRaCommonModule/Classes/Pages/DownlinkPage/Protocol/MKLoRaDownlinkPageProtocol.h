@@ -3,7 +3,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MKLoRaDownlinkPageProtocol <NSObject>
 
-/// Positioning Strategy
+/// Positioning Strategy，索引对应 strategyDataList 中的可选项
 @property (nonatomic, assign) NSInteger positioningStrategy;
 
 /// 可选：Positioning Strategy 下拉列表（默认 @[@"BLE",@"GPS",@"BLE+GPS",@"BLE*GPS"]）
