@@ -209,7 +209,7 @@ mk_textSwitchCellDelegate>
 #pragma mark - UI
 
 - (void)loadSubViews {
-    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaManDownController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaManDownController", @"mk_loraModule_loraDeviceMode_slotSaveIcon@2x.png") forState:UIControlStateNormal];
     self.defaultTitle = @"ManDown Detection";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
