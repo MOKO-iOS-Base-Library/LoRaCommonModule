@@ -277,7 +277,7 @@ MKTextFieldCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaApplicationController", @"mk_loraModule_loraDeviceMode_slotSaveIcon@2x.png") forState:UIControlStateNormal];
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaApplicationController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"Application Settings";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

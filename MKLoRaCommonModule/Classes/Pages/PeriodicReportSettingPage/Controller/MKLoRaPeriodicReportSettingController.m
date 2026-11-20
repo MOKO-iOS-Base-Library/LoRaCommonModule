@@ -135,7 +135,7 @@ MKTextFieldCellDelegate>
 - (void)loadSubViews {
     self.defaultTitle = @"Periodic Report Settings";
     [self setNavTitleFont:MKFont(12.f)];
-    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaPeriodicReportSettingController", @"mk_loraModule_loraDeviceMode_slotSaveIcon@2x.png") forState:UIControlStateNormal];
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaPeriodicReportSettingController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
