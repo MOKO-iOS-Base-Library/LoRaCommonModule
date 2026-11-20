@@ -17,13 +17,14 @@
 #import "MKHudManager.h"
 #import "MKTextFieldCell.h"
 #import "MKTextSwitchCell.h"
-#import "MKNormalTextCell.h"
+#import "MKLoRaTextButtonCell.h"
 #import "MKAlertView.h"
 
 @interface MKLoRaManDownController ()<UITableViewDelegate,
 UITableViewDataSource,
 MKTextFieldCellDelegate,
-mk_textSwitchCellDelegate>
+mk_textSwitchCellDelegate,
+MKLoRaTextButtonCellDelegate>
 
 @property (nonatomic, strong) MKBaseTableView *tableView;
 
@@ -65,16 +66,6 @@ mk_textSwitchCellDelegate>
     return 44.f;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2 && indexPath.row == 0) {
-        // Reset Idle Status
-        [self.alertView showAlertWithTitle:@"Reset Idle Status"
-                                   message:@"Whether to confirm the reset"
-                          notificationName:@"mk_loraModule_commonModule_needDismissAlert"];
-        return;
-    }
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -100,8 +91,9 @@ mk_textSwitchCellDelegate>
         cell.delegate = self;
         return cell;
     }
-    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+    MKLoRaTextButtonCell *cell = [MKLoRaTextButtonCell initCellWithTableView:tableView];
     cell.dataModel = self.section2List[indexPath.row];
+    cell.delegate = self;
     return cell;
 }
 
@@ -123,6 +115,20 @@ mk_textSwitchCellDelegate>
         MKTextSwitchCellModel *cellModel = self.section0List[0];
         cellModel.isOn = isOn;
         self.protocol.isOn = isOn;
+        return;
+    }
+}
+
+#pragma mark - MKLoRaTextButtonCellDelegate
+
+/// 用户点击了右侧按钮
+/// @param index cell所在序列号
+- (void)mk_lora_textButtonCell_buttonAction:(NSInteger)index {
+    if (index == 0) {
+        //Idle Status
+        [self.alertView showAlertWithTitle:@"Reset Idle Status"
+                                   message:@"Whether to confirm the reset"
+                          notificationName:@"mk_loraModule_commonModule_needDismissAlert"];
         return;
     }
 }
@@ -200,9 +206,10 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)loadSection2Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
-    cellModel.showRightIcon = YES;
+    MKLoRaTextButtonCellModel *cellModel = [[MKLoRaTextButtonCellModel alloc] init];
+    cellModel.index = 0;
     cellModel.leftMsg = @"Idle Status";
+    cellModel.rightButtonTitle = @"Reset";
     [self.section2List addObject:cellModel];
 }
 
