@@ -160,7 +160,7 @@ mk_textSwitchCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaBeaconContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
-    self.defaultTitle = @"iBeaocn Content";
+    self.defaultTitle = @"iBeacon Content";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
