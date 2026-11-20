@@ -1,33 +1,71 @@
+//
+//  MKLoRaBXPAccContentController.m
+//  MKLoRaCommonModule
+//
+//  Created by aa on 2026/11/18.
+//
+
 #import "MKLoRaBXPAccContentController.h"
 #import "Pages/PayloadContentSelections/BXPAccContentPage/Protocol/MKLoRaBXPAccContentPageProtocol.h"
+
 #import "Masonry.h"
+
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"
 #import "UIView+MKAdd.h"
 #import "UITableView+MKAdd.h"
+
 #import "MKHudManager.h"
 #import "MKTextSwitchCell.h"
 
-@interface MKLoRaBXPAccContentController ()<UITableViewDelegate,UITableViewDataSource,mk_textSwitchCellDelegate>
+@interface MKLoRaBXPAccContentController ()<UITableViewDelegate,
+UITableViewDataSource,
+mk_textSwitchCellDelegate>
+
 @property (nonatomic, strong)MKBaseTableView *tableView;
+
 @property (nonatomic, strong)NSMutableArray *dataList;
+
 @end
 
 @implementation MKLoRaBXPAccContentController
-- (void)dealloc { NSLog(@"MKLoRaBXPAccContentController销毁"); }
+
+- (void)dealloc {
+    NSLog(@"MKLoRaBXPAccContentController销毁");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
     [self readDatasFromDevice];
 }
-- (void)rightButtonMethod { [self saveDataToDevice]; }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { return 44.f; }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { return self.dataList.count; }
+
+#pragma mark - super method
+- (void)rightButtonMethod {
+    [self saveDataToDevice];
+}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44.f;
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataList.count;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
-    cell.dataModel = self.dataList[indexPath.row]; cell.delegate = self;
+    cell.dataModel = self.dataList[indexPath.row];
+    cell.delegate = self;
     return cell;
 }
+
+#pragma mark - mk_textSwitchCellDelegate
+/// 开关状态发生改变了
+/// @param isOn 当前开关状态
+/// @param index 当前cell所在的index
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
     if (index == 0) {
         //Tx Power
@@ -86,22 +124,37 @@
         return;
     }
 }
+
+#pragma mark - interface
 - (void)readDatasFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-    [self.protocol readDataWithSucBlock:^{ @strongify(self); [[MKHudManager share] hide]; [self loadSectionDatas]; }
-                             failedBlock:^(NSError * _Nonnull error) {
-        @strongify(self); [[MKHudManager share] hide]; [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    [self.protocol readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
+
 - (void)saveDataToDevice {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     @weakify(self);
-    [self.protocol configDataWithSucBlock:^{ @strongify(self); [[MKHudManager share] hide]; [self.view showCentralToast:@"Success"]; }
-                               failedBlock:^(NSError * _Nonnull error) {
-        @strongify(self); [[MKHudManager share] hide]; [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    [self.protocol configDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
+
+#pragma mark - loadSectionDatas
 - (void)loadSectionDatas {
     MKTextSwitchCellModel *cellModel1 = [[MKTextSwitchCellModel alloc] init];
     cellModel1.index = 0;
@@ -153,19 +206,35 @@
     
     [self.tableView reloadData];
 }
+
+#pragma mark - UI
 - (void)loadSubViews {
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaBXPAccContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"BXP-ACC Content";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(0);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
         make.top.equalTo(self.view).offset(kTopBarHeight);
         make.bottom.equalTo(self.view).offset(-kSafeAreaHeight);
     }];
 }
+
+#pragma mark - getter
 - (MKBaseTableView *)tableView {
-    if (!_tableView) { _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain]; _tableView.delegate = self; _tableView.dataSource = self; }
+    if (!_tableView) {
+        _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
     return _tableView;
 }
-- (NSMutableArray *)dataList { if (!_dataList) { _dataList = [NSMutableArray array]; } return _dataList; }
+
+- (NSMutableArray *)dataList {
+    if (!_dataList) {
+        _dataList = [NSMutableArray array];
+    }
+    return _dataList;
+}
+
 @end

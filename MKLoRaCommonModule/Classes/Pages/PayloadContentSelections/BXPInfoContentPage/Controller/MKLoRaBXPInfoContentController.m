@@ -2,6 +2,8 @@
 //  MKLoRaBXPInfoContentController.m
 //  MKLoRaCommonModule
 //
+//  Created by aa on 2026/11/18.
+//
 
 #import "MKLoRaBXPInfoContentController.h"
 #import "Pages/PayloadContentSelections/BXPInfoContentPage/Protocol/MKLoRaBXPInfoContentPageProtocol.h"
