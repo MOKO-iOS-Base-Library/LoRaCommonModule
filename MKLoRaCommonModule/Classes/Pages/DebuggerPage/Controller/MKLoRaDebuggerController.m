@@ -215,8 +215,8 @@ MKLoRaDebuggerCellDelegate>
     self.logStartTime = [self.formatter stringFromDate:[NSDate date]];
     self.deleteButton.enabled = NO;
     self.exportButton.enabled = NO;
-    self.deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_disableIcon@2x.png");
-    self.exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_disableIcon@2x.png");
+    self.deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_disableIcon.png");
+    self.exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_disableIcon.png");
     [self.startButton setTitle:@"Stop" forState:UIControlStateNormal];
     [self.contentList removeAllObjects];
     @weakify(self);
@@ -396,13 +396,13 @@ MKLoRaDebuggerCellDelegate>
     self.exportButton.enabled = enable;
     if (enable) {
         //选中了，可以删除或者导出
-        self.deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_enableIcon@2x.png");
-        self.exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_enableIcon@2x.png");
+        self.deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_enableIcon.png");
+        self.exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_enableIcon.png");
         return;
     }
     //不存在选中的
-    self.deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_disableIcon@2x.png");
-    self.exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_disableIcon@2x.png");
+    self.deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_disableIcon.png");
+    self.exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_disableIcon.png");
 }
 
 - (void)showTipsAlert:(NSString *)msg {
@@ -487,7 +487,7 @@ MKLoRaDebuggerCellDelegate>
 - (UIImageView *)syncIcon {
     if (!_syncIcon) {
         _syncIcon = [[UIImageView alloc] init];
-        _syncIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_sync_disableIcon@2x.png");
+        _syncIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_sync_disableIcon.png");
     }
     return _syncIcon;
 }
@@ -495,7 +495,7 @@ MKLoRaDebuggerCellDelegate>
 - (MKLoRaDebuggerButton *)deleteButton {
     if (!_deleteButton) {
         _deleteButton = [[MKLoRaDebuggerButton alloc] init];
-        _deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_disableIcon@2x.png");
+        _deleteButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_delete_disableIcon.png");
         _deleteButton.msgLabel.text = @"Delete";
         _deleteButton.enabled = NO;
         [_deleteButton addTarget:self
@@ -508,7 +508,7 @@ MKLoRaDebuggerCellDelegate>
 - (MKLoRaDebuggerButton *)exportButton {
     if (!_exportButton) {
         _exportButton = [[MKLoRaDebuggerButton alloc] init];
-        _exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_disableIcon@2x.png");
+        _exportButton.topIcon.image = LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerController", @"mk_loraModule_common_export_disableIcon.png");
         _exportButton.msgLabel.text = @"Export";
         _exportButton.enabled = NO;
         [_exportButton addTarget:self
