@@ -1347,7 +1347,7 @@ MKLoRaSettingAccountCellDelegate>
     cellModel.msg = @"Region/Subnet";
     cellModel.dataList = [self.protocol RegionList];
     cellModel.buttonLabelFont = MKFont(13.f);
-    cellModel.dataListIndex = self.protocol.currentRegion;
+    cellModel.dataListIndex = self.protocol.region;
     [self.section2List addObject:cellModel];
 }
 

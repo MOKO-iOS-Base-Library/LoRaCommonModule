@@ -169,31 +169,26 @@ MKLoRaSettingCHCellDelegate>
         return 0;
     }
     if (section == 4) {
-        //CH
-        //旧简化值: AU915=1, US915=5; 新通用值: AU915=1, CN470=2, US915=8
-        if (self.protocol.region == 1 || self.protocol.region == 2
-            || self.protocol.region == 5 || self.protocol.region == 8) {
+        //CH: AU915、CN470、US915
+        NSInteger region = [self canonicalRegion];
+        if (region == 1 || region == 2 || region == 8) {
             return self.optionsList1.count;
         }
         return 0;
     }
     if (section == 5) {
-        //Duty-cycle
-        //旧简化值: EU868=2, RU864=6; 新通用值: CN779=3, EU433=4, EU868=5, RU864=9
-        if (self.protocol.region == 2 || self.protocol.region == 3
-            || self.protocol.region == 4 || self.protocol.region == 5
-            || self.protocol.region == 6 || self.protocol.region == 9) {
+        //Duty-cycle: CN779、EU433、EU868、RU864
+        NSInteger region = [self canonicalRegion];
+        if (region == 3 || region == 4 || region == 5 || region == 9) {
             return self.optionsList2.count;
         }
         return 0;
     }
     if (section == 6) {
-        //DR For Join
-        //旧简化值: EU868=2, KR920=3, IN865=4, RU864=6
-        //新通用值: CN470=2, CN779=3, EU433=4, EU868=5, KR920=6, IN865=7, RU864=9
-        if (self.protocol.region == 2 || self.protocol.region == 3 || self.protocol.region == 4
-            || self.protocol.region == 5 || self.protocol.region == 6
-            || self.protocol.region == 7 || self.protocol.region == 9) {
+        //DR For Join: CN470、CN779、EU433、EU868、KR920、IN865、RU864
+        NSInteger region = [self canonicalRegion];
+        if (region == 2 || region == 3 || region == 4 || region == 5
+            || region == 6 || region == 7 || region == 9) {
             return self.optionsList3.count;
         }
         return 0;
@@ -716,6 +711,14 @@ MKLoRaSettingCHCellDelegate>
     regionModel.buttonLabelFont = MKFont(13.f);
     regionModel.dataListIndex = self.protocol.region;
     [self.section2List addObject:regionModel];
+}
+
+/// 设置项显隐统一按标准 region 值判断，避免简化 region 值命中原通用值
+- (NSInteger)canonicalRegion {
+    if ([self.protocol respondsToSelector:@selector(canonicalRegion)]) {
+        return [self.protocol canonicalRegion];
+    }
+    return self.protocol.region;
 }
 
 #pragma mark - 加载底部列表

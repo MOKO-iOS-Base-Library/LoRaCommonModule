@@ -94,6 +94,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+/// 标准 region 值（0~13，含义同 region），用于判断设置项是否显示。
+/// 默认等于 region；使用简化 region 值的产品需要实现该映射。
+- (NSInteger)canonicalRegion;
+
 /// Model 提供自定义的 Region 列表（用于通用 region 值产品）
 - (NSArray <NSString *>*)RegionList;
 
