@@ -44,6 +44,8 @@ let package = Package(
                 .headerSearchPath("Classes/Pages/AlarmFunctionPage/Controller"),
                 .headerSearchPath("Classes/Pages/AlarmFunctionPage/Protocol"),
                 .headerSearchPath("Classes/Pages/AlarmFunctionPage/View"),
+                .headerSearchPath("Classes/Pages/AuxiliaryPage/Controller"),
+                .headerSearchPath("Classes/Pages/AuxiliaryPage/Model"),
                 .headerSearchPath("Classes/Pages/AlertAlarmSettingsPage/Controller"),
                 .headerSearchPath("Classes/Pages/AlertAlarmSettingsPage/Protocol"),
                 .headerSearchPath("Classes/Pages/AxisSettingPage/Controller"),
