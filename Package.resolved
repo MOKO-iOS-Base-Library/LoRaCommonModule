@@ -1,5 +1,5 @@
 {
-  "originHash" : "91092933835f3259ea232c529131166b20ce4c6f2f9f2e5dec8fbe02792a9bd9",
+  "originHash" : "5b509c8328ede64edef4a1214fd167965678ca9ae74422be19fd16d0b9c8d763",
   "pins" : [
     {
       "identity" : "fmdb",
@@ -78,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MOKO-iOS-Base-Library/MKDFUWapper.git",
       "state" : {
-        "revision" : "e6d2fab037b680916809c3d34c745550a7ab6664",
-        "version" : "1.0.7"
+        "revision" : "0e24a9ed3f815f339cbc12c8809537175703ba70",
+        "version" : "1.0.8"
       }
     },
     {

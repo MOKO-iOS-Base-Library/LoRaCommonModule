@@ -575,7 +575,12 @@ MKLoRaSettingAccountCellDelegate>
         regionModel.dataListIndex = 1;
         self.protocol.region = 1;
 
-        [self.tableView reloadData];
+        //切换平台后 region 列表和取值范围都变了，高级设置需要同步刷新
+        if (self.protocol.needAdvanceSetting) {
+            [self regionValueChanged];
+        }else {
+            [self.tableView reloadData];
+        }
         return;
     }
     if (index == 5) {
