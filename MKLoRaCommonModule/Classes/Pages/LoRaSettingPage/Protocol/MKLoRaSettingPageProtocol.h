@@ -98,6 +98,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 默认等于 region；使用简化 region 值的产品需要实现该映射。
 - (NSInteger)canonicalRegion;
 
+/// 当前 region 在 RegionList 中的下标。
+/// 默认等于 currentRegion（旧页面为 region）；region 与列表下标不一致的产品需要实现。
+- (NSInteger)regionListIndex;
+
 /// Model 提供自定义的 Region 列表（用于通用 region 值产品）
 - (NSArray <NSString *>*)RegionList;
 

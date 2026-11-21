@@ -1341,13 +1341,21 @@ MKLoRaSettingAccountCellDelegate>
     [self.section1List addObject:cellModel];
 }
 
+/// RegionList 显示下标，默认沿用 currentRegion
+- (NSInteger)regionListIndex {
+    if ([self.protocol respondsToSelector:@selector(regionListIndex)]) {
+        return [self.protocol regionListIndex];
+    }
+    return self.protocol.currentRegion;
+}
+
 - (void)loadSection2Datas {
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 1;
     cellModel.msg = @"Region/Subnet";
     cellModel.dataList = [self.protocol RegionList];
     cellModel.buttonLabelFont = MKFont(13.f);
-    cellModel.dataListIndex = self.protocol.region;
+    cellModel.dataListIndex = [self regionListIndex];
     [self.section2List addObject:cellModel];
 }
 
