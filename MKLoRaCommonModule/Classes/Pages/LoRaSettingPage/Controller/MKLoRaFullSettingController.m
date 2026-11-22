@@ -1237,13 +1237,16 @@ MKLoRaSettingAccountCellDelegate>
     [self loadSection0Datas];
     [self loadABPDatas];
     [self loadOTAADatas];
-    [self loadSection1Datas];
+    //MOKO IoT DM 相关区域，与页面显示条件保持一致，避免访问业务侧未实现的可选属性
+    if (self.protocol.supportServerPlatform && self.protocol.platform == 1) {
+        [self loadSection1Datas];
+        [self loadSection6Datas];
+        [self loadSection7Datas];
+    }
     [self loadSection2Datas];
     [self loadSection3Datas];
     [self loadSection4Datas];
     [self loadSection5Datas];
-    [self loadSection6Datas];
-    [self loadSection7Datas];
 }
 
 - (void)loadSection0Datas {
