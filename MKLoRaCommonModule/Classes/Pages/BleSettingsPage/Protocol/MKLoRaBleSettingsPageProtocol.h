@@ -40,6 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 各档位Tx Power的dBm文案，顺序与设备数值索引一致（各产品档位不同，必须由业务传入）
 - (NSArray <NSString *>*)bleSettingsPageTxPowerValues;
 
+/// ADV Name 最大输入长度，不实现默认 16（AF/AI 为 20）
+@property (nonatomic, assign) NSInteger bleSettingsPageAdvNameMaxLength;
+
+/// Beacon Mode 开启时是否仍显示 Broadcast Timeout，不实现默认 NO（Beacon Mode 下隐藏）
+@property (nonatomic, assign) BOOL bleSettingsPageAlwaysShowBroadcastTimeout;
+
 @end
 
 NS_ASSUME_NONNULL_END
