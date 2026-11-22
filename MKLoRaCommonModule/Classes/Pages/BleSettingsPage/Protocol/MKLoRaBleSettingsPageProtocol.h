@@ -5,7 +5,7 @@
 //  Created by aa on 2026/11/18.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,6 +45,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Beacon Mode 开启时是否仍显示 Broadcast Timeout，不实现默认 NO（Beacon Mode 下隐藏）
 @property (nonatomic, assign) BOOL bleSettingsPageAlwaysShowBroadcastTimeout;
+
+/// 页面标题，不实现默认 Bluetooth Settings
+- (nullable NSString *)bleSettingsPageTitle;
+
+/// 保存按钮图标，不实现使用基础组件默认图标
+- (nullable UIImage *)bleSettingsPageSaveIcon;
+
+/// 导航标题字体，不实现使用基础组件默认字体
+- (nullable UIFont *)bleSettingsPageNavTitleFont;
 
 @end
 
