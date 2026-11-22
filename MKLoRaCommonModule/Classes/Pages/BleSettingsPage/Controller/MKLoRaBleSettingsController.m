@@ -122,7 +122,13 @@ MKLoRaTxPowerCellDelegate>
     if (section == 0) return self.section0List.count;
     if (section == 1) return self.section1List.count;
     if (section == 2) return self.section2List.count;
-    if (section == 3) return (self.protocol.beaconMode ? 0 : self.section3List.count);
+    if (section == 3) {
+        BOOL alwaysShowTimeout = NO;
+        if ([self.protocol respondsToSelector:@selector(bleSettingsPageAlwaysShowBroadcastTimeout)]) {
+            alwaysShowTimeout = [self.protocol bleSettingsPageAlwaysShowBroadcastTimeout];
+        }
+        return ((self.protocol.beaconMode && !alwaysShowTimeout) ? 0 : self.section3List.count);
+    }
     if (section == 4) return self.section4List.count;
     if (section == 5) return (self.protocol.needPassword ? self.section5List.count : 0);
     return 0;
@@ -267,11 +273,17 @@ MKLoRaTxPowerCellDelegate>
 }
 
 - (void)loadSection0Datas {
+    NSInteger advNameMaxLength = 16;
+    NSString *advNamePlaceholder = @"0 ~ 16Characters";
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageAdvNameMaxLength)]) {
+        advNameMaxLength = [self.protocol bleSettingsPageAdvNameMaxLength];
+        advNamePlaceholder = [NSString stringWithFormat:@"0 ~ %ld Characters", (long)advNameMaxLength];
+    }
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"ADV Name";
-    cellModel1.maxLength = 16;
-    cellModel1.textPlaceholder = @"0 ~ 16Characters";
+    cellModel1.maxLength = advNameMaxLength;
+    cellModel1.textPlaceholder = advNamePlaceholder;
     cellModel1.textFieldType = mk_normal;
     cellModel1.textFieldValue = self.protocol.advName;
     [self.section0List addObject:cellModel1];
