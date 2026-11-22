@@ -622,6 +622,18 @@ MKTextButtonCellDelegate>
 - (void)loadSubViews {
     self.defaultTitle = [self pageTitle];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaMotionModeController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
+    if ([self.protocol respondsToSelector:@selector(motionModePageSaveIcon)]) {
+        UIImage *saveIcon = [self.protocol motionModePageSaveIcon];
+        if (saveIcon) {
+            [self.rightButton setImage:saveIcon forState:UIControlStateNormal];
+        }
+    }
+    if ([self.protocol respondsToSelector:@selector(motionModePageNavTitleFont)]) {
+        UIFont *titleFont = [self.protocol motionModePageNavTitleFont];
+        if (titleFont) {
+            [self setNavTitleFont:titleFont];
+        }
+    }
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

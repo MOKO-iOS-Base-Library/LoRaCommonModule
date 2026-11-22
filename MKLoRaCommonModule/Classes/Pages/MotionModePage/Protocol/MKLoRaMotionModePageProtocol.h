@@ -1,4 +1,6 @@
 
+#import <UIKit/UIKit.h>
+
 #import "Common/Protocol/MKLoRaDeviceModePageBaseProtocol.h"
 
 @protocol MKLoRaMotionModePageProtocol <MKLoRaDeviceModePageBaseProtocol>
@@ -73,5 +75,11 @@
 
 /// Number Of Fix On End 占位提示，不实现时使用默认值
 @property (nonatomic, copy)NSString *numberOfFixOnEndPlaceholder;
+
+/// 保存按钮图标，不实现使用基础组件默认图标
+- (nullable UIImage *)motionModePageSaveIcon;
+
+/// 导航标题字体，不实现使用基础组件默认字体
+- (nullable UIFont *)motionModePageNavTitleFont;
 
 @end
