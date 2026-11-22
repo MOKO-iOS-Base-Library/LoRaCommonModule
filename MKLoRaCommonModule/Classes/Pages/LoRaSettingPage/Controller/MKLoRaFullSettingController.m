@@ -1394,7 +1394,8 @@ MKLoRaSettingAccountCellDelegate>
     cellModel.msgFont = MKFont(12.f);
     cellModel.dataList = @[@"Third Party NS",@"MOKO IoT DM"];
     cellModel.buttonLabelFont = MKFont(12.f);
-    cellModel.dataListIndex = self.protocol.platform;
+    //不支持 ServerPlatform 的业务侧无需实现 platform，默认 Third Party NS
+    cellModel.dataListIndex = (self.protocol.supportServerPlatform ? self.protocol.platform : 0);
     [self.section5List addObject:cellModel];
 }
 
