@@ -5,7 +5,7 @@
 //  Created by aa on 2026/11/22.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +38,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// GPS Fix Strategy 选项文案，不实现默认 No Report/Periodic Report/Timing Report/Motion Report/Report with BLE Payload
 - (NSArray <NSString *>*)gpsFixSettingsPageStrategyList;
+
+/// Report Settings 子页面，顺序对应 Periodic/Timing/Motion Report Settings
+- (nullable NSArray <UIViewController *> *)gpsFixSettingsPageReportViewControllers;
+
+/// 保存按钮图标，不实现使用基础组件默认图标
+- (nullable UIImage *)gpsFixSettingsPageSaveIcon;
+
+/// 导航标题字体，不实现使用基础组件默认字体
+- (nullable UIFont *)gpsFixSettingsPageNavTitleFont;
 
 @end
 
