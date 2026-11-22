@@ -88,7 +88,15 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // section2 的 Periodic/Timing/Motion Report Settings 入口由子类处理
+    if (indexPath.section != 2
+        || ![self.protocol respondsToSelector:@selector(gpsFixSettingsPageReportViewControllers)]) {
+        return;
+    }
+    NSArray <UIViewController *> *vcList = [self.protocol gpsFixSettingsPageReportViewControllers];
+    if (indexPath.row >= vcList.count) {
+        return;
+    }
+    [self.navigationController pushViewController:vcList[indexPath.row] animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -285,7 +293,19 @@ mk_textSwitchCellDelegate>
 
 - (void)loadSubViews {
     self.defaultTitle = @"GPS Fix Function Settings";
+    if ([self.protocol respondsToSelector:@selector(gpsFixSettingsPageNavTitleFont)]) {
+        UIFont *titleFont = [self.protocol gpsFixSettingsPageNavTitleFont];
+        if (titleFont) {
+            [self setNavTitleFont:titleFont];
+        }
+    }
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaGpsFixSettingsController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
+    if ([self.protocol respondsToSelector:@selector(gpsFixSettingsPageSaveIcon)]) {
+        UIImage *saveIcon = [self.protocol gpsFixSettingsPageSaveIcon];
+        if (saveIcon) {
+            [self.rightButton setImage:saveIcon forState:UIControlStateNormal];
+        }
+    }
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
