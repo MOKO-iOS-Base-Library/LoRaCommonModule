@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 0~23
 @property (nonatomic, assign)NSInteger hour;
 
-/// 0:00   1:10   2:20   3:30    4:40   5:50
+/// 0~5，依次对应00/10/20/30/40/50分
 @property (nonatomic, assign)NSInteger minuteGear;
 
 @end

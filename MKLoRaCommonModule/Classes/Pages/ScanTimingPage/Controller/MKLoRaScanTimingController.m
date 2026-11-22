@@ -103,6 +103,9 @@ MKLoRaReportTimePointCellDelegate>
         return cell;
     }
     MKLoRaReportTimePointCell *cell = [MKLoRaReportTimePointCell initCellWithTableView:tableView];
+    if ([self.protocol respondsToSelector:@selector(timePointMinuteGearList)]) {
+        cell.minuteGearList = [self.protocol timePointMinuteGearList];
+    }
     cell.dataModel = self.section1List[indexPath.row];
     cell.delegate = self;
     [cell resetFlagForFrame];

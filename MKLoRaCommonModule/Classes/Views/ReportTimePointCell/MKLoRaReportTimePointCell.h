@@ -53,6 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)MKLoRaReportTimePointCellModel *dataModel;
 
+/// 分钟档位展示列表，需在设置dataModel之前赋值，不设置时默认00~59
+@property (nonatomic, copy, nullable)NSArray <NSString *> *minuteGearList;
+
 + (MKLoRaReportTimePointCell *)initCellWithTableView:(UITableView *)tableView;
 
 - (BOOL)canReset;
