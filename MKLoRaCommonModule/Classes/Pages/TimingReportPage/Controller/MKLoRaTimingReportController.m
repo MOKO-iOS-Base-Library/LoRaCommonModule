@@ -167,6 +167,9 @@ MKLoRaReportTimePointCellDelegate>
     }
     if (indexPath.section == 2) {
         MKLoRaReportTimePointCell *cell = [MKLoRaReportTimePointCell initCellWithTableView:tableView];
+        if ([self.protocol respondsToSelector:@selector(timePointMinuteGearList)]) {
+            cell.minuteGearList = [self.protocol timePointMinuteGearList];
+        }
         cell.dataModel = self.section2List[indexPath.row];
         cell.delegate = self;
         [cell resetFlagForFrame];
@@ -179,6 +182,9 @@ MKLoRaReportTimePointCellDelegate>
         return cell;
     }
     MKLoRaReportTimePointCell *cell = [MKLoRaReportTimePointCell initCellWithTableView:tableView];
+    if ([self.protocol respondsToSelector:@selector(timePointMinuteGearList)]) {
+        cell.minuteGearList = [self.protocol timePointMinuteGearList];
+    }
     cell.dataModel = self.section4List[indexPath.row];
     cell.delegate = self;
     [cell resetFlagForFrame];

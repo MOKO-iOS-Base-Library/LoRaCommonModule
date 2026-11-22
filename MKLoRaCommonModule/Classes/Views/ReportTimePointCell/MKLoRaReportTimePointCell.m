@@ -157,17 +157,18 @@ static CGFloat const hourButtonHeight = 25.f;
         return;
     }
     
+    NSArray *timeSpaceList = self.currentTimeSpaceList;
     NSInteger selectedRow = 0;
-    for (NSInteger i = 0; i < self.timeSpaceList.count; i ++) {
-        if ([self.timeSpaceButton.titleLabel.text isEqualToString:self.timeSpaceList[i]]) {
+    for (NSInteger i = 0; i < timeSpaceList.count; i ++) {
+        if ([self.timeSpaceButton.titleLabel.text isEqualToString:timeSpaceList[i]]) {
             selectedRow = i;
             break;
         }
     }
     
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    [pickView showPickViewWithDataList:self.timeSpaceList selectedRow:selectedRow block:^(NSInteger currentRow) {
-        [self.timeSpaceButton setTitle:self.timeSpaceList[currentRow] forState:UIControlStateNormal];
+    [pickView showPickViewWithDataList:timeSpaceList selectedRow:selectedRow block:^(NSInteger currentRow) {
+        [self.timeSpaceButton setTitle:timeSpaceList[currentRow] forState:UIControlStateNormal];
         if ([self.delegate respondsToSelector:@selector(mk_loraModule_timeSpaceButtonPressed:timeSpace:)]) {
             [self.delegate mk_loraModule_timeSpaceButtonPressed:self.dataModel.index timeSpace:currentRow];
         }
@@ -251,12 +252,20 @@ static CGFloat const hourButtonHeight = 25.f;
     if (_dataModel.hour < self.hourList.count) {
         [self.hourButton setTitle:self.hourList[_dataModel.hour] forState:UIControlStateNormal];
     }
-    if (_dataModel.timeSpace < self.timeSpaceList.count) {
-        [self.timeSpaceButton setTitle:self.timeSpaceList[_dataModel.timeSpace] forState:UIControlStateNormal];
+    NSArray *timeSpaceList = self.currentTimeSpaceList;
+    if (_dataModel.timeSpace < timeSpaceList.count) {
+        [self.timeSpaceButton setTitle:timeSpaceList[_dataModel.timeSpace] forState:UIControlStateNormal];
     }
 }
 
 #pragma mark - private method
+- (NSArray <NSString *> *)currentTimeSpaceList {
+    if (self.minuteGearList.count) {
+        return self.minuteGearList;
+    }
+    return self.timeSpaceList;
+}
+
 - (void)addSwipeRecognizer{
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] init];
     [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];

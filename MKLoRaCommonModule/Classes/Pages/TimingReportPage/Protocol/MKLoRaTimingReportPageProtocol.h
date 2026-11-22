@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
                               sucBlock:(void (^)(void))sucBlock
                            failedBlock:(void (^)(NSError * _Nonnull error))failedBlock;
 
+/// 时间点分钟档位展示列表，默认00~59；仅支持00/10/20/30/40/50时返回该数组，数组下标即minuteGear
+- (nullable NSArray <NSString *> *)timePointMinuteGearList;
+
 @end
 
 NS_ASSUME_NONNULL_END
