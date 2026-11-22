@@ -25,6 +25,8 @@ MKTextFieldCellDelegate>
 
 @property (nonatomic, strong) MKBaseTableView *tableView;
 
+@property (nonatomic, strong) NSMutableArray *multicaseList;
+
 @property (nonatomic, strong) NSMutableArray *section0List;
 
 @property (nonatomic, strong) NSMutableArray *section1List;
@@ -83,7 +85,14 @@ MKTextFieldCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if ([self hasMulticaseSection] && indexPath.section == 0 && indexPath.row == 0) {
+        if ([self.protocol respondsToSelector:@selector(pushToMulticaseGroupPageFromController:)]) {
+            [self.protocol pushToMulticaseGroupPageFromController:self];
+        }
+        return;
+    }
+    NSInteger messageTypeSection = ([self hasMulticaseSection] ? 1 : 0);
+    if (indexPath.section == messageTypeSection && indexPath.row == 0) {
         if ([self.protocol respondsToSelector:@selector(pushToMessageTypePageFromController:)]) {
             [self.protocol pushToMessageTypePageFromController:self];
             return;
@@ -98,32 +107,18 @@ MKTextFieldCellDelegate>
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return self.section0List.count;
-    }
-    if (section == 1) {
-        return self.section1List.count;
-    }
-    if (section == 2) {
-        return self.section2List.count;
-    }
-    return 0;
+    return [self sectionListWithIndex:section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    id cellModel = [self sectionListWithIndex:indexPath.section][indexPath.row];
+    if ([cellModel isKindOfClass:[MKSettingTextCellModel class]]) {
         MKSettingTextCell *cell = [MKSettingTextCell initCellWithTableView:tableView];
-        cell.dataModel = self.section0List[indexPath.row];
-        return cell;
-    }
-    if (indexPath.section == 1) {
-        MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
-        cell.dataModel = self.section1List[indexPath.row];
-        cell.delegate = self;
+        cell.dataModel = cellModel;
         return cell;
     }
     MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
-    cell.dataModel = self.section2List[indexPath.row];
+    cell.dataModel = cellModel;
     cell.delegate = self;
     return cell;
 }
@@ -175,15 +170,26 @@ MKTextFieldCellDelegate>
 
 #pragma mark - loadSections
 - (void)loadSectionDatas {
+    [self loadMulticaseDatas];
     [self loadSection0Datas];
     [self loadSection1Datas];
     [self loadSection2Datas];
-    
-    for (NSInteger i = 0; i < 3; i ++) {
+
+    NSInteger sectionCount = 3 + ([self hasMulticaseSection] ? 1 : 0);
+    for (NSInteger i = 0; i < sectionCount; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
     [self.tableView reloadData];
+}
+
+- (void)loadMulticaseDatas {
+    if (![self hasMulticaseSection]) {
+        return;
+    }
+    MKSettingTextCellModel *cellModel = [[MKSettingTextCellModel alloc] init];
+    cellModel.leftMsg = [self multicaseGroupTitle];
+    [self.multicaseList addObject:cellModel];
 }
 
 - (void)loadSection0Datas {
@@ -221,6 +227,12 @@ MKTextFieldCellDelegate>
 
 #pragma mark - optional protocol
 - (NSArray *)sectionListWithIndex:(NSInteger)index {
+    if ([self hasMulticaseSection]) {
+        if (index == 0) {
+            return self.multicaseList;
+        }
+        index -= 1;
+    }
     if (index == 0) {
         return self.section0List;
     }
@@ -231,6 +243,23 @@ MKTextFieldCellDelegate>
         return self.section2List;
     }
     return @[];
+}
+
+- (BOOL)hasMulticaseSection {
+    if ([self.protocol respondsToSelector:@selector(showMulticaseGroup)]) {
+        return self.protocol.showMulticaseGroup;
+    }
+    return NO;
+}
+
+- (NSString *)multicaseGroupTitle {
+    if ([self.protocol respondsToSelector:@selector(multicaseGroupTitle)]) {
+        NSString *value = self.protocol.multicaseGroupTitle;
+        if (ValidStr(value)) {
+            return value;
+        }
+    }
+    return @"Multicase Group";
 }
 
 - (BOOL)hideMessageType {
@@ -297,6 +326,13 @@ MKTextFieldCellDelegate>
         _tableView.dataSource = self;
     }
     return _tableView;
+}
+
+- (NSMutableArray *)multicaseList {
+    if (!_multicaseList) {
+        _multicaseList = [NSMutableArray array];
+    }
+    return _multicaseList;
 }
 
 - (NSMutableArray *)section0List {

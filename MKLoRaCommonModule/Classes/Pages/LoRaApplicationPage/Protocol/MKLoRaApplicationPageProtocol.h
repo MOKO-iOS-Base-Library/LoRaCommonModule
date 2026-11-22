@@ -31,6 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// Message Type Settings 行点击后的跳转，不实现时不做处理
 - (void)pushToMessageTypePageFromController:(UIViewController *)controller;
 
+/// 是否显示 Multicase Group 行，默认 NO，为 YES 时显示在 Message Type Settings 上方
+@property (nonatomic, assign)BOOL showMulticaseGroup;
+
+/// Multicase Group 行的标题，不实现时使用默认值
+@property (nonatomic, copy)NSString *multicaseGroupTitle;
+
+/// Multicase Group 行点击后的跳转，不实现时不做处理
+- (void)pushToMulticaseGroupPageFromController:(UIViewController *)controller;
+
 @end
 
 NS_ASSUME_NONNULL_END

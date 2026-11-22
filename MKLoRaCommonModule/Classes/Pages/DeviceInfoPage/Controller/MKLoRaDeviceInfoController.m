@@ -30,6 +30,8 @@
 @property (nonatomic, strong) NSMutableArray *section5List;   // Battery Consumption (optional)
 @property (nonatomic, strong) NSMutableArray *section6List;   // Debugger Mode (optional)
 
+@property (nonatomic, strong) NSMutableArray *section7List;   // Decoder Export (optional)
+
 @property (nonatomic, strong) NSMutableArray *headerList;
 
 /// 进入 DFU 页面返回后不再读取数据
@@ -87,7 +89,7 @@
     if (section == 5 && self.hideBatteryConsumption) {
         return 0.f;
     }
-    if (section == 0 || section == 3 || section == 4 || section == 5 || section == 6) {
+    if (section == 0 || section == 3 || section == 4 || section == 5 || section == 6 || section == 7) {
         return 10.f;
     }
     return 0.f;
@@ -126,6 +128,14 @@
         }
         return;
     }
+
+    // Decoder Export
+    if (indexPath.section == 7 && indexPath.row == 0) {
+        if ([self.protocol respondsToSelector:@selector(deviceInfoPageDidSelectDecoderExport)]) {
+            [self.protocol deviceInfoPageDidSelectDecoderExport];
+        }
+        return;
+    }
 }
 
 #pragma mark - MKDeviceInfoDfuCellDelegate
@@ -143,7 +153,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 7;
+    return 7 + ([self supportDecoderExport] ? 1 : 0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -154,6 +164,7 @@
     if (section == 4) return self.section4List.count;
     if (section == 5) return self.section5List.count;
     if (section == 6) return self.section6List.count;
+    if (section == 7) return self.section7List.count;
     return 0;
 }
 
@@ -177,6 +188,8 @@
         cell.dataModel = self.section5List[indexPath.row];
     } else if (indexPath.section == 6) {
         cell.dataModel = self.section6List[indexPath.row];
+    } else if (indexPath.section == 7) {
+        cell.dataModel = self.section7List[indexPath.row];
     }
     return cell;
 }
@@ -258,9 +271,11 @@
     [self loadSection4Datas];
     [self loadSection5Datas];
     [self loadSection6Datas];
-    
-    // 7 个 section 对应 7 个 header（但部分 section header height = 0）
-    for (NSInteger i = 0; i < 7; i++) {
+    [self loadSection7Datas];
+
+    // section 对应 header（部分 section header height = 0）
+    NSInteger sectionCount = 7 + ([self supportDecoderExport] ? 1 : 0);
+    for (NSInteger i = 0; i < sectionCount; i++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -323,6 +338,23 @@
     cellModel.showRightIcon = YES;
     cellModel.leftMsg = @"Debugger Mode";
     [self.section6List addObject:cellModel];
+}
+
+- (void)loadSection7Datas {
+    if (![self supportDecoderExport]) {
+        return;
+    }
+    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    cellModel.showRightIcon = YES;
+    cellModel.leftMsg = @"Decoder Export";
+    [self.section7List addObject:cellModel];
+}
+
+- (BOOL)supportDecoderExport {
+    if ([self.protocol respondsToSelector:@selector(supportDecoderExport)]) {
+        return self.protocol.supportDecoderExport;
+    }
+    return NO;
 }
 
 #pragma mark - event
@@ -395,6 +427,11 @@
 - (NSMutableArray *)section6List {
     if (!_section6List) { _section6List = [NSMutableArray array]; }
     return _section6List;
+}
+
+- (NSMutableArray *)section7List {
+    if (!_section7List) { _section7List = [NSMutableArray array]; }
+    return _section7List;
 }
 
 - (NSMutableArray *)headerList {
