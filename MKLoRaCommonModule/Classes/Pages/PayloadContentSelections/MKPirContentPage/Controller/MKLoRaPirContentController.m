@@ -224,6 +224,7 @@ mk_textSwitchCellDelegate>
 - (void)loadSubViews {
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaPirContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"MK-PIR Content";
+    [self setNavTitleFont:[UIFont systemFontOfSize:15.f]];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
