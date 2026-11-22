@@ -59,6 +59,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否需要监听 DFU 开始通知
 - (BOOL)deviceInfoPageShouldObserveDFUNotification;
 
+#pragma mark - Decoder Export
+/// 是否显示 Decoder Export 行（位于 Debugger Mode 下方），默认 NO
+@property (nonatomic, assign)BOOL supportDecoderExport;
+
+/// Decoder Export 行点击，业务自行处理导出逻辑
+- (void)deviceInfoPageDidSelectDecoderExport;
+
 @end
 
 NS_ASSUME_NONNULL_END

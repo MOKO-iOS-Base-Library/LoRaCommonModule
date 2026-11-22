@@ -27,6 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
+@optional
+/**
+ 提供各扫描策略子页面的业务Model，不实现或返回nil时子页面不注入protocol（保持旧行为）
+ @param row 子页面在列表中的行号，0:Timing Scan & Immediately Report，1:Periodic Scan & Immediately Report，
+ 2:Scan Always On & Periodic Report，3:Periodic Scan & Periodic Report，4:Scan Always On & Timing Report，
+ 5:Timing Scan & Timing Report，6:Periodic Scan & Timing Report
+ */
+- (nullable id)scanReportPageChildProtocolWithRow:(NSInteger)row;
+
 @end
 
 NS_ASSUME_NONNULL_END

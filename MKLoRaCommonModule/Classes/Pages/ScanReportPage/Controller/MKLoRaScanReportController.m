@@ -75,45 +75,60 @@ MKTextButtonCellDelegate>
     if (indexPath.section == 1 && indexPath.row == 0) {
         //Timing Scan & Immediately Report
         MKLoRaTimingImmediatelyController *vc = [[MKLoRaTimingImmediatelyController alloc] init];
+        vc.protocol = [self childProtocolAtRow:0];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 1 && indexPath.row == 1) {
         //Periodic Scan & Immediately Report
         MKLoRaPeriodicImmediatelyController *vc = [[MKLoRaPeriodicImmediatelyController alloc] init];
+        vc.protocol = [self childProtocolAtRow:1];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 1 && indexPath.row == 2) {
         //Scan Always On & Periodic Report
         MKLoRaScanAlwaysController *vc = [[MKLoRaScanAlwaysController alloc] init];
+        vc.protocol = [self childProtocolAtRow:2];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 1 && indexPath.row == 3) {
         //Periodic Scan & Periodic Report
         MKLoRaPeriodicScanController *vc = [[MKLoRaPeriodicScanController alloc] init];
+        vc.protocol = [self childProtocolAtRow:3];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 1 && indexPath.row == 4) {
         //Scan Always On & Timing Report
         MKLoRaScanTimingController *vc = [[MKLoRaScanTimingController alloc] init];
+        vc.protocol = [self childProtocolAtRow:4];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 1 && indexPath.row == 5) {
         //Timing Scan & Timing Report
         MKLoRaTimingReportController *vc = [[MKLoRaTimingReportController alloc] init];
+        vc.protocol = [self childProtocolAtRow:5];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 1 && indexPath.row == 6) {
         //Periodic Scan & Timing Report
         MKLoRaPeriodicTimingController *vc = [[MKLoRaPeriodicTimingController alloc] init];
+        vc.protocol = [self childProtocolAtRow:6];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
+}
+
+#pragma mark - private method
+- (id)childProtocolAtRow:(NSInteger)row {
+    if ([self.protocol respondsToSelector:@selector(scanReportPageChildProtocolWithRow:)]) {
+        return [self.protocol scanReportPageChildProtocolWithRow:row];
+    }
+    return nil;
 }
 
 #pragma mark - UITableViewDataSource
