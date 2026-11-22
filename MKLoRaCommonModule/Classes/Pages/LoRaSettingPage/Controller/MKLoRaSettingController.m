@@ -169,26 +169,26 @@ MKLoRaSettingCHCellDelegate>
         return 0;
     }
     if (section == 4) {
-        //CH
-        if (self.protocol.region == 1 || self.protocol.region == 5) {
-            //AU915、US915
+        //CH: AU915、CN470、US915
+        NSInteger region = [self canonicalRegion];
+        if (region == 1 || region == 2 || region == 8) {
             return self.optionsList1.count;
         }
         return 0;
     }
     if (section == 5) {
-        //Duty-cycle
-        if (self.protocol.region == 2 || self.protocol.region == 6) {
-            //EU868,RU864
+        //Duty-cycle: CN779、EU433、EU868、RU864
+        NSInteger region = [self canonicalRegion];
+        if (region == 3 || region == 4 || region == 5 || region == 9) {
             return self.optionsList2.count;
         }
         return 0;
     }
     if (section == 6) {
-        //DR For Join
-        if (self.protocol.region == 2 || self.protocol.region == 3 || self.protocol.region == 4
-            || self.protocol.region == 6) {
-            //EU868,KR920, IN865, RU864
+        //DR For Join: CN470、CN779、EU433、EU868、KR920、IN865、RU864
+        NSInteger region = [self canonicalRegion];
+        if (region == 2 || region == 3 || region == 4 || region == 5
+            || region == 6 || region == 7 || region == 9) {
             return self.optionsList3.count;
         }
         return 0;
@@ -703,10 +703,22 @@ MKLoRaSettingCHCellDelegate>
     MKTextButtonCellModel *regionModel = [[MKTextButtonCellModel alloc] init];
     regionModel.index = 1;
     regionModel.msg = @"Region/Subnet";
-    regionModel.dataList = @[@"AS923",@"AU915",@"EU868",@"KR920",@"IN865",@"US915",@"RU864",@"AS923-1",@"AS923-2",@"AS923-3",@"AS923-4"];
+    if ([self.protocol respondsToSelector:@selector(RegionList)]) {
+        regionModel.dataList = [self.protocol RegionList];
+    } else {
+        regionModel.dataList = @[@"AS923",@"AU915",@"EU868",@"KR920",@"IN865",@"US915",@"RU864",@"AS923-1",@"AS923-2",@"AS923-3",@"AS923-4"];
+    }
     regionModel.buttonLabelFont = MKFont(13.f);
     regionModel.dataListIndex = self.protocol.region;
     [self.section2List addObject:regionModel];
+}
+
+/// 设置项显隐统一按标准 region 值判断，避免简化 region 值命中原通用值
+- (NSInteger)canonicalRegion {
+    if ([self.protocol respondsToSelector:@selector(canonicalRegion)]) {
+        return [self.protocol canonicalRegion];
+    }
+    return self.protocol.region;
 }
 
 #pragma mark - 加载底部列表

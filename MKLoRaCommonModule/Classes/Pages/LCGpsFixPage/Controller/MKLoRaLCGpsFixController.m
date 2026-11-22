@@ -41,6 +41,7 @@ MKTextFieldCellDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaLCGpsFixController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self loadSubViews];
     [self readDatasFromDevice];
 }

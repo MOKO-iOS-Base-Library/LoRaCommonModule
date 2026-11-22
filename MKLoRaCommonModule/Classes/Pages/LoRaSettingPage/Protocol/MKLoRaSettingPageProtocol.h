@@ -27,15 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  0:AS923
  1:AU915
- 2:EU868
- 3:KR920
- 4:IN865
- 5:US915
- 6:RU864
- 7:AS923-1
- 8:AS923-2
- 9:AS923-3
- 10:AS923-4
+ 2:CN470
+ 3:CN779
+ 4:EU433
+ 5:EU868
+ 6:KR920
+ 7:IN865
+ 8:US915
+ 9:RU864
+ 10:AS923-1
+ 11:AS923-2
+ 12:AS923-3
+ 13:AS923-4
  */
 @property (nonatomic, assign)NSInteger region;
 
@@ -45,20 +48,26 @@ NS_ASSUME_NONNULL_BEGIN
 /// 底部高级选项是否打开(needAdvanceSetting == YES情况下)
 @property (nonatomic, assign)BOOL advancedStatus;
 
-/// 当频段选择为US915和AU915时，CH设置项显示。US915默认显示值为8-15；AU915默认显示值为8-15.
+/// 当频段选择为US915、AU915和CN470时，CH设置项显示。
 @property (nonatomic, assign)NSInteger CHL;
 
-/// 当频段选择为US915,和AU915，CH设置项显示。US915默认显示值为8-15；AU915默认显示值为8-15.
+/// 当频段选择为US915、AU915和CN470时，CH设置项显示。
 @property (nonatomic, assign)NSInteger CHH;
 
-//EU868,RU864
+//CN779, EU433, EU868, RU864
 @property (nonatomic, assign)BOOL dutyIsOn;
 
-/// It is only used for EU868,KR920, IN865, RU864
+@optional
+
+/// It is only used for CN470, CN779, EU433, EU868, KR920, IN865, RU864, AS923-1~4
 /// 0~15
 @property (nonatomic, assign)NSInteger join;
 
+@required
+
 @property (nonatomic, assign)BOOL adrIsOn;
+
+@optional
 
 @property (nonatomic, assign)NSInteger DRL;
 
@@ -70,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 1~255
 @property (nonatomic, copy)NSString *ackDelay;
 
+@required
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 - (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
@@ -80,6 +91,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSString *>*)CHLValueList;
 - (NSArray <NSString *>*)CHHValueList;
 - (NSArray <NSString *>*)DRValueList;
+
+@optional
+
+/// 标准 region 值（0~13，含义同 region），用于判断设置项是否显示。
+/// 默认等于 region；使用简化 region 值的产品需要实现该映射。
+- (NSInteger)canonicalRegion;
+
+/// 当前 region 在 RegionList 中的下标。
+/// 默认等于 currentRegion（旧页面为 region）；region 与列表下标不一致的产品需要实现。
+- (NSInteger)regionListIndex;
+
+/// Model 提供自定义的 Region 列表（用于通用 region 值产品）
+- (NSArray <NSString *>*)RegionList;
+
 - (NSArray <NSString *>*)DRLValueList;
 - (NSArray <NSString *>*)DRHValueList;
 

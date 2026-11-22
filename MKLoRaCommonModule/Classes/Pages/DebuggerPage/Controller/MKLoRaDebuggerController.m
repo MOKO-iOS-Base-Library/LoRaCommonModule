@@ -235,7 +235,6 @@ MKLoRaDebuggerCellDelegate>
     @weakify(self);
     [self.protocol deleteAllLogsWithSucBlock:^{
         @strongify(self);
-        [[MKHudManager share] hide];
         NSMutableArray *tempList = [NSMutableArray array];
         for (NSInteger i = 0; i < self.dataList.count; i ++) {
             MKLoRaDebuggerCellModel *cellModel = self.dataList[i];
@@ -247,8 +246,7 @@ MKLoRaDebuggerCellDelegate>
         }
         [self.dataList removeAllObjects];
         [self.dataList addObjectsFromArray:tempList];
-        [self.tableView reloadData];
-        [self updateTopButtonState];
+        [self saveDataListToLocal];
     } failedBlock:^(NSError * _Nonnull error) {
         @strongify(self);
         [[MKHudManager share] hide];

@@ -85,7 +85,7 @@
 
 #pragma mark - private method
 - (void)updateIcon {
-    UIImage *icon = (self.backButton.selected ? LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerCell", @"mk_loraModule_debuggerSelected.png") : LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerCell", @"mk_loraModule_debuggerUnselected"));
+    UIImage *icon = (self.backButton.selected ? LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerCell", @"mk_loraModule_debuggerSelected.png") : LOADICON(@"MKLoRaCommonModule", @"MKLoRaDebuggerCell", @"mk_loraModule_debuggerUnselected.png"));
     self.selectedIcon.image = icon;
 }
 

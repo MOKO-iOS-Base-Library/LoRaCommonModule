@@ -2,6 +2,8 @@
 //  MKLoRaBXPTagContentController.m
 //  MKLoRaCommonModule
 //
+//  Created by aa on 2026/11/18.
+//
 
 #import "MKLoRaBXPTagContentController.h"
 #import "Pages/PayloadContentSelections/BXPTagContentPage/Protocol/MKLoRaBXPTagContentPageProtocol.h"
@@ -219,6 +221,7 @@ mk_textSwitchCellDelegate>
 - (void)loadSubViews {
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaBXPTagContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"BXP-T&S Content";
+    [self setNavTitleFont:[UIFont systemFontOfSize:15.f]];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

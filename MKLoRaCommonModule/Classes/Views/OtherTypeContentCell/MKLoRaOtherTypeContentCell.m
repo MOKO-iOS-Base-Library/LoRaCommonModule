@@ -118,6 +118,7 @@
 - (UIButton *)deleteButton {
     if (!_deleteButton) {
         _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_deleteButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaOtherTypeContentCell", @"mk_loraModule_filterEdit_subIcon.png") forState:UIControlStateNormal];
         [_deleteButton addTarget:self action:@selector(deleteButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     }
     return _deleteButton;

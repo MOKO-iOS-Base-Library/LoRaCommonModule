@@ -215,6 +215,12 @@ mk_textSwitchCellDelegate>
 
 #pragma mark - positioning strategy
 - (NSArray<NSString *> *)positioningStrategyDataList {
+    if ([self.protocol respondsToSelector:@selector(strategyDataList)]) {
+        NSArray<NSString *> *list = self.protocol.strategyDataList;
+        if (list.count) {
+            return list;
+        }
+    }
     return @[@"WIFI",@"BLE",@"GPS",@"WIFI+GPS",@"BLE+GPS",@"WIFI+BLE",@"WIFI+BLE+GPS"];
 }
 

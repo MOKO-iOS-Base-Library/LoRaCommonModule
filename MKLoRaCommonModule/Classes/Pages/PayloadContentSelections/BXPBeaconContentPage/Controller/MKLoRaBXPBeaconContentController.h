@@ -2,6 +2,8 @@
 //  MKLoRaBXPBeaconContentController.h
 //  MKLoRaCommonModule
 //
+//  Created by aa on 2026/11/18.
+//
 
 #import "MKBaseViewController.h"
 #import "Pages/PayloadContentSelections/BXPBeaconContentPage/Protocol/MKLoRaBXPBeaconContentPageProtocol.h"

@@ -7,25 +7,14 @@
 
 @property (nonatomic, copy)NSString *numberOfFixOnStart;
 
-/*
- 0:BLE
- 1:GPS
- 2:BLE+GPS
- 3:BLE*GPS
- */
+/// Positioning Strategy，索引对应 posStrategyDataList 中的可选项
 @property (nonatomic, assign)NSInteger posStrategyOnStart;
 
 @property (nonatomic, assign)BOOL fixInTrip;
 
 @property (nonatomic, copy)NSString *reportIntervalInTrip;
 
-/*
- 0:BLE
- 1:GPS
- 2:BLE+GPS
- 3:BLE*GPS
- 4:BLE&GPS
- */
+/// Positioning Strategy，索引对应 posStrategyInTripDataList 中的可选项
 @property (nonatomic, assign)NSInteger posStrategyInTrip;
 
 @property (nonatomic, assign)BOOL fixOnEnd;
@@ -36,24 +25,14 @@
 
 @property (nonatomic, copy)NSString *reportIntervalOnEnd;
 
-/*
- 0:BLE
- 1:GPS
- 2:BLE+GPS
- 3:BLE*GPS
- */
+/// Positioning Strategy，索引对应 posStrategyDataList 中的可选项
 @property (nonatomic, assign)NSInteger posStrategyOnEnd;
 
 @property (nonatomic, assign)BOOL fixOnStationary;
 
 @property (nonatomic, copy)NSString *reportIntervalOnStationary;
 
-/*
- 0:BLE
- 1:GPS
- 2:BLE+GPS
- 3:BLE*GPS
- */
+/// Positioning Strategy，索引对应 posStrategyDataList 中的可选项
 @property (nonatomic, assign)NSInteger posStrategyOnStationary;
 
 @property (nonatomic, assign)BOOL notifyEventOnStart;

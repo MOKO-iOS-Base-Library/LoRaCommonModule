@@ -100,7 +100,7 @@
 - (UIButton *)addButton {
     if (!_addButton) {
         _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaTimeSegmentedAddCell", @"mk_loraModule_loraDeviceMode_addIcon.png") forState:UIControlStateNormal];
+        [_addButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaTimeSegmentedAddCell", @"mk_loraModule_filterEdit_addIcon.png") forState:UIControlStateNormal];
         [_addButton addTarget:self
                        action:@selector(addButtonPressed)
              forControlEvents:UIControlEventTouchUpInside];

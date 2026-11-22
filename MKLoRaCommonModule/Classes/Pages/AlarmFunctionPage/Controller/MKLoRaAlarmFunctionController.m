@@ -9,6 +9,8 @@
 
 #import "Masonry.h"
 
+#import "MLInputDodger.h"
+
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"
 #import "UIView+MKAdd.h"
@@ -41,6 +43,12 @@ MKLoRaAlarmFunctionCellDelegate>
 
 - (void)dealloc {
     NSLog(@"MKLoRaAlarmFunctionController销毁");
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.view.shiftHeightAsDodgeViewForMLInputDodger = 50.0f;
+    [self.view registerAsDodgeViewForMLInputDodgerWithOriginalY:self.view.frame.origin.y];
 }
 
 - (void)viewDidLoad {

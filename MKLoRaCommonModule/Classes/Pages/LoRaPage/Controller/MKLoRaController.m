@@ -41,6 +41,14 @@
     [self loadSections];
 }
 
+- (void)leftButtonMethod {
+    if ([self.protocol respondsToSelector:@selector(loraPageHandleLeftButtonTapFromController:)]
+        && [self.protocol loraPageHandleLeftButtonTapFromController:self]) {
+        return;
+    }
+    [super leftButtonMethod];
+}
+
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44.f;
@@ -48,10 +56,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 1) {
+        if ([self.protocol respondsToSelector:@selector(pushToLoRaSettingPageFromController:)]) {
+            [self.protocol pushToLoRaSettingPageFromController:self];
+            return;
+        }
         [self pushToLoRaSettingPage];
         return;
     }
     if (indexPath.row == 2) {
+        if ([self.protocol respondsToSelector:@selector(pushToLoRaApplicationPageFromController:)]) {
+            [self.protocol pushToLoRaApplicationPageFromController:self];
+            return;
+        }
         [self pushToLoRaApplicationPage];
         return;
     }

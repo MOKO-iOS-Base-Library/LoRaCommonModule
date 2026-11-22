@@ -2,6 +2,8 @@
 //  MKLoRaBXPBeaconContentController.m
 //  MKLoRaCommonModule
 //
+//  Created by aa on 2026/11/18.
+//
 
 #import "MKLoRaBXPBeaconContentController.h"
 #import "Pages/PayloadContentSelections/BXPBeaconContentPage/Protocol/MKLoRaBXPBeaconContentPageProtocol.h"
@@ -179,7 +181,8 @@ mk_textSwitchCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaBXPBeaconContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
-    self.defaultTitle = @"BXP-iBeaocn Content";
+    self.defaultTitle = @"BXP-iBeacon Content";
+    [self setNavTitleFont:[UIFont systemFontOfSize:15.f]];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

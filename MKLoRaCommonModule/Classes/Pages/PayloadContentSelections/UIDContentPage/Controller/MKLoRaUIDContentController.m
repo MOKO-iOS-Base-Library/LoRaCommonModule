@@ -2,6 +2,8 @@
 //  MKLoRaUIDContentController.m
 //  MKLoRaCommonModule
 //
+//  Created by aa on 2026/11/18.
+//
 
 #import "MKLoRaUIDContentController.h"
 #import "Pages/PayloadContentSelections/UIDContentPage/Protocol/MKLoRaUIDContentPageProtocol.h"
@@ -141,6 +143,7 @@ mk_textSwitchCellDelegate>
 - (void)loadSubViews {
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaUIDContentController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"Eddystone-UID Content";
+    [self setNavTitleFont:[UIFont systemFontOfSize:15.f]];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

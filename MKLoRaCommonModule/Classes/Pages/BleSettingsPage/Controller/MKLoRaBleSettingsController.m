@@ -19,12 +19,14 @@
 #import "MKTextFieldCell.h"
 #import "MKTextSwitchCell.h"
 #import "MKNormalTextCell.h"
+#import "MKLoRaTxPowerCell.h"
 #import "MKTableSectionLineHeader.h"
 
 @interface MKLoRaBleSettingsController ()<UITableViewDelegate,
 UITableViewDataSource,
 MKTextFieldCellDelegate,
-mk_textSwitchCellDelegate>
+mk_textSwitchCellDelegate,
+MKLoRaTxPowerCellDelegate>
 
 @property (nonatomic, strong) MKBaseTableView *tableView;
 
@@ -72,11 +74,9 @@ mk_textSwitchCellDelegate>
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 如果业务接管 Tx Power cell，让业务返回高度（通过 override heightForRow）
-    if (indexPath.section == 1 &&
-        [self.protocol respondsToSelector:@selector(bleSettingsPageShouldUseCustomTxPowerCell)] &&
-        [self.protocol bleSettingsPageShouldUseCustomTxPowerCell]) {
-        return 95.f;  // 默认和 AJ 一致，业务可 override
+    if (indexPath.section == 1) {
+        //Tx Power
+        return 95.f;
     }
     return 44.f;
 }
@@ -97,17 +97,6 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Tx Power
-    if (indexPath.section == 1 && indexPath.row == 0
-        && [self.protocol respondsToSelector:@selector(bleSettingsPageDidSelectTxPowerWithCompletion:)]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"MKTextFieldNeedHiddenKeyboard" object:nil];
-        @weakify(self);
-        [self.protocol bleSettingsPageDidSelectTxPowerWithCompletion:^{
-            @strongify(self);
-            [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
-        }];
-        return;
-    }
     // Change Password
     if (indexPath.section == 5 && indexPath.row == 0) {
         BOOL canChangePassword = YES;
@@ -147,9 +136,10 @@ mk_textSwitchCellDelegate>
         return cell;
     }
     if (indexPath.section == 1) {
-        // Tx Power - 基础版用 MKNormalTextCell 占位，显示当前值
-        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        // Tx Power
+        MKLoRaTxPowerCell *cell = [MKLoRaTxPowerCell initCellWithTableView:tableView];
         cell.dataModel = self.section1List[indexPath.row];
+        cell.delegate = self;
         return cell;
     }
     if (indexPath.section == 2) {
@@ -218,6 +208,14 @@ mk_textSwitchCellDelegate>
         [self.tableView mk_reloadSection:5 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
+}
+
+#pragma mark - MKLoRaTxPowerCellDelegate
+
+- (void)mk_lora_txPowerCell_valueChanged:(NSInteger)txPower {
+    self.protocol.txPower = txPower;
+    MKLoRaTxPowerCellModel *cellModel = self.section1List[0];
+    cellModel.txPower = txPower;
 }
 
 #pragma mark - interface
@@ -290,14 +288,12 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)loadSection1Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
-    cellModel.leftMsg = @"Tx Power";
-    cellModel.showRightIcon = [self.protocol respondsToSelector:@selector(bleSettingsPageDidSelectTxPowerWithCompletion:)];
-    // 如果业务提供了 dBm 显示文本就用业务的，否则显示数值索引
-    if ([self.protocol respondsToSelector:@selector(bleSettingsPage_txPowerDisplayString)]) {
-        cellModel.rightMsg = [self.protocol bleSettingsPage_txPowerDisplayString];
+    MKLoRaTxPowerCellModel *cellModel = [[MKLoRaTxPowerCellModel alloc] init];
+    cellModel.txPower = self.protocol.txPower;
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageTxPowerValues)]) {
+        cellModel.txPowerList = [self.protocol bleSettingsPageTxPowerValues];
     } else {
-        cellModel.rightMsg = [NSString stringWithFormat:@"%ld", (long)self.protocol.txPower];
+        cellModel.txPowerList = @[@"0dBm"];
     }
     [self.section1List addObject:cellModel];
 }

@@ -1,3 +1,9 @@
+//
+//  MKLoRaTLMContentPageProtocol.h
+//  MKLoRaCommonModule
+//
+//  Created by aa on 2026/11/18.
+//
 
 NS_ASSUME_NONNULL_BEGIN
 
