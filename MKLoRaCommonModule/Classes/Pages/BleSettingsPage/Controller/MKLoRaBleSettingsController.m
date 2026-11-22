@@ -350,6 +350,24 @@ MKLoRaTxPowerCellDelegate>
 - (void)loadSubViews {
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaBleSettingsController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     self.defaultTitle = @"Bluetooth Settings";
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageTitle)]) {
+        NSString *title = [self.protocol bleSettingsPageTitle];
+        if (title.length) {
+            self.defaultTitle = title;
+        }
+    }
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageSaveIcon)]) {
+        UIImage *saveIcon = [self.protocol bleSettingsPageSaveIcon];
+        if (saveIcon) {
+            [self.rightButton setImage:saveIcon forState:UIControlStateNormal];
+        }
+    }
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageNavTitleFont)]) {
+        UIFont *titleFont = [self.protocol bleSettingsPageNavTitleFont];
+        if (titleFont) {
+            [self setNavTitleFont:titleFont];
+        }
+    }
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
