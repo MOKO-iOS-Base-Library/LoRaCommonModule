@@ -71,9 +71,16 @@
     // 业务如果有 DFU 流程，监听通知
     if ([self.protocol respondsToSelector:@selector(deviceInfoPageShouldObserveDFUNotification)] &&
         [self.protocol deviceInfoPageShouldObserveDFUNotification]) {
+        NSString *notificationName = @"mk_loraModule_deviceInfo_startDfuProcessNotification";
+        if ([self.protocol respondsToSelector:@selector(deviceInfoPageStartDfuNotificationName)]) {
+            NSString *customName = [self.protocol deviceInfoPageStartDfuNotificationName];
+            if (ValidStr(customName)) {
+                notificationName = customName;
+            }
+        }
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(deviceStartDFUProcess)
-                                                     name:@"mk_loraModule_deviceInfo_startDfuProcessNotification"
+                                                     name:notificationName
                                                    object:nil];
     }
 }
@@ -225,7 +232,14 @@
     }
     if (ValidStr(self.protocol.voltage)) {
         MKNormalTextCellModel *voltage = self.section3List[0];
-        voltage.rightMsg = [self.protocol.voltage stringByAppendingString:@"mV"];
+        NSString *displayText = nil;
+        if ([self.protocol respondsToSelector:@selector(deviceInfoPageVoltageDisplayText)]) {
+            displayText = [self.protocol deviceInfoPageVoltageDisplayText];
+        }
+        if (!ValidStr(displayText)) {
+            displayText = [self.protocol.voltage stringByAppendingString:@"mV"];
+        }
+        voltage.rightMsg = displayText;
     }
     if (ValidStr(self.protocol.macAddress)) {
         MKNormalTextCellModel *mac = self.section4List[0];

@@ -37,6 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+/// 电池电压显示文本（含单位）。不实现则默认 voltage + "mV"。
+/// 例如 AF 返回 [NSString stringWithFormat:@"%@ V", self.voltage]。
+- (nullable NSString *)deviceInfoPageVoltageDisplayText;
+
 #pragma mark - Cellular 专属字段
 /// ICCID（仅 MKCellular 等 Cellular 模块有）
 @property (nonatomic, copy, nullable) NSString *iccid;
@@ -58,6 +62,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 是否需要监听 DFU 开始通知
 - (BOOL)deviceInfoPageShouldObserveDFUNotification;
+
+/// DFU 开始通知名，与 UpdatePage 的 mk_lora_update_startDfuNotificationName 对应。
+/// 不实现则使用默认通知名 mk_loraModule_deviceInfo_startDfuProcessNotification。
+- (nullable NSString *)deviceInfoPageStartDfuNotificationName;
 
 #pragma mark - Decoder Export
 /// 是否显示 Decoder Export 行（位于 Debugger Mode 下方），默认 NO
