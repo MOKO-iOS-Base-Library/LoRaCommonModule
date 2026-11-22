@@ -97,10 +97,12 @@ UITableViewDataSource>
             vc = [self.protocol pirContentViewController];
             break;
         case 12:
-            vc = [self.protocol nanoBeaconContentViewController];
+            vc = [self showNanoBeacon] ? [self.protocol nanoBeaconContentViewController] : [self.protocol otherContentViewController];
             break;
         case 13:
-            vc = [self.protocol otherContentViewController];
+            if ([self showNanoBeacon]) {
+                vc = [self.protocol otherContentViewController];
+            }
             break;
         default:
             break;
@@ -175,9 +177,11 @@ UITableViewDataSource>
     cellModel12.leftMsg = @"BXP-PIR Content";
     [self.dataList addObject:cellModel12];
     
-    MKSettingTextCellModel *cellModel13 = [[MKSettingTextCellModel alloc] init];
-    cellModel13.leftMsg = @"NanoBeacon Info";
-    [self.dataList addObject:cellModel13];
+    if ([self showNanoBeacon]) {
+        MKSettingTextCellModel *cellModel13 = [[MKSettingTextCellModel alloc] init];
+        cellModel13.leftMsg = @"NanoBeacon Info";
+        [self.dataList addObject:cellModel13];
+    }
     
     MKSettingTextCellModel *cellModel14 = [[MKSettingTextCellModel alloc] init];
     cellModel14.leftMsg = @"Other Type Content";
@@ -189,6 +193,14 @@ UITableViewDataSource>
     }
     
     [self.tableView reloadData];
+}
+
+#pragma mark - private method
+- (BOOL)showNanoBeacon {
+    if ([self.protocol respondsToSelector:@selector(payloadContentPageShowNanoBeacon)]) {
+        return [self.protocol payloadContentPageShowNanoBeacon];
+    }
+    return YES;
 }
 
 #pragma mark - UI

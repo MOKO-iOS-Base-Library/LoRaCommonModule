@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIViewController * _Nullable)pirContentViewController;
 - (UIViewController * _Nullable)nanoBeaconContentViewController;
 
+/// Whether to display NanoBeacon content. The default is YES.
+- (BOOL)payloadContentPageShowNanoBeacon;
+
 @end
 
 NS_ASSUME_NONNULL_END

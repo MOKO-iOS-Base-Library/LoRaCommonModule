@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)BOOL response;
 
+- (BOOL)contentPageShowExtendedFields;
+
 @end
 
 NS_ASSUME_NONNULL_END

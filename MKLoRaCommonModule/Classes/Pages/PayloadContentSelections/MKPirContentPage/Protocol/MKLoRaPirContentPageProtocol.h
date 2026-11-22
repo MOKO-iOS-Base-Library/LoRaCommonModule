@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+- (BOOL)contentPageShowExtendedFields;
+
 @property (nonatomic, assign)BOOL macAddress;
 
 @property (nonatomic, assign)BOOL rssi;
