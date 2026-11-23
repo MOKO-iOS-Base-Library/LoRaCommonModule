@@ -86,6 +86,12 @@ MKTextFieldCellDelegate>
         cellModel.textFieldValue = value;
         return;
     }
+    if (index == 2) {
+        self.protocol.duration = value;
+        MKTextFieldCellModel *cellModel = self.dataList[2];
+        cellModel.textFieldValue = value;
+        return;
+    }
 }
 
 #pragma mark - interface
@@ -143,6 +149,24 @@ MKTextFieldCellDelegate>
     cellModel2.unit = @"x0.1";
     cellModel2.maxLength = 3;
     [self.dataList addObject:cellModel2];
+    
+    if (![self.protocol respondsToSelector:@selector(duration)]) {
+        return;
+    }
+    MKTextFieldCellModel *cellModel3 = [[MKTextFieldCellModel alloc] init];
+    cellModel3.index = 2;
+    cellModel3.msg = @"Extra Positioning Duration";
+    cellModel3.textFieldValue = self.protocol.duration;
+    if ([self.protocol respondsToSelector:@selector(durationRangeText)]
+        && ValidStr(self.protocol.durationRangeText)) {
+        cellModel3.textPlaceholder = self.protocol.durationRangeText;
+    }else {
+        cellModel3.textPlaceholder = @"30 ~ 600";
+    }
+    cellModel3.textFieldType = mk_realNumberOnly;
+    cellModel3.unit = @"s";
+    cellModel3.maxLength = 3;
+    [self.dataList addObject:cellModel3];
 }
 
 #pragma mark - Subclass Override
