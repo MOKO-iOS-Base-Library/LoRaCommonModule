@@ -3,6 +3,8 @@
 
 #import "Common/Protocol/MKLoRaDeviceModePageBaseProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol MKLoRaMotionModePageProtocol <MKLoRaDeviceModePageBaseProtocol>
 
 @property (nonatomic, assign)BOOL fixOnStart;
@@ -83,3 +85,5 @@
 - (nullable UIFont *)motionModePageNavTitleFont;
 
 @end
+
+NS_ASSUME_NONNULL_END
