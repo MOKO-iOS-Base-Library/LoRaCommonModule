@@ -54,7 +54,7 @@
     versionLabel.textColor = RGBCOLOR(189, 189, 189);
     versionLabel.textAlignment = NSTextAlignmentCenter;
     versionLabel.font = MKFont(16.f);
-    versionLabel.text = [@"APP Version:" stringByAppendingString:kAppVersion];
+    versionLabel.text = self.protocol.appVersionLabel;
     [self.view addSubview:versionLabel];
     
     UILabel *firmwareLabel = [[UILabel alloc] init];
