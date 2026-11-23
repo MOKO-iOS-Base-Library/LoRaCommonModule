@@ -243,6 +243,7 @@ MKTextFieldCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = @"Alarm Payload Settings";
+    [self setNavTitleFont:MKFont(15.f)];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaAlarmPayloadSettingsController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     if ([self.protocol respondsToSelector:@selector(alarmPayloadSettingsPageSaveIcon)]) {
         UIImage *saveIcon = [self.protocol alarmPayloadSettingsPageSaveIcon];
