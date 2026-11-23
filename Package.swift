@@ -147,6 +147,8 @@ let package = Package(
                 .headerSearchPath("Classes/Pages/TimingReportPage/Protocol"),
                 .headerSearchPath("Classes/Pages/TimingReportSettingPage/Controller"),
                 .headerSearchPath("Classes/Pages/TimingReportSettingPage/Protocol"),
+                .headerSearchPath("Classes/Pages/THSettingsPage/Controller"),
+                .headerSearchPath("Classes/Pages/THSettingsPage/Protocol"),
                 .headerSearchPath("Classes/Pages/UpdatePage/Controller"),
                 .headerSearchPath("Classes/Pages/UpdatePage/Model"),
                 .headerSearchPath("Classes/Pages/UpdatePage/Protocol"),
