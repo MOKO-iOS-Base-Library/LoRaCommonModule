@@ -29,4 +29,7 @@
 /// 页面标题，不实现时使用默认值
 @property (nonatomic, copy)NSString *pageTitle;
 
+/// 时间点分钟档位展示列表，默认00~59；数组下标即minuteGear
+- (NSArray <NSString *> * _Nullable)timePointMinuteGearList;
+
 @end
