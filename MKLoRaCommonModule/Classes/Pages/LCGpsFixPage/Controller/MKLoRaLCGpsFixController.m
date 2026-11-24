@@ -144,7 +144,12 @@ MKTextFieldCellDelegate>
     cellModel2.index = 1;
     cellModel2.msg = @"PDOP";
     cellModel2.textFieldValue = self.protocol.pdop;
-    cellModel2.textPlaceholder = @"5 ~ 100";
+    if ([self.protocol respondsToSelector:@selector(pdopRangeText)]
+        && ValidStr(self.protocol.pdopRangeText)) {
+        cellModel2.textPlaceholder = self.protocol.pdopRangeText;
+    }else {
+        cellModel2.textPlaceholder = @"5 ~ 100";
+    }
     cellModel2.textFieldType = mk_realNumberOnly;
     cellModel2.unit = @"x0.1";
     cellModel2.maxLength = 3;

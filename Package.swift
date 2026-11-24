@@ -67,6 +67,8 @@ let package = Package(
                 .headerSearchPath("Classes/Pages/GpsFixSettingsPage/Protocol"),
                 .headerSearchPath("Classes/Pages/LCGpsFixPage/Controller"),
                 .headerSearchPath("Classes/Pages/LCGpsFixPage/Protocol"),
+                .headerSearchPath("Classes/Pages/LightMonitorSettingsPage/Controller"),
+                .headerSearchPath("Classes/Pages/LightMonitorSettingsPage/Protocol"),
                 .headerSearchPath("Classes/Pages/LoRaApplicationPage/Controller"),
                 .headerSearchPath("Classes/Pages/LoRaApplicationPage/Protocol"),
                 .headerSearchPath("Classes/Pages/LoRaPage/Controller"),

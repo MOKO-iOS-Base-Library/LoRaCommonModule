@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+/// PDOP 的输入范围提示，默认 "5 ~ 100"
+@property (nonatomic, copy) NSString *pdopRangeText;
+
 /// Extra Positioning Duration，实现该属性才会显示对应的输入项
 @property (nonatomic, copy) NSString *duration;
 

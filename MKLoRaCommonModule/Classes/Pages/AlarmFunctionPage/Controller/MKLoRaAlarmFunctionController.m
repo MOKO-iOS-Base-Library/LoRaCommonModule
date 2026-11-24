@@ -70,16 +70,25 @@ MKLoRaAlarmFunctionCellDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2 && indexPath.row == 0) {
         //Alert Alarm Settings
-        MKLoRaAlertAlarmSettingsController *vc = [[MKLoRaAlertAlarmSettingsController alloc] init];
+        MKLoRaAlertAlarmSettingsController *vc = [self alertAlarmSettingsController];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 2 && indexPath.row == 1) {
         //SOS Alarm Settings
-        MKLoRaSosAlarmSettingsController *vc = [[MKLoRaSosAlarmSettingsController alloc] init];
+        MKLoRaSosAlarmSettingsController *vc = [self sosAlarmSettingsController];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
+}
+
+#pragma mark - sub page
+- (MKLoRaAlertAlarmSettingsController *)alertAlarmSettingsController {
+    return [[MKLoRaAlertAlarmSettingsController alloc] init];
+}
+
+- (MKLoRaSosAlarmSettingsController *)sosAlarmSettingsController {
+    return [[MKLoRaSosAlarmSettingsController alloc] init];
 }
 
 #pragma mark - UITableViewDataSource
