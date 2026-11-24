@@ -186,6 +186,7 @@ MKTextFieldCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = [self pageTitle];
+    [self setNavTitleFont:MKFont(15.f)];
     [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaPeriodicModeController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
