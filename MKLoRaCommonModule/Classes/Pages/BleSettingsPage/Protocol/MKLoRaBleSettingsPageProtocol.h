@@ -55,6 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 导航标题字体，不实现使用基础组件默认字体
 - (nullable UIFont *)bleSettingsPageNavTitleFont;
 
+/// Tx Power 行高，不实现默认 95.f（9/14 档位模块原设计 85.f，28 档位密集模块 95.f）
+- (CGFloat)bleSettingsPageTxPowerRowHeight;
+
+/// Tx Power 行括号内说明文字，不实现由基础库根据 bleSettingsPageTxPowerValues 动态生成（正数前自动补 "+"）
+/// AJ/AK/ST 等密集档位模块原设计正数前不带 "+"，需实现此方法返回完整字符串
+- (nullable NSString *)bleSettingsPageTxPowerNoteText;
+
 @end
 
 NS_ASSUME_NONNULL_END

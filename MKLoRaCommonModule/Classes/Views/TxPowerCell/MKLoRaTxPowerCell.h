@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 各档位dBm文案，顺序与设备数值索引一致，各产品档位不同由业务传入
 @property (nonatomic, copy)NSArray <NSString *>*txPowerList;
 
+/// 可选自定义括号说明文字；不设置则由基础库根据 txPowerList 动态生成
+@property (nonatomic, copy, nullable) NSString *customNoteText;
+
 @end
 
 @protocol MKLoRaTxPowerCellDelegate <NSObject>

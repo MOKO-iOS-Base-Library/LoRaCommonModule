@@ -128,7 +128,11 @@
     }
     self.slider.maximumValue = (_dataModel.txPowerList.count > 0) ? (_dataModel.txPowerList.count - 1) : 0;
     self.slider.value = _dataModel.txPower;
-    self.noteLabel.text = [self txPowerNoteText:_dataModel.txPowerList];
+    if (_dataModel.customNoteText.length) {
+        self.noteLabel.text = _dataModel.customNoteText;
+    } else {
+        self.noteLabel.text = [self txPowerNoteText:_dataModel.txPowerList];
+    }
     self.valueLabel.text = [self txPowerValueText:_dataModel.txPower];
     [self setNeedsLayout];
 }

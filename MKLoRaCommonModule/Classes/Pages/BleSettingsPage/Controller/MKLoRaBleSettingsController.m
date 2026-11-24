@@ -76,6 +76,10 @@ MKLoRaTxPowerCellDelegate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         //Tx Power
+        if ([self.protocol respondsToSelector:@selector(bleSettingsPageTxPowerRowHeight)]) {
+            CGFloat h = [self.protocol bleSettingsPageTxPowerRowHeight];
+            if (h > 0) return h;
+        }
         return 95.f;
     }
     return 44.f;
@@ -306,6 +310,12 @@ MKLoRaTxPowerCellDelegate>
         cellModel.txPowerList = [self.protocol bleSettingsPageTxPowerValues];
     } else {
         cellModel.txPowerList = @[@"0dBm"];
+    }
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageTxPowerNoteText)]) {
+        NSString *customNote = [self.protocol bleSettingsPageTxPowerNoteText];
+        if (customNote.length) {
+            cellModel.customNoteText = customNote;
+        }
     }
     [self.section1List addObject:cellModel];
 }
