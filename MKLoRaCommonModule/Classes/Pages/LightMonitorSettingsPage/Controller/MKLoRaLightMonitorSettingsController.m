@@ -51,6 +51,7 @@ MKTextFieldCellDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNavTitleFont:MKFont(15.f)];
     [self loadSubViews];
     [self loadSectionDatas];
     [self readDatasFromDevice];
