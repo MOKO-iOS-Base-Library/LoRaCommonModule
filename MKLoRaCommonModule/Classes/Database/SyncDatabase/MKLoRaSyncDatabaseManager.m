@@ -20,12 +20,14 @@
     if (![db open]) {
         return NO;
     }
-    NSString *sqlCreateTable = [NSString stringWithFormat:@"create table if not exists %@ (date text,rawData text)", tableName];
+    NSString *sqlCreateTable = [NSString stringWithFormat:@"create table if not exists %@ (date text,rawData text,record text)", tableName];
     BOOL resCreate = [db executeUpdate:sqlCreateTable];
     if (!resCreate) {
         [db close];
         return NO;
     }
+    [self ensureRecordColumnForTable:tableName db:db];
+    [db close];
     return YES;
 }
 
@@ -44,7 +46,7 @@
         [self operationInsertFailedBlock:failedBlock];
         return;
     }
-    NSString *sqlCreateTable = [NSString stringWithFormat:@"create table if not exists %@ (date text,rawData text)", tableName];
+    NSString *sqlCreateTable = [NSString stringWithFormat:@"create table if not exists %@ (date text,rawData text,record text)", tableName];
     BOOL resCreate = [db executeUpdate:sqlCreateTable];
     if (!resCreate) {
         [db close];
@@ -52,8 +54,9 @@
         return;
     }
     [[FMDatabaseQueue databaseQueueWithPath:dbPath] inDatabase:^(FMDatabase *db) {
+        [self ensureRecordColumnForTable:tableName db:db];
         for (NSDictionary *dic in dataList) {
-            [db executeUpdate:[NSString stringWithFormat:@"INSERT INTO %@ (date, rawData) VALUES (?,?)", tableName], SafeStr(dic[@"date"]), SafeStr(dic[@"rawData"])];
+            [db executeUpdate:[NSString stringWithFormat:@"INSERT INTO %@ (date, rawData, record) VALUES (?,?,?)", tableName], SafeStr(dic[@"date"]), SafeStr(dic[@"rawData"]), SafeStr([self recordJSONFromDict:dic])];
         }
         if (sucBlock) {
             moko_dispatch_main_safe(^{
@@ -75,13 +78,17 @@
         return;
     }
     [[FMDatabaseQueue databaseQueueWithPath:dbPath] inDatabase:^(FMDatabase *db) {
+        [self ensureRecordColumnForTable:tableName db:db];
         NSMutableArray *tempDataList = [NSMutableArray array];
         FMResultSet * result = [db executeQuery:[NSString stringWithFormat:@"SELECT * FROM %@", tableName]];
         while ([result next]) {
-            NSDictionary *resultDic = @{
-                @"date":[result stringForColumn:@"date"],
-                @"rawData":[result stringForColumn:@"rawData"],
-            };
+            NSDictionary *resultDic = [self dictFromRecordJSON:[result stringForColumn:@"record"]];
+            if (!resultDic) {
+                resultDic = @{
+                    @"date":[result stringForColumn:@"date"],
+                    @"rawData":[result stringForColumn:@"rawData"],
+                };
+            }
             [tempDataList addObject:resultDic];
         }
         if (sucBlock) {
@@ -129,6 +136,47 @@
 
 + (void)operationGetDataFailedBlock:(void (^)(NSError *error))block{
     [self operationFailedBlock:block msg:@"get data error"];
+}
+
++ (void)ensureRecordColumnForTable:(NSString *)tableName db:(FMDatabase *)db {
+    FMResultSet *rs = [db executeQuery:[NSString stringWithFormat:@"PRAGMA table_info(%@)", tableName]];
+    BOOL hasRecord = NO;
+    while ([rs next]) {
+        if ([[rs stringForColumn:@"name"] isEqualToString:@"record"]) {
+            hasRecord = YES;
+            break;
+        }
+    }
+    [rs close];
+    if (!hasRecord) {
+        [db executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ ADD COLUMN record text", tableName]];
+    }
+}
+
++ (NSString *)recordJSONFromDict:(NSDictionary *)dic {
+    if (![NSJSONSerialization isValidJSONObject:dic]) {
+        return nil;
+    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    if (!data) {
+        return nil;
+    }
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
++ (NSDictionary *)dictFromRecordJSON:(NSString *)json {
+    if (!ValidStr(json)) {
+        return nil;
+    }
+    NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data) {
+        return nil;
+    }
+    id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    if ([obj isKindOfClass:[NSDictionary class]]) {
+        return obj;
+    }
+    return nil;
 }
 
 @end
