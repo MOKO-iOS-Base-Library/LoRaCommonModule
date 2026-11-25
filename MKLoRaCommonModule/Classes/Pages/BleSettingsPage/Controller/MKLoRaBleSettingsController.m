@@ -292,12 +292,21 @@ MKLoRaTxPowerCellDelegate>
     cellModel1.textFieldValue = self.protocol.advName;
     [self.section0List addObject:cellModel1];
     
+    NSInteger intervalMaxLength = 3;
+    NSString *intervalPlaceholder = @"1 ~ 100";
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageAdvIntervalMaxLength)]) {
+        intervalMaxLength = [self.protocol bleSettingsPageAdvIntervalMaxLength];
+    }
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageAdvIntervalPlaceholder)]) {
+        intervalPlaceholder = [self.protocol bleSettingsPageAdvIntervalPlaceholder];
+    }
+    
     MKTextFieldCellModel *cellModel2 = [[MKTextFieldCellModel alloc] init];
     cellModel2.index = 1;
     cellModel2.msg = @"ADV Interval";
-    cellModel2.maxLength = 3;
+    cellModel2.maxLength = intervalMaxLength;
     cellModel2.unit = @"×100ms";
-    cellModel2.textPlaceholder = @"1 ~ 100";
+    cellModel2.textPlaceholder = intervalPlaceholder;
     cellModel2.textFieldType = mk_realNumberOnly;
     cellModel2.textFieldValue = self.protocol.interval;
     [self.section0List addObject:cellModel2];

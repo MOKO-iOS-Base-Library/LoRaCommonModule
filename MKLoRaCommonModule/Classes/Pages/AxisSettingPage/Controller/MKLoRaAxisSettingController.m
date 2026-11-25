@@ -202,7 +202,7 @@ MKTextFieldCellDelegate>
     
     MKTextFieldCellModel *cellModel3 = [[MKTextFieldCellModel alloc] init];
     cellModel3.index = 2;
-    cellModel3.msg = @"Motion  Threshold";
+    cellModel3.msg = @"Motion Threshold";
     cellModel3.textPlaceholder = @"10~250";
     cellModel3.textFieldType = mk_realNumberOnly;
     cellModel3.maxLength = 3;

@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否隐藏 Shock Thresholds 输入项，默认 NO（显示）
 @property (nonatomic, assign) BOOL hideShockThresholds;
 
+/// Shock 文本输入项的展示顺序，数组元素取值 0/1/2，分别对应
+/// Report Interval、Shock Timeout、Shock Thresholds；
+/// 不实现时按默认顺序展示
+@property (nonatomic, copy) NSArray <NSNumber *> *textFieldOrder;
+
 @end
 
 NS_ASSUME_NONNULL_END

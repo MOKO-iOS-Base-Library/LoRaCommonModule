@@ -95,21 +95,22 @@ MKTextFieldCellDelegate>
 
 #pragma mark - MKTextFieldCellDelegate
 - (void)mk_deviceTextCellValueChanged:(NSInteger)index textValue:(NSString *)value {
-    if (index == 0) {
-        MKTextFieldCellModel *cellModel = self.section1List[0];
+    for (MKTextFieldCellModel *cellModel in self.section1List) {
+        if (cellModel.index != index) {
+            continue;
+        }
         cellModel.textFieldValue = value;
+        break;
+    }
+    if (index == 0) {
         self.protocol.reportInterval = value;
         return;
     }
     if (index == 1) {
-        MKTextFieldCellModel *cellModel = self.section1List[1];
-        cellModel.textFieldValue = value;
         self.protocol.vibrationTimeout = value;
         return;
     }
     if (index == 2) {
-        MKTextFieldCellModel *cellModel = self.section1List[2];
-        cellModel.textFieldValue = value;
         self.protocol.vibrationThresholds = value;
         return;
     }
@@ -160,6 +161,8 @@ MKTextFieldCellDelegate>
 }
 
 - (void)loadSection1Datas {
+    NSMutableArray <MKTextFieldCellModel *> *textFieldList = [NSMutableArray array];
+    
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"Report Interval";
@@ -168,7 +171,7 @@ MKTextFieldCellDelegate>
     cellModel1.maxLength = 3;
     cellModel1.unit = @"s";
     cellModel1.textFieldValue = self.protocol.reportInterval;
-    [self.section1List addObject:cellModel1];
+    [textFieldList addObject:cellModel1];
     
     MKTextFieldCellModel *cellModel2 = [[MKTextFieldCellModel alloc] init];
     cellModel2.index = 1;
@@ -178,10 +181,11 @@ MKTextFieldCellDelegate>
     cellModel2.maxLength = 2;
     cellModel2.unit = @"s";
     cellModel2.textFieldValue = self.protocol.vibrationTimeout;
-    [self.section1List addObject:cellModel2];
+    [textFieldList addObject:cellModel2];
     
     if ([self.protocol respondsToSelector:@selector(hideShockThresholds)]
         && self.protocol.hideShockThresholds) {
+        [self.section1List addObjectsFromArray:textFieldList];
         return;
     }
     
@@ -193,7 +197,34 @@ MKTextFieldCellDelegate>
     cellModel3.maxLength = 3;
     cellModel3.unit = @"x10mg";
     cellModel3.textFieldValue = self.protocol.vibrationThresholds;
-    [self.section1List addObject:cellModel3];
+    [textFieldList addObject:cellModel3];
+    
+    [self.section1List addObjectsFromArray:[self orderedTextFieldList:textFieldList]];
+}
+
+- (NSArray <MKTextFieldCellModel *> *)orderedTextFieldList:(NSArray <MKTextFieldCellModel *> *)list {
+    if (![self.protocol respondsToSelector:@selector(textFieldOrder)]) {
+        return list;
+    }
+    NSArray <NSNumber *> *order = self.protocol.textFieldOrder;
+    if (order.count != list.count) {
+        return list;
+    }
+    NSMutableArray <MKTextFieldCellModel *> *result = [NSMutableArray array];
+    for (NSNumber *index in order) {
+        MKTextFieldCellModel *target = nil;
+        for (MKTextFieldCellModel *cellModel in list) {
+            if (cellModel.index == index.integerValue) {
+                target = cellModel;
+                break;
+            }
+        }
+        if (!target) {
+            return list;
+        }
+        [result addObject:target];
+    }
+    return result;
 }
 
 #pragma mark - UI

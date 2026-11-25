@@ -55,6 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 导航标题字体，不实现使用基础组件默认字体
 - (nullable UIFont *)bleSettingsPageNavTitleFont;
 
+/// ADV Interval 最大输入长度，不实现默认 3
+@property (nonatomic, assign) NSInteger bleSettingsPageAdvIntervalMaxLength;
+
+/// ADV Interval 提示文案，不实现默认 1 ~ 100
+- (nullable NSString *)bleSettingsPageAdvIntervalPlaceholder;
+
 /// Tx Power 行高，不实现默认 95.f（9/14 档位模块原设计 85.f，28 档位密集模块 95.f）
 - (CGFloat)bleSettingsPageTxPowerRowHeight;
 
