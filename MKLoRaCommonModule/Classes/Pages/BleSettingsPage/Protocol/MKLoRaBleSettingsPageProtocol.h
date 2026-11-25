@@ -68,6 +68,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// AJ/AK/ST 等密集档位模块原设计正数前不带 "+"，需实现此方法返回完整字符串
 - (nullable NSString *)bleSettingsPageTxPowerNoteText;
 
+/// 页面底部额外间距，用于避开 TabBar，不实现默认 0（内容到安全区为止）
+- (CGFloat)bleSettingsPageBottomInset;
+
 @end
 
 NS_ASSUME_NONNULL_END

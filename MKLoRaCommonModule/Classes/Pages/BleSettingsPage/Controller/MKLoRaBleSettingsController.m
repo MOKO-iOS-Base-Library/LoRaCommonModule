@@ -388,11 +388,15 @@ MKLoRaTxPowerCellDelegate>
         }
     }
     [self.view addSubview:self.tableView];
+    CGFloat bottomInset = 0;
+    if ([self.protocol respondsToSelector:@selector(bleSettingsPageBottomInset)]) {
+        bottomInset = [self.protocol bleSettingsPageBottomInset];
+    }
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
         make.top.equalTo(self.view).offset(kTopBarHeight);
-        make.bottom.equalTo(self.view).offset(-kSafeAreaHeight);
+        make.bottom.equalTo(self.view).offset(-(kSafeAreaHeight + bottomInset));
     }];
 }
 
