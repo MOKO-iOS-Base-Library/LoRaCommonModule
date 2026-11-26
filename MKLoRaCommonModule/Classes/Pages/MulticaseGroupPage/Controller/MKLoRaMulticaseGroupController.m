@@ -85,7 +85,17 @@
 - (void)saveDataToDevice {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     @weakify(self);
-    [self.protocol configDataWithSucBlock:^{ @strongify(self); [[MKHudManager share] hide]; [self.view showCentralToast:@"Success"]; }
+    [self.protocol configDataWithSucBlock:^{
+        @strongify(self); [[MKHudManager share] hide];
+        NSString *successMsg = @"Success";
+        if ([self.protocol respondsToSelector:@selector(multicaseGroupPageSuccessMsg)]) {
+            NSString *msg = [self.protocol multicaseGroupPageSuccessMsg];
+            if (msg.length) {
+                successMsg = msg;
+            }
+        }
+        [self.view showCentralToast:successMsg];
+    }
                                failedBlock:^(NSError * _Nonnull error) {
         @strongify(self); [[MKHudManager share] hide]; [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
@@ -99,7 +109,19 @@
 }
 - (void)loadSection0Datas {
     MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
-    cellModel.index = 0; cellModel.msg = @"Multicase Group";
+    cellModel.index = 0; cellModel.msg = [self pageTitle];
+    if ([self.protocol respondsToSelector:@selector(multicaseGroupPageSwitchMsgFont)]) {
+        UIFont *msgFont = [self.protocol multicaseGroupPageSwitchMsgFont];
+        if (msgFont) {
+            cellModel.msgFont = msgFont;
+        }
+    }
+    if ([self.protocol respondsToSelector:@selector(multicaseGroupPageSwitchMsgColor)]) {
+        UIColor *msgColor = [self.protocol multicaseGroupPageSwitchMsgColor];
+        if (msgColor) {
+            cellModel.msgColor = msgColor;
+        }
+    }
     cellModel.isOn = self.protocol.isOn;
     [self.section0List addObject:cellModel];
 }
@@ -125,14 +147,31 @@
 
 #pragma mark - UI
 - (void)loadSubViews {
-    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaMulticaseGroupController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
-    self.defaultTitle = @"Multicase Group";
+    UIImage *saveIcon = nil;
+    if ([self.protocol respondsToSelector:@selector(multicaseGroupPageSaveIcon)]) {
+        saveIcon = [self.protocol multicaseGroupPageSaveIcon];
+    }
+    if (!saveIcon) {
+        saveIcon = LOADICON(@"MKLoRaCommonModule", @"MKLoRaMulticaseGroupController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png");
+    }
+    [self.rightButton setImage:saveIcon forState:UIControlStateNormal];
+    self.defaultTitle = [self pageTitle];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.equalTo(self.view).offset(kTopBarHeight);
         make.bottom.equalTo(self.view).offset(-kSafeAreaHeight);
     }];
+}
+
+- (NSString *)pageTitle {
+    if ([self.protocol respondsToSelector:@selector(multicaseGroupPageTitle)]) {
+        NSString *title = [self.protocol multicaseGroupPageTitle];
+        if (title.length) {
+            return title;
+        }
+    }
+    return @"Multicase Group";
 }
 
 #pragma mark - getter
