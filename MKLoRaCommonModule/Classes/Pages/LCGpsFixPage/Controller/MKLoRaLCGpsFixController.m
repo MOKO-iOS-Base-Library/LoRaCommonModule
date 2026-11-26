@@ -230,7 +230,13 @@ mk_textSwitchCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    UIImage *saveIcon = [self rightButtonImage];
+    UIImage *saveIcon = nil;
+    if ([self.protocol respondsToSelector:@selector(lcGpsFixPageSaveIcon)]) {
+        saveIcon = [self.protocol lcGpsFixPageSaveIcon];
+    }
+    if (!saveIcon) {
+        saveIcon = [self rightButtonImage];
+    }
     if (!saveIcon) {
         saveIcon = LOADICON(@"MKLoRaCommonModule", @"MKLoRaLCGpsFixController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png");
     }

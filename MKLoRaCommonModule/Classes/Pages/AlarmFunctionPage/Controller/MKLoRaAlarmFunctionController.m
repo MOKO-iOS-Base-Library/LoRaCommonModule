@@ -84,11 +84,19 @@ MKLoRaAlarmFunctionCellDelegate>
 
 #pragma mark - sub page
 - (MKLoRaAlertAlarmSettingsController *)alertAlarmSettingsController {
-    return [[MKLoRaAlertAlarmSettingsController alloc] init];
+    MKLoRaAlertAlarmSettingsController *vc = [[MKLoRaAlertAlarmSettingsController alloc] init];
+    if ([self.protocol respondsToSelector:@selector(alertAlarmSettingsProtocol)]) {
+        vc.protocol = self.protocol.alertAlarmSettingsProtocol;
+    }
+    return vc;
 }
 
 - (MKLoRaSosAlarmSettingsController *)sosAlarmSettingsController {
-    return [[MKLoRaSosAlarmSettingsController alloc] init];
+    MKLoRaSosAlarmSettingsController *vc = [[MKLoRaSosAlarmSettingsController alloc] init];
+    if ([self.protocol respondsToSelector:@selector(sosAlarmSettingsProtocol)]) {
+        vc.protocol = self.protocol.sosAlarmSettingsProtocol;
+    }
+    return vc;
 }
 
 #pragma mark - UITableViewDataSource

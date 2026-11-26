@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Extrme Mode 开关文案，默认 "Extrme Mode"
 @property (nonatomic, copy) NSString *extrmeModeTitle;
 
+/// 保存按钮图标，不实现使用基础组件默认图标
+- (nullable UIImage *)lcGpsFixPageSaveIcon;
+
 @end
 
 NS_ASSUME_NONNULL_END
