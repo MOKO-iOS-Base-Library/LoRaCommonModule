@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Positioning Strategy 下拉列表，不实现时使用默认列表
 @property (nonatomic, copy)NSArray<NSString *> *strategyDataList;
 
+/// Trigger Mode 下拉列表，不实现时使用默认列表
+@property (nonatomic, copy)NSArray<NSString *> *triggerModeDataList;
+
 @end
 
 NS_ASSUME_NONNULL_END

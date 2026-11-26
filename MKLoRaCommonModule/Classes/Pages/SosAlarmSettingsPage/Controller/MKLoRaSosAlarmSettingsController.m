@@ -223,7 +223,7 @@ mk_textSwitchCellDelegate>
     MKTextButtonCellModel *cellModel1 = [[MKTextButtonCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"Trigger Mode";
-    cellModel1.dataList = @[@"Double Click",@"Triple Click",@"Long Press 1s",@"Long Press 2s",@"Long Press 3s"];
+    cellModel1.dataList = [self triggerModeDataList];
     cellModel1.dataListIndex = self.protocol.mode;
     [self.section0List addObject:cellModel1];
     
@@ -259,6 +259,17 @@ mk_textSwitchCellDelegate>
     cellModel2.msg = @"Notify Event On Alert End";
     cellModel2.isOn = self.protocol.end;
     [self.section2List addObject:cellModel2];
+}
+
+#pragma mark - trigger mode
+- (NSArray<NSString *> *)triggerModeDataList {
+    if ([self.protocol respondsToSelector:@selector(triggerModeDataList)]) {
+        NSArray<NSString *> *list = self.protocol.triggerModeDataList;
+        if (list.count) {
+            return list;
+        }
+    }
+    return @[@"Double Click",@"Triple Click",@"Long Press 1s",@"Long Press 2s",@"Long Press 3s"];
 }
 
 #pragma mark - positioning strategy
