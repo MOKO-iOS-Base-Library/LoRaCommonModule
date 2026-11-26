@@ -71,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 页面底部额外间距，用于避开 TabBar，不实现默认 0（内容到安全区为止）
 - (CGFloat)bleSettingsPageBottomInset;
 
+/// 是否隐藏 Beacon Mode 分组（模块不支持 Beacon Mode 时返回 YES），不实现默认 NO
+@property (nonatomic, assign) BOOL bleSettingsPageHideBeaconMode;
+
 @end
 
 NS_ASSUME_NONNULL_END

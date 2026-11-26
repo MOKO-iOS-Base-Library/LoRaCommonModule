@@ -16,14 +16,18 @@
 
 #import "MKHudManager.h"
 #import "MKTextFieldCell.h"
+#import "MKTextSwitchCell.h"
 
 @interface MKLoRaLCGpsFixController ()<UITableViewDelegate,
 UITableViewDataSource,
-MKTextFieldCellDelegate>
+MKTextFieldCellDelegate,
+mk_textSwitchCellDelegate>
 
 @property (nonatomic, strong) MKBaseTableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *dataList;
+
+@property (nonatomic, strong) NSMutableArray *switchList;
 
 @end
 
@@ -41,7 +45,6 @@ MKTextFieldCellDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaLCGpsFixController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
     [self loadSubViews];
     [self readDatasFromDevice];
 }
@@ -58,14 +61,23 @@ MKTextFieldCellDelegate>
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return (self.supportsExtrmeMode ? 2 : 1);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataList.count;
+    if (section == 0) {
+        return self.dataList.count;
+    }
+    return self.switchList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
+        cell.dataModel = self.switchList[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
     MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
     cell.dataModel = self.dataList[indexPath.row];
     cell.delegate = self;
@@ -90,6 +102,16 @@ MKTextFieldCellDelegate>
         self.protocol.duration = value;
         MKTextFieldCellModel *cellModel = self.dataList[2];
         cellModel.textFieldValue = value;
+        return;
+    }
+}
+
+#pragma mark - mk_textSwitchCellDelegate
+- (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
+    if (index == 0) {
+        self.protocol.extrmeMode = isOn;
+        MKTextSwitchCellModel *cellModel = self.switchList[0];
+        cellModel.isOn = isOn;
         return;
     }
 }
@@ -126,6 +148,9 @@ MKTextFieldCellDelegate>
 #pragma mark - loadSections
 - (void)loadSectionDatas {
     [self loadSection0Datas];
+    if (self.supportsExtrmeMode) {
+        [self loadSection1Datas];
+    }
     [self.tableView reloadData];
 }
 
@@ -179,6 +204,24 @@ MKTextFieldCellDelegate>
     [self.dataList addObject:cellModel3];
 }
 
+- (void)loadSection1Datas {
+    NSString *title = @"Extrme Mode";
+    if ([self.protocol respondsToSelector:@selector(extrmeModeTitle)]
+        && ValidStr(self.protocol.extrmeModeTitle)) {
+        title = self.protocol.extrmeModeTitle;
+    }
+    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
+    cellModel.index = 0;
+    cellModel.msg = title;
+    cellModel.isOn = self.protocol.extrmeMode;
+    [self.switchList addObject:cellModel];
+}
+
+#pragma mark - getter
+- (BOOL)supportsExtrmeMode {
+    return [self.protocol respondsToSelector:@selector(extrmeMode)];
+}
+
 #pragma mark - Subclass Override
 /// 子类 override 提供右侧保存图标
 - (UIImage *)rightButtonImage {
@@ -187,7 +230,11 @@ MKTextFieldCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    [self.rightButton setImage:LOADICON(@"MKLoRaCommonModule", @"MKLoRaLCGpsFixController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png") forState:UIControlStateNormal];
+    UIImage *saveIcon = [self rightButtonImage];
+    if (!saveIcon) {
+        saveIcon = LOADICON(@"MKLoRaCommonModule", @"MKLoRaLCGpsFixController", @"mk_loraModule_loraDeviceMode_slotSaveIcon.png");
+    }
+    [self.rightButton setImage:saveIcon forState:UIControlStateNormal];
     self.defaultTitle = @"GPS Fix";
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -213,6 +260,13 @@ MKTextFieldCellDelegate>
         _dataList = [NSMutableArray array];
     }
     return _dataList;
+}
+
+- (NSMutableArray *)switchList {
+    if (!_switchList) {
+        _switchList = [NSMutableArray array];
+    }
+    return _switchList;
 }
 
 @end

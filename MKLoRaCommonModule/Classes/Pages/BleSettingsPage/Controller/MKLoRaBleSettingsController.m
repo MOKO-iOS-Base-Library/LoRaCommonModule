@@ -125,7 +125,13 @@ MKLoRaTxPowerCellDelegate>
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) return self.section0List.count;
     if (section == 1) return self.section1List.count;
-    if (section == 2) return self.section2List.count;
+    if (section == 2) {
+        if ([self.protocol respondsToSelector:@selector(bleSettingsPageHideBeaconMode)]
+            && [self.protocol bleSettingsPageHideBeaconMode]) {
+            return 0;
+        }
+        return self.section2List.count;
+    }
     if (section == 3) {
         BOOL alwaysShowTimeout = NO;
         if ([self.protocol respondsToSelector:@selector(bleSettingsPageAlwaysShowBroadcastTimeout)]) {
