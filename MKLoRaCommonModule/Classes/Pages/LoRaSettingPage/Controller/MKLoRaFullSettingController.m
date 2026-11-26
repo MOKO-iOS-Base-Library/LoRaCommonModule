@@ -561,7 +561,10 @@ MKLoRaSettingAccountCellDelegate>
         self.protocol.messageType = dataListIndex;
         MKTextButtonCellModel *regionModel = self.section4List[0];
         regionModel.dataListIndex = dataListIndex;
-        [self.tableView mk_reloadSection:17 withRowAnimation:UITableViewRowAnimationNone];
+        if (self.protocol.advancedStatus) {
+            //高级设置关闭时没有该section，不能reload
+            [self.tableView mk_reloadSection:17 withRowAnimation:UITableViewRowAnimationNone];
+        }
         return;
     }
     if (index == 4) {
